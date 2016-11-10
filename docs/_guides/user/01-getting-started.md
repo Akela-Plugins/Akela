@@ -80,7 +80,7 @@ following examples are available:
 |------------------------------------------------------------------------------------------------------------------------------|
 | unicode    | unicode          | A simple example showing how to use unicode input.                                           |
 
-[m01]: https://keyboard.io/
+[m01]: https://shop.keyboard.io/
 
 All of the examples are for the [Keyboardio Model 01][m01], as that is the only
 hardware currently supported by the library.
