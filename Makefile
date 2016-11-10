@@ -15,17 +15,17 @@ export SC
 export SS
 export SR
 
-all: keyboardio tapdance unicode t
+all: model01 tapdance unicode t
 
-keyboardio: keyboardio/Model01 keyboardio/stripped keyboardio/minimal keyboardio/example
+model01: model01/Model01 model01/stripped model01/minimal model01/example
 tapdance: tapdance/TapDanceKeyboard
 unicode: unicode/unicode
 
 tapdance/%:
 	${MAKE} -C lib/Akela-TapDance/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=tapdance SKETCH=$*
 
-keyboardio/%:
-	${MAKE} -C lib/Akela-Model01/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=keyboardio SKETCH=$*
+model01/%:
+	${MAKE} -C lib/Akela-Model01/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=model01 SKETCH=$*
 
 unicode/%:
 	${MAKE} -C lib/Akela-Unicode/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=unicode SKETCH=$*
