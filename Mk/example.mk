@@ -42,7 +42,7 @@ compile: ${OUTPUT_PATH}
 		-build-path $(BUILD_PATH) \
 		-ide-version $(ARDUINO_IDE_VERSION) \
 		-warnings all \
-		-prefs "compiler.cpp.extra_flags=-std=c++11 -Woverloaded-virtual" \
+		-prefs "compiler.cpp.extra_flags=-std=c++11 -Woverloaded-virtual -Wno-unused-parameter -Wno-unused-variable -Wno-ignored-qualifiers" \
 		${VERBOSE_BUILD} \
 		$(SKETCH).ino
 	@cp $(BUILD_PATH)/$(SKETCH).ino.hex $(HEX_FILE_PATH)
