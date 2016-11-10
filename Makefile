@@ -18,6 +18,7 @@ export SR
 all: model01 tapdance unicode t
 
 model01: model01/Model01 model01/stripped model01/minimal model01/example
+keyboardio: keyboardio/BridgeExample
 tapdance: tapdance/TapDanceKeyboard
 unicode: unicode/unicode
 
@@ -29,6 +30,9 @@ model01/%:
 
 unicode/%:
 	${MAKE} -C lib/Akela-Unicode/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=unicode SKETCH=$*
+
+keyboardio/%:
+	${MAKE} -C lib/Akela-KeyboardioFirmware/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=keyboardio SKETCH=$*
 
 user/%:
 	${MAKE} -C user/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=user SKETCH=$*
