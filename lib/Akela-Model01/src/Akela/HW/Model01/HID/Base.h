@@ -30,9 +30,6 @@ namespace M01 {
     class Base : public Akela::AbstractHID,
                  public Skeleton,
                  public AbstractMouseControl {
-    protected:
-      uint8_t modifierState;
-
     public:
       Base () {};
 

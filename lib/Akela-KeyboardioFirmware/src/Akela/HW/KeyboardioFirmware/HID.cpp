@@ -38,7 +38,7 @@ namespace Akela {
 
     bool
     HID::isModifierActive (uint8_t code) {
-      return false;
+      return ::Keyboard.isModifierActive (code);
     }
 
   };
