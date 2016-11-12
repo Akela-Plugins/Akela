@@ -1,0 +1,15 @@
+# main links links
+main:
+  - title: "Plugins"
+    url: /plugins/
+
+  - title: "About"
+    url: /
+
+# documentation links
+plugins:
+  - title: Plugins
+    url: /plugins/
+    children:
+      - title: "Key logger"
+        url: /plugins/KeyLogger/

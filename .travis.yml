@@ -1,0 +1,14 @@
+language: cpp
+dist: trusty
+sudo: required
+os:
+  - linux
+before_install:
+  - pushd ..
+  - wget http://downloads.arduino.cc/arduino-1.6.11-linux64.tar.xz
+  - tar xf arduino-1.6.11-linux64.tar.xz
+  - popd
+install:
+  - Mk/submodule-sync.sh
+script:
+  - make all ARDUINO_PATH=$(pwd)/../arduino-1.6.11
