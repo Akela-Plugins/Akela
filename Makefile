@@ -1,3 +1,20 @@
+VERBOSE							?= 0
+
+ifneq (${VERBOSE}, 0)
+SC									=
+SS									= @ true ||
+SR                  =
+else
+SC									= @
+SS									= @
+SR                  = | grep "\\(Program\\|Data\\):" | sed -e 's,^,  - ,' && echo
+MAKEFLAGS += -s
+endif
+
+ifeq (${VERBOSE},2)
+VERBOSE_BUILD				= -verbose
+endif
+
 all: examples
 
 examples: examples/KeyLogger
