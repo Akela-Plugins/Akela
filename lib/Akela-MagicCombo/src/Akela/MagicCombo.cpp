@@ -24,6 +24,8 @@ namespace Akela {
 
   MagicCombo::MagicCombo (dictionary_t dictionary[]) {
     _magicDictionary = (dictionary_t *)dictionary;
+
+    event_handler_hook_add (this->comboHandler);
   }
 
   bool
