@@ -27,7 +27,10 @@ void _print_example (uint32_t leftHand, uint32_t rightHand) {
 }
 
 Akela::MagicCombo::dictionary_t dictionary[] = {
-  {0, 0, _print_example}
+  {R1C3 | R2C1 | R2C4 | R2C7, // left hand,
+   R0C11 | R1C12 | R2C14,     //right hand
+   _print_example             // callback
+  }
 };
 
 Akela::MagicCombo exampleMagic(dictionary);
