@@ -3,4 +3,4 @@
 	url = https://github.com/keyboardio/Arduino-Boards
 [submodule "lib/KeyboardioFirmware"]
 	path = lib/KeyboardioFirmware
-	url = https://github.com/algernon/KeyboardioFirmware
+	url = https://github.com/keyboardio/KeyboardioFirmware

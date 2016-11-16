@@ -30,6 +30,6 @@ namespace Akela {
     } dictionary_t;
     MagicCombo (dictionary_t dictionary[]);
 
-    static bool comboHandler (byte row, byte col, uint8_t currentState, uint8_t previousState);
+    static bool comboHandler (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
   };
 };

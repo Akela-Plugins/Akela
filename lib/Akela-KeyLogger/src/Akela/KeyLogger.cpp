@@ -26,7 +26,7 @@ namespace Akela {
   }
 
   bool
-  KeyLogger::logger (byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  KeyLogger::logger (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
     if (!key_toggled_on (currentState, previousState) && !key_toggled_off (currentState, previousState))
       return false;
 

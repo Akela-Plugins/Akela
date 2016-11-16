@@ -25,6 +25,6 @@ namespace Akela {
   public:
     KeyLogger (void);
 
-    static bool logger (byte row, byte col, uint8_t currentState, uint8_t previousState);
+    static bool logger (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
   };
 };
