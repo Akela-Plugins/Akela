@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "A.K.E.L.A."
 title_separator          : "-"
 name                     : &name "Gergely Nagy"
-description              : &description "Animated Keyboardio Extension Library for Awesomeness"
+description              : &description "Animated Keyboardio Extension Library for Anything"
 url                      : https://algernon.github.io
 baseurl                  : "/Akela"
 repository               : "algernon/Akela"

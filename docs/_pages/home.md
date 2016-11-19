@@ -1,13 +1,13 @@
 ---
 permalink: /
-excerpt: 'Animated Keyboardio Extension Library for Awesomeness'
+excerpt: 'Animated Keyboardio Extension Library for Anything'
 author_profile: false
 sidebar:
  nav: "guides"
 ---
 
-**A**nimated **K**eyboardio **E**xtension **L**ibrary for **A**wesomeness
-=========================================================================
+**A**nimated **K**eyboardio **E**xtension **L**ibrary for **A**nything
+======================================================================
 
 [Akela][akela] is a collection of small libraries to extend
 the [Keyboardio Model 01 firmware][kbdiofw]. A heavy work in progress, that has

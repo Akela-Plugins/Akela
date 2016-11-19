@@ -1,5 +1,5 @@
 /* -*- mode: c++ -*-
- * Akela -- Animated Keyboard Extension Library for Arduino
+ * Akela -- Animated Keyboardio Extension Library for Anything
  * Copyright (C) 2016  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify

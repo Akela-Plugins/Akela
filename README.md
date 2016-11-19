@@ -2,7 +2,7 @@
 
 <p align="right">
 <strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
-<strong>L</strong>ibrary for <strong>A</strong>wesomeness
+<strong>L</strong>ibrary for <strong>A</strong>nything
 </p>
 
 This is a collection of small libraries to extend
