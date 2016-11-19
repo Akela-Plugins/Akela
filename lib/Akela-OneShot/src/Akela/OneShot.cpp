@@ -21,7 +21,7 @@
 // ---- state ---------
 
 static uint16_t Timer = 0;
-static uint16_t TimeOut = 40;
+static uint16_t TimeOut = DEFAULT_TIMEOUT;
 static uint8_t State = 0;
 static uint8_t stickyState = 0;
 static Key prevKey;

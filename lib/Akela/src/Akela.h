@@ -18,26 +18,14 @@
 
 #pragma once
 
-#include <Akela.h>
-#include <KeyboardioFirmware.h>
-
-enum {
-  OSM_FIRST = 0,
-  OSM_LAST  = 7
-};
-
-#define _OSM_HELPER(kc) Key_ ## kc
-#define OSM(kc) (Key) {SYNTHETIC | AKELA, OSM_FIRST + _OSM_HELPER(kc).rawKey}
+#define AKELA B01000000
+#define DEFAULT_TIMEOUT 40
 
 namespace Akela {
-  class OneShotMods {
-  public:
-    OneShotMods (uint8_t defaultState);
-    OneShotMods (void) : OneShotMods (Default::On) {};
-
-    static void on (void);
-    static void off (void);
-    static bool isActive (void);
-    static void cancel (void);
+  namespace Default {
+    enum {
+      Off,
+      On
+    };
   };
 };
