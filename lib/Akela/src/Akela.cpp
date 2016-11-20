@@ -16,22 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "Akela.h"
 
-#include <KeyboardioFirmware.h>
+void
+event_handler_hook_replace (custom_handler_t oldHook, custom_handler_t newHook) {
+  for (byte i = 0; i < HOOK_MAX; i++) {
+    if (eventHandlers[i] == oldHook) {
+      eventHandlers[i] = newHook;
+      return;
+    }
+  }
+}
 
-#define AKELA B01000000
-#define DEFAULT_TIMEOUT 40
+void
+loop_hook_replace (custom_loop_t oldHook, custom_loop_t newHook) {
+  for (byte i = 0; i < HOOK_MAX; i++) {
+    if (loopHooks[i] == oldHook) {
+      loopHooks[i] = newHook;
+      return;
+    }
+  }
+}
 
-namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
+class Akela_ {
+public:
+  Akela_ () {
+    memset(eventHandlers, 0, HOOK_MAX * sizeof(custom_handler_t));
+    memset(loopHooks, 0, HOOK_MAX * sizeof(custom_handler_t));
+  }
 };
 
-// Temporary, until something similar makes its way into core.
-void event_handler_hook_replace (custom_handler_t oldHook, custom_handler_t newHook);
-void loop_hook_replace (custom_loop_t oldHook, custom_loop_t newHook);
+static Akela_ akela;
