@@ -18,16 +18,8 @@
 
 #pragma once
 
-#include <Akela/for-upstream.h>
+#include <KeyboardioFirmware.h>
 
-#define AKELA B01000000
-#define DEFAULT_TIMEOUT 40
-
-namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
-};
+// Temporary, until something similar makes its way into core.
+void event_handler_hook_replace (custom_handler_t oldHook, custom_handler_t newHook);
+void loop_hook_replace (custom_loop_t oldHook, custom_loop_t newHook);
