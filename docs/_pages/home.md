@@ -3,7 +3,7 @@ permalink: /
 excerpt: 'Animated Keyboardio Extension Library for Anything'
 author_profile: false
 sidebar:
- nav: "guides"
+ nav: "plugins"
 ---
 
 **A**nimated **K**eyboardio **E**xtension **L**ibrary for **A**nything
