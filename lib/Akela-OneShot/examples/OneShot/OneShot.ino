@@ -34,7 +34,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 Akela::OneShotMods oneShotMods (Akela::Default::On);
 
 void setup() {
-  Keyboardio.setup(1, 1);
+  Keyboardio.setup(1);
 }
 void loop() {
   Keyboardio.loop();

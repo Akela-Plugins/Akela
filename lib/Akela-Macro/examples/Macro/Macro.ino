@@ -47,7 +47,7 @@ namespace Akela {
 Akela::Macro macros;
 
 void setup() {
-  Keyboardio.setup(1, 1);
+  Keyboardio.setup(1);
 }
 
 void loop() {

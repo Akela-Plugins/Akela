@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include <Akela/for-upstream.h>
-
 #define AKELA B01000000
 #define DEFAULT_TIMEOUT 40
 

@@ -32,7 +32,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup() {
-  Keyboardio.setup(1, 1);
+  Keyboardio.setup(1);
 }
 
 void loop() {
