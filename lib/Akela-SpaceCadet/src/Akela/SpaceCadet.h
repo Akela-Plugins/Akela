@@ -19,12 +19,18 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
   class SpaceCadetShift {
   public:
-    SpaceCadetShift (void);
+    SpaceCadetShift (uint8_t defaultMode);
+    SpaceCadetShift (void) : SpaceCadetShift (Akela::Default::On) {};
 
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
+    static bool noOpHook (Key, byte row, byte col, uint8_t currentState, uint8_t previousState);
+
+    void on (void);
+    void off (void);
   };
 };

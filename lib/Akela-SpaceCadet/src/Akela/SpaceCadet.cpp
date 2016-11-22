@@ -25,8 +25,26 @@ namespace Akela {
   static uint8_t timer = 0;
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
 
-  SpaceCadetShift::SpaceCadetShift (void) {
-    event_handler_hook_add (this->eventHandlerHook);
+  SpaceCadetShift::SpaceCadetShift (uint8_t defaultMode) {
+    if (defaultMode == Akela::Default::On)
+      event_handler_hook_add (this->eventHandlerHook);
+    else
+      event_handler_hook_add (this->noOpHook);
+  }
+
+  void
+  SpaceCadetShift::on (void) {
+    event_handler_hook_replace (this->noOpHook, this->eventHandlerHook);
+  }
+
+  void
+  SpaceCadetShift::off (void) {
+    event_handler_hook_replace (this->eventHandlerHook, this->noOpHook);
+  }
+
+  bool
+  SpaceCadetShift::noOpHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+    return false;
   }
 
   bool
