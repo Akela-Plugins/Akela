@@ -20,7 +20,7 @@
 
 static Akela::Macro::MacroHandler _macroAction;
 
-#define isMacro(key) (key.raw >= (SYNTHETIC | AKELA + M_FIRST) && key.raw <= (SYNTHETIC | AKELA + M_LAST))
+#define isMacro(key) (key.raw >= ((SYNTHETIC | AKELA) + M_FIRST) && key.raw <= ((SYNTHETIC | AKELA) + M_LAST))
 
 bool
 _macroHandler (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
