@@ -2,8 +2,10 @@
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
 excerpt: "KeyLogger plugin for the Keyboardio Model 01"
-modified: 2016-11-22T12:50:00+01:00
+modified: 2016-11-22T13:15:00+01:00
 ---
+
+{% include toc %}
 
 The `KeyLogger` plugin, as the name suggests, implements a key logger for the
 Keyboardio firmware. It logs the row and column of every key press and release,
