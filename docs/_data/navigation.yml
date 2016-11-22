@@ -19,6 +19,8 @@ plugins:
         url: /plugins/OneShot/
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
+      - title: "Dual-use modifier keys"
+        url: /plugins/DualUse/
       - title: "Macro"
         url: /plugins/Macro/
       - title: "Magic combos"
