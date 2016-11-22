@@ -17,4 +17,4 @@ go away at any point.
  [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
  [akela]: https://github.com/algernon/Akela
 
-Please refer to the sidebar for the documentation of the available plugins!
+To get started, start [here]({{ site.baseurl }}/plugins/).
