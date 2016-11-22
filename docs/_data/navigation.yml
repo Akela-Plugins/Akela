@@ -15,3 +15,11 @@ plugins:
         url: /plugins/KeyLogger/
       - title: "Heatmap"
         url: /plugins/Heatmap/
+      - title: "One-shot modifiers"
+        url: /plugins/OneShot/
+      - title: "Space Cadet Shift"
+        url: /plugins/SpaceCadet/
+      - title: "Macro"
+        url: /plugins/Macro/
+      - title: "Magic combos"
+        url: /plugins/MagicCombo/
