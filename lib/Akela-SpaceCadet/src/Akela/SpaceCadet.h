@@ -23,7 +23,12 @@
 namespace Akela {
   class SpaceCadetShift {
   public:
-    SpaceCadetShift (void);
+    enum {
+      RepeatParens,
+      HoldShift
+    };
+    SpaceCadetShift (uint8_t mode);
+    SpaceCadetShift (void) : SpaceCadetShift (RepeatParens) {};
 
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
   };
