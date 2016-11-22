@@ -2,7 +2,7 @@
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
 excerpt: "KeyLogger plugin for the Keyboardio Model 01"
-modified: 2016-11-13T09:00:00+01:00
+modified: 2016-11-22T12:50:00+01:00
 ---
 
 The `KeyLogger` plugin, as the name suggests, implements a key logger for the
@@ -30,8 +30,9 @@ That, in itself, will do all that is necessary to have the key logger active.
 
 ## The output
 
-On the host, reading from the keyboard's serial port, one will be able to see
-the following output:
+On the host, reading from the keyboard's serial port (or using the *Serial
+Monitor* built into the Arduino IDE), one will be able to see the following
+output:
 
 ```
 KL: row=1, col=2, pressed=1, layer=0
