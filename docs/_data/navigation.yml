@@ -13,3 +13,5 @@ plugins:
     children:
       - title: "Key logger"
         url: /plugins/KeyLogger/
+      - title: "Heatmap"
+        url: /plugins/Heatmap/
