@@ -21,6 +21,8 @@ plugins:
         url: /plugins/SpaceCadet/
       - title: "Dual-use modifier keys"
         url: /plugins/DualUse/
+      - title: "Unicode input"
+        url: /plugins/Unicode/
       - title: "Macro"
         url: /plugins/Macro/
       - title: "Magic combos"

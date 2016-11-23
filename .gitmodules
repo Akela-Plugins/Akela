@@ -4,3 +4,6 @@
 [submodule "lib/KeyboardioFirmware"]
 	path = lib/KeyboardioFirmware
 	url = https://github.com/keyboardio/KeyboardioFirmware
+[submodule "lib/FingerprintUSBHost"]
+	path = lib/FingerprintUSBHost
+	url = https://github.com/keyboardio/FingerprintUSBHost.git
