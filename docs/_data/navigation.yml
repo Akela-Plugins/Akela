@@ -16,7 +16,7 @@ plugins:
       - title: "Heatmap"
         url: /plugins/Heatmap/
       - title: "One-shot modifiers"
-        url: /plugins/OneShot/
+        url: /plugins/OneShotMods/
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
       - title: "Dual-use modifier keys"

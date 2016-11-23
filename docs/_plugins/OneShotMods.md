@@ -1,8 +1,8 @@
 ---
 title: "One-shot modifiers"
-permalink: /plugins/OneShot/
+permalink: /plugins/OneShotMods/
 excerpt: "One-shot modifier plugin for the Keyboardio Model 01"
-modified: 2016-11-23T16:30:00+01:00
+modified: 2016-11-23T20:50:00+01:00
 ---
 
 {% include toc %}
