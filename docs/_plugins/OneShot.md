@@ -2,7 +2,7 @@
 title: "One-shot modifiers"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifier plugin for the Keyboardio Model 01"
-modified: 2016-11-23T11:45:00+01:00
+modified: 2016-11-23T16:30:00+01:00
 ---
 
 {% include toc %}
@@ -43,8 +43,12 @@ up with the `OSM()` macro will have the one-shot behaviour. If told to start
 disabled, then these modifiers will behave as usual, without the added
 behaviour.
 
-The `OSM()` macro takes a single argument, the name of the modifier: `LCtrl`,
-`LShift`, `LAlt`, `LGUI` or their right-side variant.
+## Keymap markup
+
+There is only one macro the plugin provides, `OSM(mod)`, that takes a single
+argument, the name of the modifier: `LCtrl`, `LShift`, `LAlt`, `LGUI` or their
+right-side variant. When marked up with this macro, the modifier will act as a
+one-shot modifier.
 
 To avoid having to change the keymap to add `OSM()` markup, the `enableAuto()`
 method can be used to turn all modifiers into one-shots.
