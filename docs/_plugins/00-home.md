@@ -2,7 +2,7 @@
 title: "Plugins"
 permalink: /plugins/
 excerpt: "Plugins for the Keyboardio Model 01"
-modified: 2016-11-22T16:00:00+01:00
+modified: 2016-11-23T20:45:00+01:00
 read_time: true
 ---
 
@@ -36,6 +36,29 @@ out of the scope for this document, for now. With the Model 01 support installed
 for the IDE, and after the above few lines, when we start up the IDE, the
 `File/Examples` menu will have all the available examples under the "*Examples
 from Custom Libraries*" heading. Select one from there, and we can start playing!
+
+## Plugins and Extensions
+
+There are two main types of libraries included in Akela: *Plugins* and
+*Extensions*. The difference between the two is the target audience.
+
+### Plugins
+
+*Plugins* are meant to be used by end-users, who want to customize their
+firmware with additional features. Plugins, in general, require very little
+coding: usually, they only require you to include a header, configure the
+plugin, and perhaps modify your keymap a little, and that's about it.
+
+They are rarely extensible further, as they are meant to be used as-is.
+
+### Extensions
+
+*Extensions* on the other hand, are aimed at developers, who want to write
+additional features to extend the firmware with. These are building blocks one
+can compose together, to build upon. They typically require a lot more coding
+expertise, and are rarely useful out of the box.
+
+## More information
 
 For more in-depth information about each available plugin, please see the
 sidebar.
