@@ -26,9 +26,9 @@ namespace Akela {
     Heatmap (uint16_t updateFrequency);
     Heatmap (void) : Heatmap (500) {};
 
+    virtual void update (void) final;
+  private:
     static bool eventHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
     static void loopHook (void);
-
-    virtual void update (void) final;
   };
 };
