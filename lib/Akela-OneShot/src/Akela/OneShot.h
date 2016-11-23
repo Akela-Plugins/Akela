@@ -27,7 +27,7 @@ enum {
 };
 
 #define _OSM_HELPER(kc) Key_ ## kc
-#define OSM(kc) (Key) {SYNTHETIC | AKELA, OSM_FIRST + _OSM_HELPER(kc).rawKey}
+#define OSM(kc) (Key) {SYNTHETIC | AKELA, OSM_FIRST + _OSM_HELPER(kc).rawKey - Key_LCtrl.rawKey}
 
 namespace Akela {
   class OneShotMods {
