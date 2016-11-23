@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin for the Keyboardio Model 01"
-modified: 2016-11-22T13:15:00+01:00
+modified: 2016-11-23T10:20:00+01:00
 ---
 
 {% include toc %}
@@ -55,6 +55,12 @@ void loop () {
 This will activate the heatmap when the keyboard starts, but if you have a key
 to switch to another LED effect, `LEDOff` will be available too, and can be used
 to temporarily stop the heatmap display.
+
+## Plugin methods
+
+The plugin only provides a single public method intended for use in a Sketch:
+`activate()`, which as the name implies, and as shown above, will activate the
+effect.
 
 ## Further reading
 
