@@ -50,18 +50,18 @@ static bool shouldCancel = false;
 
 bool
 eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-if (mappedKey.raw == Key_NoKey.raw) {
-  mappedKey = lookup_key(temporary_keymap, row, col);
- }
+  if (mappedKey.raw == Key_NoKey.raw) {
+    mappedKey = lookup_key(temporary_keymap, row, col);
+  }
 
- if (!isOSM (mappedKey))
-   return false;
+  if (!isOSM (mappedKey))
+    return false;
 
- toNormalKey (mappedKey);
+  toNormalKey (mappedKey);
 
- handle_key_event (mappedKey, row, col, currentState, previousState);
+  handle_key_event (mappedKey, row, col, currentState, previousState);
 
- return true;
+  return true;
 }
 
 void
