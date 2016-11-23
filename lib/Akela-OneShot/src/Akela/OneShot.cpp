@@ -72,7 +72,7 @@ loopNoOpHook (void) {
 
 static bool
 shouldInterrupt (Key mappedKey) {
-  return true;
+  return !isOSM (mappedKey);
 }
 
 static bool
