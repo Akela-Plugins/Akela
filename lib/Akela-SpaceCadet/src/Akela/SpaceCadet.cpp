@@ -24,8 +24,12 @@ namespace Akela {
   static uint8_t parenNeeded = 0;
   static uint8_t timer = 0;
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
+  static Key leftParen, rightParen;
 
-  SpaceCadetShift::SpaceCadetShift (uint8_t defaultMode) {
+  SpaceCadetShift::SpaceCadetShift (uint8_t defaultMode, Key left, Key right) {
+    leftParen = left;
+    rightParen = right;
+
     if (defaultMode == Akela::Default::On)
       event_handler_hook_add (this->eventHandlerHook);
     else
@@ -95,9 +99,9 @@ namespace Akela {
     // if a key toggled off (and that must be one of the shifts at this point),
     // send the parens too (if we were interrupted, we bailed out earlier).
     if (key_toggled_off (currentState, previousState)) {
-      Key paren = Key_9;
+      Key paren = leftParen;
       if (bitRead (parenNeeded, 1))
-        paren = Key_0;
+        paren = rightParen;
       handle_key_event (paren, row, col, 1, 1);
 
       parenNeeded = 0;

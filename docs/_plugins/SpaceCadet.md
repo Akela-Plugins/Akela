@@ -2,7 +2,7 @@
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
 excerpt: "Space Cadet Shift plugin for the Keyboardio Model 01"
-modified: 2016-11-22T13:30:00+01:00
+modified: 2016-11-23T12:40:00+01:00
 ---
 
 {% include toc %}
@@ -33,10 +33,20 @@ select text, for example.
 static Akela::SpaceCadetShift spaceCadetShift;
 ```
 
-There is only one configurable option: whether to enable the new behaviour (the
-default), or not. If disabled, the `on()` method can be used later to enable it.
-The keymap does not need to change, the plugin overrides the normal `Shift`
-behaviour.
+There are two properties one can configure: the default behaviour, and the paren
+keys. See the constructors [below](#plugin-methods) to see how to set these
+properties.
+
+The first property, `defaultMode` controls whether the new behaviour is on or
+off when the keyboard starts. It defaults to *on*, but if set to *off*, it can
+later be enabled with the `on()` method. The keymap does not need to be updated
+at all, the plugin overrides the normal `Shift` keys when the functionality is
+enabled.
+
+The other option is the keys to use for the parens. The plugin defaults to `9`
+and `0`, which, when shifted, mean the opening and closing parens in US QWERTY,
+and a lot of other layouts. If one uses an OS-side layout where the parens are
+on different keys, the `left` and `right` options are the ones to change.
 
 ## Plugin methods
 
@@ -44,8 +54,10 @@ behaviour.
 namespace Akela {
   class SpaceCadetShift {
   public:
+    SpaceCadetShift (uint8_t defaultMode, Key left, Key right);
     SpaceCadetShift (uint8_t defaultMode);
-    SpaceCadetShift (void) : SpaceCadetShift (Akela::Default::On) {};
+    SpaceCadetShift (Key left, Key right);
+    SpaceCadetShift (void);
 
     void on (void);
     void off (void);
