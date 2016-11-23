@@ -30,6 +30,7 @@ static bool shouldCancel = false;
 // --- helper macros ------
 
 #define isOSM(key) (key.raw >= (SYNTHETIC | AKELA | OSM_FIRST) && key.raw <= (SYNTHETIC | AKELA | OSM_LAST))
+#define isModifier(key) (key.raw >= Key_LCtrl.raw && key.raw <= Key_RGUI.raw)
 
 #define isOneShot(idx) (bitRead (State, idx))
 #define setOneShot(idx) (bitWrite (State, idx, 1))
@@ -71,6 +72,24 @@ loopNoOpHook (void) {
 
 static bool
 shouldInterrupt (Key mappedKey) {
+  return true;
+}
+
+static bool
+eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  if (!isModifier (mappedKey))
+    return false;
+
+  // If mappedKey is not the same as the key at (row, col), then it is an
+  // injected key, and we don't fiddle with those.
+  Key newKey = lookup_key (temporary_keymap, row, col);
+  if (newKey.raw != mappedKey.raw)
+    return false;
+
+  newKey.flags = SYNTHETIC | AKELA;
+  newKey.rawKey -= Key_LCtrl.rawKey;
+
+  handle_key_event (newKey, row, col, currentState, previousState);
   return true;
 }
 
@@ -173,5 +192,10 @@ namespace Akela {
   OneShotMods::off (void) {
     event_handler_hook_replace (eventHandlerHook, eventHandlerPassthroughHook);
     loop_hook_replace (loopHook, loopNoOpHook);
+  }
+
+  void
+  OneShotMods::enableAuto (void) {
+    event_handler_hook_add (eventHandlerAutoHook);
   }
 };

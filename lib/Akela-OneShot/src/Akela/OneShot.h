@@ -37,6 +37,7 @@ namespace Akela {
 
     static void on (void);
     static void off (void);
+    static void enableAuto (void);
     static bool isActive (void);
     static void cancel (void);
   };
