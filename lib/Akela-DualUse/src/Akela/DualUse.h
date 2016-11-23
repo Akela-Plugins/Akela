@@ -40,10 +40,11 @@ namespace Akela {
     DualUseMods (uint8_t defaultAction) : DualUseMods (Akela::Default::Off, defaultAction) {};
     DualUseMods (void) : DualUseMods (Akela::Default::On, 1) {};
 
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
-    static bool disabledHook (Key, byte row, byte col, uint8_t currentState, uint8_t previousState);
-
     void on (void);
     void off (void);
+
+  private:
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
+    static bool disabledHook (Key, byte row, byte col, uint8_t currentState, uint8_t previousState);
   };
 };
