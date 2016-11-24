@@ -22,12 +22,12 @@
 #include <KeyboardioFirmware.h>
 
 enum {
-  OSM_FIRST = 0,
-  OSM_LAST  = 7
+  OSM_FIRST = AKELA,
+  OSM_LAST  = AKELA + 7
 };
 
 #define _OSM_HELPER(kc) Key_ ## kc
-#define OSM(kc) (Key) {SYNTHETIC | AKELA, OSM_FIRST + _OSM_HELPER(kc).rawKey - Key_LCtrl.rawKey}
+#define OSM(kc) (Key) {.raw = OSM_FIRST + _OSM_HELPER(kc).rawKey - Key_LCtrl.rawKey}
 
 namespace Akela {
   class OneShotMods {

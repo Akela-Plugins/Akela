@@ -47,13 +47,13 @@ namespace Akela {
 
   bool
   DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-    if (mappedKey.flags < (SYNTHETIC | AKELA | MT_FIRST) ||
-        mappedKey.flags > (SYNTHETIC | AKELA | MT_LAST))
+    if (mappedKey.raw < MT_FIRST ||
+        mappedKey.raw > MT_LAST)
       return false;
 
     Key newKey = { KEY_FLAGS, mappedKey.rawKey };
     if (modifierDefault)
-      newKey.rawKey = Key_LCtrl.rawKey + mappedKey.flags - (SYNTHETIC | AKELA | MT_FIRST);
+      newKey.rawKey = Key_LCtrl.rawKey + (mappedKey.flags & ~(B00000111));
 
     handle_key_event (newKey, row, col, currentState, previousState);
     return true;
@@ -63,8 +63,7 @@ namespace Akela {
   DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
     // If a key has been just toggled on...
     if (key_toggled_on (currentState, previousState)) {
-      if (mappedKey.flags < (SYNTHETIC | AKELA | MT_FIRST) ||
-          mappedKey.flags > (SYNTHETIC | AKELA | MT_LAST)) {
+      if (mappedKey.raw < MT_FIRST || mappedKey.raw > MT_LAST) {
         // Not a Dual-use key
         altActionNeededMap = 0;
         memset (timer, 0, 8);
@@ -74,7 +73,7 @@ namespace Akela {
         return false;
       }
 
-      uint8_t modIndex = mappedKey.flags & ~(SYNTHETIC | AKELA);
+      uint8_t modIndex = mappedKey.flags & ~(B00000111);
       bitWrite (altActionNeededMap, modIndex, 1);
       if (timer[modIndex] < timeOut)
         timer[modIndex]++;
@@ -85,13 +84,12 @@ namespace Akela {
 
     // So the key that was pressed is not toggled on, but either released or
     // held. If released or held, we don't care it it is not a DualUse key.
-    if (mappedKey.flags < (SYNTHETIC | AKELA | MT_FIRST) ||
-        mappedKey.flags > (SYNTHETIC | AKELA | MT_LAST))
+    if (mappedKey.raw < MT_FIRST || mappedKey.raw > MT_LAST)
       return false;
 
     // Now, we know it is a dual-use key, either released or held.
 
-    uint8_t modIndex = mappedKey.flags & ~(SYNTHETIC | AKELA);
+    uint8_t modIndex = mappedKey.flags & ~(B00000111);
 
     // If we have not timed out yet, up the timer.
     if (timer[modIndex] < timeOut)

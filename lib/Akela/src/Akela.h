@@ -18,7 +18,7 @@
 
 #pragma once
 
-#define AKELA B01000000
+#define AKELA (0xc000)
 #define DEFAULT_TIMEOUT 40
 
 namespace Akela {

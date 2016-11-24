@@ -29,7 +29,7 @@ static bool shouldCancel = false;
 
 // --- helper macros ------
 
-#define isOSM(key) (key.raw >= (SYNTHETIC | AKELA | OSM_FIRST) && key.raw <= (SYNTHETIC | AKELA | OSM_LAST))
+#define isOSM(key) (key.raw >= OSM_FIRST && key.raw <= OSM_LAST)
 #define isModifier(key) (key.raw >= Key_LCtrl.raw && key.raw <= Key_RGUI.raw)
 
 #define isOneShot(idx) (bitRead (State, idx))
@@ -86,8 +86,7 @@ eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t currentState, u
   if (newKey.raw != mappedKey.raw)
     return false;
 
-  newKey.flags = SYNTHETIC | AKELA;
-  newKey.rawKey -= Key_LCtrl.rawKey;
+  newKey.raw = OSM_FIRST + newKey.rawKey - Key_LCtrl.rawKey;
 
   handle_key_event (newKey, row, col, currentState, previousState);
   return true;

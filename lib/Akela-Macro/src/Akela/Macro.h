@@ -22,11 +22,11 @@
 #include <KeyboardioFirmware.h>
 
 enum {
-  M_FIRST = 8,
-  M_LAST  = 8 + 32
+  M_FIRST = AKELA + 8,
+  M_LAST  = AKELA + 8 + 31
 };
 
-#define M(n) {SYNTHETIC | AKELA, M_FIRST + n}
+#define M(n) {.raw = M_FIRST + n}
 
 namespace Akela {
   class Macro {
