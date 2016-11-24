@@ -24,6 +24,8 @@ plugins:
   - title: Extensions
     url: /plugins/#extensions
     children:
+      - title: "Colormap"
+        url: /plugins/Colormap/
       - title: "Unicode input"
         url: /plugins/Unicode/
       - title: "Macro"
