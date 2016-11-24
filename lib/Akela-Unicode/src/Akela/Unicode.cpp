@@ -36,20 +36,23 @@ namespace Akela {
       return;
 
     Serial.begin (9600);
-    String os;
 
     delay (15000);
 
-    FingerprintUSBHost.guessHostOS (os);
-
-    if (os.equals ("Windows"))
+    switch (FingerprintUSBHost.guessHostOS ()) {
+    case GuessedHost::WINDOWS:
       inputMode = WINDOWS;
-    else if (os.equals ("Linux"))
+      break;
+    case GuessedHost::LINUX:
       inputMode = LINUX;
-    else if (os.equals ("MacOS"))
+      break;
+    case GuessedHost::MACOS:
       inputMode = OSX;
-    else
+      break;
+    default:
       inputMode = CUSTOM;
+      break;
+    }
   }
 
   void
