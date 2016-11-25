@@ -1,6 +1,6 @@
 ---
 title: "Dual-use modifier keys"
-permalink: /plugins/DualUse/
+permalink: /plugins/DualUseMods/
 excerpt: "Dual-use modifier key plugin for the Keyboardio Model 01"
 modified: 2016-11-23T16:30:00+01:00
 ---

@@ -20,7 +20,7 @@ plugins:
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
       - title: "Dual-use modifier keys"
-        url: /plugins/DualUse/
+        url: /plugins/DualUseMods/
   - title: Extensions
     url: /plugins/#extensions
     children:
