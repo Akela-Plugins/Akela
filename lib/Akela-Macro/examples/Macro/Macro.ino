@@ -44,13 +44,13 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 namespace Akela {
-  void macroAction (uint8_t macroIndex, uint8_t currentState, uint8_t previousState) {
+  void macroAction (uint8_t macroIndex, uint8_t keyState) {
     switch (macroIndex) {
     case 0:
-      if (key_toggled_on (currentState, previousState)) {
-        handle_key_event (Key_A, 0, 0, 1, 0);
+      if (key_toggled_on (keyState)) {
+        handle_key_event (Key_A, 0, 0, IS_PRESSED | INJECTED);
         Keyboard.sendReport ();
-        handle_key_event (Key_B, 0, 0, 1, 0);
+        handle_key_event (Key_B, 0, 0, IS_PRESSED | INJECTED);
       }
     }
   }

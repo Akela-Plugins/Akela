@@ -45,7 +45,7 @@ namespace Akela {
     void off (void);
 
   private:
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState);
-    static bool disabledHook (Key, byte row, byte col, uint8_t currentState, uint8_t previousState);
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static bool disabledHook (Key, byte row, byte col, uint8_t keyState);
   };
 };

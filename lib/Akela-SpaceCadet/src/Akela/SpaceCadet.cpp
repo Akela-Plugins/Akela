@@ -47,15 +47,15 @@ namespace Akela {
   }
 
   bool
-  SpaceCadetShift::noOpHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  SpaceCadetShift::noOpHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     return false;
   }
 
   bool
-  SpaceCadetShift::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  SpaceCadetShift::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If a key has been just toggled on...
-    if (key_toggled_on (currentState, previousState)) { // if it is LShift, remember it
-      if (mappedKey.raw == Key_LShift.raw) {
+    if (key_toggled_on (keyState)) {
+      if (mappedKey.raw == Key_LShift.raw) { // if it is LShift, remember it
         bitWrite (parenNeeded, 0, 1);
         if (timer < timeOut)
           timer++;
@@ -98,11 +98,11 @@ namespace Akela {
 
     // if a key toggled off (and that must be one of the shifts at this point),
     // send the parens too (if we were interrupted, we bailed out earlier).
-    if (key_toggled_off (currentState, previousState)) {
+    if (key_toggled_off (keyState)) {
       Key paren = leftParen;
       if (bitRead (parenNeeded, 1))
         paren = rightParen;
-      handle_key_event (paren, row, col, 1, 1);
+      handle_key_event (paren, row, col, IS_PRESSED | INJECTED);
 
       parenNeeded = 0;
       timer = 0;

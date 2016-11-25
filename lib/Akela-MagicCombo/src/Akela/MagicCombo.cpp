@@ -29,7 +29,7 @@ namespace Akela {
   }
 
   bool
-  MagicCombo::comboHandler (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  MagicCombo::comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
     for (byte i = 0; _magicDictionary[i].callback != NULL; i++) {
       dictionary_t combo = _magicDictionary[i];
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&

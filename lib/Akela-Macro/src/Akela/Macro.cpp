@@ -23,17 +23,13 @@ static Akela::Macro::MacroHandler _macroAction;
 #define isMacro(key) (key.raw >= M_FIRST && key.raw <= M_LAST)
 
 bool
-_macroHandler (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-  if (mappedKey.raw == Key_NoKey.raw) {
-    mappedKey = lookup_key(temporary_keymap, row, col);
-  }
-
+_macroHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (!isMacro (mappedKey))
     return false;
 
   uint8_t idx = mappedKey.raw - M_FIRST;
 
-  (*_macroAction) (idx, currentState, previousState);
+  (*_macroAction) (idx, keyState);
 
   return true;
 }
@@ -41,7 +37,7 @@ _macroHandler (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t 
 namespace Akela {
   __attribute__((weak))
   void
-  macroAction (uint8_t macroIndex, uint8_t currentState, uint8_t previousState) {
+  macroAction (uint8_t macroIndex, uint8_t keyState) {
   }
 
   Macro::Macro (Macro::MacroHandler handler) {

@@ -46,7 +46,7 @@ namespace Akela {
   }
 
   bool
-  DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (mappedKey.raw < MT_FIRST ||
         mappedKey.raw > MT_LAST)
       return false;
@@ -55,14 +55,14 @@ namespace Akela {
     if (modifierDefault)
       newKey.rawKey = Key_LCtrl.rawKey + (mappedKey.flags & ~(B00000111));
 
-    handle_key_event (newKey, row, col, currentState, previousState);
+    handle_key_event (newKey, row, col, keyState | INJECTED);
     return true;
   }
 
   bool
-  DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If a key has been just toggled on...
-    if (key_toggled_on (currentState, previousState)) {
+    if (key_toggled_on (keyState)) {
       if (mappedKey.raw < MT_FIRST || mappedKey.raw > MT_LAST) {
         // Not a Dual-use key
         altActionNeededMap = 0;
@@ -103,15 +103,15 @@ namespace Akela {
     // states will decide if it is a hold or a release, we do not need to care.
     if (!bitRead (altActionNeededMap, modIndex)) {
       uint8_t m = Key_LCtrl.rawKey + modIndex;
-      handle_key_event ({ KEY_FLAGS, m }, row, col, currentState, previousState);
+      handle_key_event ({ KEY_FLAGS, m }, row, col, keyState | INJECTED);
       return true;
     }
 
     // We do need an alt action for the key, and we did not time out.
 
-    // If the key was just released, then register the alternate code, but don't registering the modifier.
-    if (key_toggled_off (currentState, previousState)) {
-      handle_key_event ({ KEY_FLAGS, mappedKey.rawKey }, row, col, 1, 0);
+    // If the key was just released, then register the alternate code, but don't register the modifier.
+    if (key_toggled_off (keyState)) {
+      handle_key_event ({ KEY_FLAGS, mappedKey.rawKey }, row, col, IS_PRESSED | INJECTED);
     }
 
     // if the key is still held, we have not timed out yet, and an action is

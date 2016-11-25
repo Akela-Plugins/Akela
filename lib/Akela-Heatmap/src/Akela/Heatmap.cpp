@@ -72,13 +72,13 @@ namespace Akela {
   }
 
   bool
-  Heatmap::eventHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+  Heatmap::eventHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // if it is a synthetic key, skip it.
-    if (mappedKey.raw == Key_NoKey.raw && !row && !col)
+    if (keyState & INJECTED)
       return false;
 
-    // if the key is not pressed, return.
-    if (key_is_pressed (currentState, previousState))
+    // if the key is not toggled on, return.
+    if (key_toggled_on (keyState))
       return false;
 
     totalKeys++;

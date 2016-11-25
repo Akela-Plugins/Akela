@@ -26,8 +26,8 @@ namespace Akela {
   }
 
   bool
-  KeyLogger::logger (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-    if (!key_toggled_on (currentState, previousState) && !key_toggled_off (currentState, previousState))
+  KeyLogger::logger (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!key_toggled_on (keyState) && !key_toggled_off (keyState))
       return false;
 
     Serial.print ("KL: row=");
@@ -35,7 +35,7 @@ namespace Akela {
     Serial.print (", col=");
     Serial.print (col, DEC);
     Serial.print (", pressed=");
-    Serial.print (key_toggled_on (currentState, previousState), DEC);
+    Serial.print (key_toggled_on (keyState), DEC);
     Serial.print (", layer=");
     Serial.println (temporary_keymap, DEC);
 

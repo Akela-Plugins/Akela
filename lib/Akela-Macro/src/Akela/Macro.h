@@ -31,7 +31,7 @@ enum {
 namespace Akela {
   class Macro {
   public:
-    typedef void (*MacroHandler) (uint8_t macroIndex, uint8_t currentState, uint8_t previousState);
+    typedef void (*MacroHandler) (uint8_t macroIndex, uint8_t keyState);
 
     Macro (MacroHandler handler);
     Macro (void);

@@ -49,17 +49,13 @@ static bool shouldCancel = false;
 // ----- passthrough ------
 
 bool
-eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-  if (mappedKey.raw == Key_NoKey.raw) {
-    mappedKey = lookup_key(temporary_keymap, row, col);
-  }
-
+eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (!isOSM (mappedKey))
     return false;
 
   toNormalKey (mappedKey);
 
-  handle_key_event (mappedKey, row, col, currentState, previousState);
+  handle_key_event (mappedKey, row, col, keyState | INJECTED);
 
   return true;
 }
@@ -76,28 +72,23 @@ shouldInterrupt (Key mappedKey) {
 }
 
 static bool
-eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
+eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (!isModifier (mappedKey))
     return false;
 
-  // If mappedKey is not the same as the key at (row, col), then it is an
-  // injected key, and we don't fiddle with those.
-  Key newKey = lookup_key (temporary_keymap, row, col);
-  if (newKey.raw != mappedKey.raw)
+  // If mappedKey is an injected key, we don't fiddle with those.
+  if (keyState & INJECTED)
     return false;
 
+  Key newKey;
   newKey.raw = OSM_FIRST + newKey.rawKey - Key_LCtrl.rawKey;
 
-  handle_key_event (newKey, row, col, currentState, previousState);
+  handle_key_event (newKey, row, col, keyState | INJECTED);
   return true;
 }
 
 static bool
-eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8_t previousState) {
-  if (mappedKey.raw == Key_NoKey.raw) {
-    mappedKey = lookup_key(temporary_keymap, row, col);
-  }
-
+eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (State && shouldInterrupt (mappedKey))
     Akela::OneShotMods::cancel ();
 
@@ -105,7 +96,7 @@ eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8
     return false;
 
   // Released?
-  if (!key_is_pressed (currentState, previousState)) {
+  if (!key_is_pressed (keyState)) {
     if (hasTimedOut ())
       Akela::OneShotMods::cancel ();
 
@@ -126,7 +117,7 @@ eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t currentState, uint8
   toNormalKey (mappedKey);
   setOneShot (idx);
 
-  handle_key_event (mappedKey, row, col, currentState, previousState);
+  handle_key_event (mappedKey, row, col, keyState | INJECTED);
   return true;
 }
 
@@ -148,7 +139,7 @@ loopHook (void) {
       clearOneShot (i);
     } else {
       uint8_t m = Key_LCtrl.rawKey + i;
-      handle_key_event ({0, m}, 0, 0, 1, 1);
+      handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
     }
   }
 
