@@ -21,14 +21,9 @@
 #include <KeyboardioFirmware.h>
 #include <Akela.h>
 
-enum {
-  MT_FIRST = AKELA + 8 + 32,
-  MT_LAST  = MT_FIRST + (8 << 8),
-};
-
 #define _MT_KEY(key) Key_ ## key
 #define _MT_MOD(mod) ((_MT_KEY(mod).rawKey - Key_LCtrl.rawKey) << 8)
-#define MT(mod, key) (Key){.raw = MT_FIRST + _MT_MOD(mod) + _MT_KEY(key).rawKey }
+#define MT(mod, key) (Key){ .raw = Akela::Ranges::DUM_FIRST + _MT_MOD(mod) + _MT_KEY(key).rawKey }
 #define SFT_T(key) MT(LShift, key)
 #define CTL_T(key) MT(LCtrl, key)
 #define ALT_T(key) MT(LAlt, key)

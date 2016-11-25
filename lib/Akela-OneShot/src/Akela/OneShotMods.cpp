@@ -18,6 +18,8 @@
 
 #include "OneShotMods.h"
 
+using namespace Akela::Ranges;
+
 // ---- state ---------
 
 static uint16_t Timer = 0;

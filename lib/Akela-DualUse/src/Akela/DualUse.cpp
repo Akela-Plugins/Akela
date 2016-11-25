@@ -19,6 +19,8 @@
 #include <Akela.h>
 #include <Akela-DualUse.h>
 
+using namespace Akela::Ranges;
+
 namespace Akela {
 
   static uint8_t altActionNeededMap;
@@ -47,8 +49,7 @@ namespace Akela {
 
   bool
   DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (mappedKey.raw < MT_FIRST ||
-        mappedKey.raw > MT_LAST)
+    if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
       return false;
 
     Key newKey = { KEY_FLAGS, mappedKey.rawKey };
@@ -63,7 +64,7 @@ namespace Akela {
   DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If a key has been just toggled on...
     if (key_toggled_on (keyState)) {
-      if (mappedKey.raw < MT_FIRST || mappedKey.raw > MT_LAST) {
+      if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST) {
         // Not a Dual-use key
         altActionNeededMap = 0;
         memset (timer, 0, 8);
@@ -84,7 +85,7 @@ namespace Akela {
 
     // So the key that was pressed is not toggled on, but either released or
     // held. If released or held, we don't care it it is not a DualUse key.
-    if (mappedKey.raw < MT_FIRST || mappedKey.raw > MT_LAST)
+    if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
       return false;
 
     // Now, we know it is a dual-use key, either released or held.

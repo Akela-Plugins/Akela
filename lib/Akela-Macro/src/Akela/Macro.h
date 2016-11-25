@@ -21,12 +21,7 @@
 #include <Akela.h>
 #include <KeyboardioFirmware.h>
 
-enum {
-  M_FIRST = AKELA + 8,
-  M_LAST  = AKELA + 8 + 31
-};
-
-#define M(n) {.raw = M_FIRST + n}
+#define M(n) {.raw = Akela::Ranges::MACRO_FIRST + n}
 
 namespace Akela {
   class Macro {

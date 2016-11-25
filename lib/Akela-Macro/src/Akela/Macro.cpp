@@ -20,14 +20,15 @@
 
 static Akela::Macro::MacroHandler _macroAction;
 
-#define isMacro(key) (key.raw >= M_FIRST && key.raw <= M_LAST)
+#define isMacro(key) (key.raw >= Akela::Ranges::MACRO_FIRST && \
+                      key.raw <= Akela::Ranges::MACRO_LAST)
 
 bool
 _macroHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (!isMacro (mappedKey))
     return false;
 
-  uint8_t idx = mappedKey.raw - M_FIRST;
+  uint8_t idx = mappedKey.raw - Akela::Ranges::MACRO_FIRST;
 
   (*_macroAction) (idx, keyState);
 
