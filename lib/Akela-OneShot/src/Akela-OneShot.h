@@ -19,3 +19,4 @@
 #pragma once
 
 #include "Akela/OneShotMods.h"
+#include "Akela/OneShotLayers.h"

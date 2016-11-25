@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-OneShot.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -33,7 +30,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    OSM(LCtrl), Key_Backspace, OSM(LGUI), Key_LShift,
    Key_KeymapNext_Momentary,
 
-   Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_Keymap2,
+   Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         OSL(1),
    Key_Enter, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
               Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
    Key_skip,  Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
@@ -41,12 +38,34 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_RShift, OSM(RAlt), Key_Space, OSM(RCtrl),
    Key_KeymapNext_Momentary
    ),
+
+  [1] = KEYMAP_STACKED
+  (
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___,         ___,         ___,        ___,        ___, ___,
+   ___, ___,         ___,         ___,        ___,        ___, ___,
+        Key_UpArrow, Key_DnArrow, Key_LArrow, Key_RArrow, ___, ___,
+   ___, ___,         ___,         ___,        ___,        ___, ___,
+
+   ___, ___, ___, ___,
+   ___
+   ),
+
 };
 
 Akela::OneShotMods oneShotMods (Akela::Default::On);
+Akela::OneShotLayers oneShotLayers (Akela::Default::On);
 
 void setup() {
   oneShotMods.enableAuto();
+  oneShotLayers.enableAuto();
   Keyboardio.setup(1);
 }
 

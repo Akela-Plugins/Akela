@@ -18,29 +18,21 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
+#include <Akela.h>
+#include <KeyboardioFirmware.h>
+
+#define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 
 namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
+  class OneShotLayers {
+  public:
+    OneShotLayers (uint8_t defaultState);
+    OneShotLayers (void) : OneShotLayers (Default::On) {};
 
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-
-      AKELA_SAFE_START,
-    };
+    static void on (void);
+    static void off (void);
+    static void enableAuto (void);
+    static bool isActive (void);
+    static void cancel (void);
   };
 };
