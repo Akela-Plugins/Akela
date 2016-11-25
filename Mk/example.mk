@@ -43,7 +43,7 @@ ${OUTPUT_PATH}:
 	install -d $@
 
 compile: ${OUTPUT_PATH}
-	${SS} echo "Building ${LIBRARY}/${SKETCH} (${GIT_VERSION}) ..."
+	${SS} echo "Building firmware/${LIBRARY}/${SKETCH} (${GIT_VERSION}) ..."
 	${SC} $(ARDUINO_PATH)/arduino-builder \
 		-hardware $(ARDUINO_PATH)/hardware \
 		-hardware $(PWD)/hardware \
