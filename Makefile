@@ -17,7 +17,7 @@ endif
 
 all: examples
 
-examples: $(subst lib/Akela-,examples/,$(wildcard lib/Akela-*))
+examples: $(sort $(subst lib/Akela-,examples/,$(wildcard lib/Akela-*)))
 
 examples/%:
 	${MAKE} -C lib/Akela-$*/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=$* SKETCH=$*
