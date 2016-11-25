@@ -34,16 +34,17 @@ namespace Akela {
 
   void
   ColormapEffect::update (void) {
-    if (previous_layer == temporary_keymap)
+    uint8_t top = Layer.top ();
+    if (previous_layer == top)
       return;
-    previous_layer = temporary_keymap;
+    previous_layer = top;
 
     for (uint8_t r = 0; r < ROWS; r++) {
       for (uint8_t c = 0; c < COLS; c++) {
         uint8_t colorIndex;
         cRGB color;
 
-        uint16_t mapIndex = (temporary_keymap * ROWS * COLS + r * COLS + c);
+        uint16_t mapIndex = (top * ROWS * COLS + r * COLS + c);
         colorIndex = pgm_read_byte (&(colorMap[mapIndex]));
 
         color.r = pgm_read_byte (colors + colorIndex * 3);

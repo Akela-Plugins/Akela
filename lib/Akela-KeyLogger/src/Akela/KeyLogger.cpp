@@ -38,8 +38,10 @@ namespace Akela {
     Serial.print (col, DEC);
     Serial.print (", pressed=");
     Serial.print (key_toggled_on (keyState), DEC);
-    Serial.print (", layer=");
-    Serial.println (temporary_keymap, DEC);
+    Serial.print (", defaultLayer=");
+    Serial.print (Layer.defaultLayer (), DEC);
+    Serial.print (", layerState=");
+    Serial.println (Layer.getLayerState (), BIN);
 
     return false;
   }
