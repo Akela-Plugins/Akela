@@ -33,8 +33,6 @@ namespace Akela {
       AKELA_FIRST = 0xc000,
       OSM_FIRST   = AKELA_FIRST,
       OSM_LAST    = OSM_FIRST + 7,
-      MACRO_FIRST,
-      MACRO_LAST  = MACRO_FIRST + 31,
       DUM_FIRST,
       DUM_LAST    = DUM_FIRST + (8 << 8),
 
