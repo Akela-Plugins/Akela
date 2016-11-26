@@ -51,6 +51,7 @@ compile: ${OUTPUT_PATH}
 		-tools $(ARDUINO_PATH)/tools-builder  \
 		-fqbn $(FQBN) \
 		-libraries $(PWD)/lib \
+		-libraries $(PWD)/lib/KeyboardioFirmware/libraries \
 		-libraries $(PWD)/hardware \
 		-build-path $(BUILD_PATH) \
 		-ide-version $(ARDUINO_IDE_VERSION) \
