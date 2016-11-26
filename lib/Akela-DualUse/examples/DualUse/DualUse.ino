@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-DualUse.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -33,7 +30,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_LCtrl, Key_Backspace, Key_LGUI, Key_LShift,
    Key_KeymapNext_Momentary,
 
-   Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_Keymap2,
+   Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         LT(1, X),
    Key_Enter, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
               Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
    Key_skip,  Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
@@ -44,6 +41,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 static Akela::DualUseMods dualUseMods;
+static Akela::DualUseLayers dualUseLayers;
 
 void setup() {
   Keyboardio.setup(1);

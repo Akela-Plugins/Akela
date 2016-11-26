@@ -18,31 +18,20 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
+#include <KeyboardioFirmware.h>
+#include <Akela.h>
+
+#define _LT_KEY(key) Key_ ## key
+#define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + _LT_KEY(key).rawKey }
 
 namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
+  class DualUseLayers {
+  public:
+    DualUseLayers (uint8_t defaultMode, uint8_t defaultAction);
+    DualUseLayers (uint8_t defaultAction) : DualUseLayers (Akela::Default::Off, defaultAction) {};
+    DualUseLayers (void) : DualUseLayers (Akela::Default::On, 1) {};
 
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      DUL_FIRST,
-      DUL_LAST    = DUL_FIRST + (32 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-
-      AKELA_SAFE_START,
-    };
+    void on (void);
+    void off (void);
   };
 };
