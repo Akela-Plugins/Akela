@@ -24,7 +24,7 @@ namespace Akela {
 
   static const cRGB *colors;
   static const uint8_t *colorMap;
-  static uint8_t previous_layer = 255;
+  static uint32_t previousLayerState;
 
   ColormapEffect::ColormapEffect (const cRGB _colors[], const uint8_t _colorMap[][ROWS][COLS]) {
     colors = _colors;
@@ -34,24 +34,32 @@ namespace Akela {
 
   void
   ColormapEffect::update (void) {
-    uint8_t top = Layer.top ();
-    if (previous_layer == top)
+    uint8_t layerState = Layer.getLayerState ();
+    if (previousLayerState == layerState)
       return;
-    previous_layer = top;
+    previousLayerState = layerState;
 
-    for (uint8_t r = 0; r < ROWS; r++) {
-      for (uint8_t c = 0; c < COLS; c++) {
-        uint8_t colorIndex;
-        cRGB color;
+    for (uint8_t l = 0; l < 32; l++) {
+      if (!Layer.isOn (l))
+        continue;
 
-        uint16_t mapIndex = (top * ROWS * COLS + r * COLS + c);
-        colorIndex = pgm_read_byte (&(colorMap[mapIndex]));
+      for (uint8_t r = 0; r < ROWS; r++) {
+        for (uint8_t c = 0; c < COLS; c++) {
+          uint8_t colorIndex;
+          cRGB color;
 
-        color.r = pgm_read_byte (colors + colorIndex * 3);
-        color.g = pgm_read_byte (colors + colorIndex * 3 + 1);
-        color.b = pgm_read_byte (colors + colorIndex * 3 + 2);
+          uint16_t mapIndex = (l * ROWS * COLS + r * COLS + c);
+          colorIndex = pgm_read_byte (&(colorMap[mapIndex]));
 
-        led_set_crgb_at (r, c, color);
+          if (colorIndex == Transparent)
+            continue;
+
+          color.r = pgm_read_byte (colors + colorIndex * 3);
+          color.g = pgm_read_byte (colors + colorIndex * 3 + 1);
+          color.b = pgm_read_byte (colors + colorIndex * 3 + 2);
+
+          led_set_crgb_at (r, c, color);
+        }
       }
     }
   }

@@ -23,6 +23,8 @@
 namespace Akela {
   class ColormapEffect : public LEDMode {
   public:
+    static const uint8_t Transparent = 255;
+
     ColormapEffect (const cRGB colors[], const uint8_t colorMap[][ROWS][COLS]);
 
     virtual void update (void) final;
