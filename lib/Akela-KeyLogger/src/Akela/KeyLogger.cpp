@@ -29,6 +29,8 @@ namespace Akela {
   KeyLogger::logger (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!key_toggled_on (keyState) && !key_toggled_off (keyState))
       return false;
+    if (keyState & INJECTED)
+      return false;
 
     Serial.print ("KL: row=");
     Serial.print (row, DEC);
