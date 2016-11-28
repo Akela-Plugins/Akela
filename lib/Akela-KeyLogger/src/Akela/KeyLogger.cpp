@@ -42,5 +42,3 @@ namespace Akela {
     return false;
   }
 };
-
-static Akela::KeyLogger _keyLogger;

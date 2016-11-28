@@ -28,3 +28,5 @@ namespace Akela {
     static bool logger (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
+
+static Akela::KeyLogger _keyLogger;
