@@ -9,6 +9,7 @@ OUTPUT_PATH					= $(PWD)/firmware/${LIBRARY}
 ARDUINO_IDE_VERSION	= 100607
 
 AVR_SIZE						= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-size
+AVR_NM							= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-nm
 
 GIT_VERSION				 := $(shell git describe --abbrev=4 --dirty --always)
 OUTPUT_FILE_PREFIX	= $(SKETCH)-$(GIT_VERSION)
@@ -68,6 +69,9 @@ compile: ${OUTPUT_PATH}
 size: compile
 	${SS} echo "- Size: firmware/${LIBRARY}/${OUTPUT_FILE_PREFIX}.elf"
 	${SC} $(AVR_SIZE) -C --mcu=$(MCU) $(ELF_FILE_PATH) ${SR}
+
+size-map: compile
+	$(AVR_NM) --size-sort -C -r -l $(ELF_FILE_PATH)
 
 clean:
 	rm -rf ${OUTPUT_PATH}
