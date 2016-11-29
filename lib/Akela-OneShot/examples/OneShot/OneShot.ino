@@ -49,6 +49,7 @@ void setup() {
   oneShotMods.enableAuto();
   Keyboardio.setup(1);
 }
+
 void loop() {
   Keyboardio.loop();
 }
