@@ -1,8 +1,8 @@
 ---
 title: "One-shot layers"
 permalink: /plugins/OneShotLayers/
-excerpt: "One-shot layer plugin for the Keyboardio Model 01"
-modified: 2016-11-25T18:15:00+01:00
+excerpt: "One-shot layer plugin."
+modified: 2016-11-29T11:20:00+01:00
 ---
 
 {% include toc %}
