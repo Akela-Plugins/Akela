@@ -1,8 +1,8 @@
 ---
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
-excerpt: "KeyLogger plugin for the Keyboardio Model 01"
-modified: 2016-11-22T13:15:00+01:00
+excerpt: "KeyLogger plugin."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

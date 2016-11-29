@@ -1,8 +1,8 @@
 ---
 title: "Dual-use modifier keys"
 permalink: /plugins/DualUseMods/
-excerpt: "Dual-use modifier key plugin for the Keyboardio Model 01"
-modified: 2016-11-23T16:30:00+01:00
+excerpt: "Dual-use modifier key plugin."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

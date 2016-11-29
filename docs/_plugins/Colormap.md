@@ -1,8 +1,8 @@
 ---
 title: "Per-layer color maps"
 permalink: /plugins/Colormap/
-excerpt: "Per-layer color maps for the Keyboardio Model 01"
-modified: 2016-11-24T15:45:00+01:00
+excerpt: "Per-layer color map extension."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

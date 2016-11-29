@@ -1,8 +1,8 @@
 ---
 title: "Magic Combos"
 permalink: /plugins/MagicCombo/
-excerpt: "Magic combo framework plugin for the Keyboardio Model 01"
-modified: 2016-11-22T13:30:00+01:00
+excerpt: "Magic combo framework extension."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

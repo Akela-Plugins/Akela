@@ -1,8 +1,8 @@
 ---
 title: "Plugins"
 permalink: /plugins/
-excerpt: "Plugins for the Keyboardio Model 01"
-modified: 2016-11-23T20:45:00+01:00
+excerpt: "Plugins for Keyboardio boards"
+modified: 2016-11-29T10:45:00+01:00
 read_time: true
 ---
 

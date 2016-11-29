@@ -1,8 +1,8 @@
 ---
 title: "Unicode input method"
 permalink: /plugins/Unicode/
-excerpt: "Utilities to help inputting Unicode on the Keyboardio Model 01"
-modified: 2016-11-23T15:15:00+01:00
+excerpt: "Utilities to help inputting Unicode."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

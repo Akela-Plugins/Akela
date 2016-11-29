@@ -1,8 +1,8 @@
 ---
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
-excerpt: "Space Cadet Shift plugin for the Keyboardio Model 01"
-modified: 2016-11-23T12:40:00+01:00
+excerpt: "Space Cadet Shift plugin."
+modified: 2016-11-29T10:45:00+01:00
 ---
 
 {% include toc %}

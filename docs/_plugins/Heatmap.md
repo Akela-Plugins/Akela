@@ -1,7 +1,7 @@
 ---
 title: "Heatmap"
 permalink: /plugins/Heatmap/
-excerpt: "LED-based Heatmap plugin for the Keyboardio Model 01"
+excerpt: "LED-based Heatmap plugin."
 modified: 2016-11-23T10:20:00+01:00
 ---
 
