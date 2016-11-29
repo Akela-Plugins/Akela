@@ -54,6 +54,11 @@ namespace Akela {
         !Keyboard.isModifierActive (Key_RShift.rawKey))
       return false;
 
+    // If the key is injected, bail out too, to avoid getting into an endless
+    // loop.
+    if (keyState & INJECTED)
+      return false;
+
     uint8_t i = 0;
 
     // Try to find the current key in the dictionary
@@ -64,7 +69,7 @@ namespace Akela {
     // If not found, bail out.
     if (shapeShiftDictionary[i].original.raw == Key_NoKey.raw)
       return false;
-    
+
     // If found, handle the alternate key instead
     handle_key_event (shapeShiftDictionary[i].replacement, row, col, keyState | INJECTED);
 
