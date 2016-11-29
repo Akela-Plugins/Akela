@@ -21,6 +21,8 @@ plugins:
         url: /plugins/SpaceCadet/
       - title: "Dual-use modifier keys"
         url: /plugins/DualUseMods/
+      - title: "Shifted symbol replacement"
+        url: /plugins/ShapeShifter/
   - title: Extensions
     url: /plugins/#extensions
     children:
