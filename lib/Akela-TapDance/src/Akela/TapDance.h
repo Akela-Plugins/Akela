@@ -18,27 +18,32 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
+#include <Akela.h>
+#include <KeyboardioFirmware.h>
+
+#define TD(n) (Key){.raw = Akela::Ranges::TD_FIRST + n }
 
 namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
+  class TapDance {
+  public:
+    typedef enum {
+      Tap,
+      Hold,
+      Interrupt,
+      Timeout,
+      Release,
+    } ActionType;
 
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
+    TapDance (void);
+  private:
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (void);
 
-      AKELA_SAFE_START,
-    };
+    static bool tap (void);
+    static void interrupt (void);
+    static void timeOut (void);
+    static bool release (uint8_t tapDanceIndex);
   };
 };
+
+void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction);

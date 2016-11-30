@@ -18,27 +18,4 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
-
-namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
-
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-
-      AKELA_SAFE_START,
-    };
-  };
-};
+#include "Akela/TapDance.h"
