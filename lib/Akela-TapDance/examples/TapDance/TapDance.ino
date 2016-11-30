@@ -45,38 +45,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 static Akela::TapDance tapDance;
 
-static void tapDanceTab (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
-  switch (tapDanceAction) {
-  case Akela::TapDance::Tap:
-    break;
-  case Akela::TapDance::Hold:
-    break;
-  case Akela::TapDance::Interrupt:
-  case Akela::TapDance::Timeout:
-    break;
-  case Akela::TapDance::Release:
-    break;
-  }
-}
-
 static void tapDanceEsc (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
-  switch (tapDanceAction) {
-  case Akela::TapDance::Tap:
-    break;
-  case Akela::TapDance::Hold:
-    break;
-  case Akela::TapDance::Interrupt:
-  case Akela::TapDance::Timeout:
-    break;
-  case Akela::TapDance::Release:
-    break;
-  }
+  tapDanceActionKeys (tapDance, tapCount, tapDanceAction, Key_Esc, Key_Tab);
 }
 
 void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
   switch (tapDanceIndex) {
   case 0:
-    return tapDanceTab(tapDanceIndex, tapCount, tapDanceAction);
+    return tapDanceActionKeys (tapDance, tapCount, tapDanceAction, Key_Tab, Key_Esc);
   case 1:
     return tapDanceEsc(tapDanceIndex, tapCount, tapDanceAction);
   }

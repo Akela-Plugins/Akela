@@ -23,6 +23,12 @@
 
 #define TD(n) (Key){.raw = Akela::Ranges::TD_FIRST + n }
 
+#define tapDanceActionKeys(o, tapCount, tapDanceAction, ...) ({        \
+    static const Key __k[] PROGMEM = { __VA_ARGS__ };                   \
+    o.actionKeys (tapCount, tapDanceAction,                             \
+                  sizeof (__k) / sizeof (Key), &__k[0]);                \
+    })
+
 namespace Akela {
   class TapDance {
   public:
@@ -35,6 +41,9 @@ namespace Akela {
     } ActionType;
 
     TapDance (void);
+
+    void actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]);
+
   private:
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (void);

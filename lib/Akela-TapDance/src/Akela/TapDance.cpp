@@ -80,6 +80,30 @@ namespace Akela {
     loop_hook_add (this->loopHook);
   }
 
+  void
+  TapDance::actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]) {
+    if (tapCount >= maxKeys)
+      return;
+
+    Key key;
+    key.raw = pgm_read_word (tapKeys + tapCount);
+
+    switch (tapDanceAction) {
+    case Tap:
+      break;
+    case Interrupt:
+    case Timeout:
+      handle_key_event (key, 255, 255, IS_PRESSED | INJECTED);
+      break;
+    case Hold:
+      handle_key_event (key, 255, 255, IS_PRESSED | WAS_PRESSED | INJECTED);
+      break;
+    case Release:
+      handle_key_event (key, 255, 255, WAS_PRESSED | INJECTED);
+      break;
+    }
+  }
+
   // --- hooks ---
 
   bool
