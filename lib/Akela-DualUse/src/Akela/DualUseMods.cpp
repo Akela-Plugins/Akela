@@ -62,6 +62,13 @@ namespace Akela {
 
   bool
   DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    // If nothing happened, bail out fast.
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
+        return false;
+      return true;
+    }
+
     // If a key has been just toggled on...
     if (key_toggled_on (keyState)) {
       if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST) {

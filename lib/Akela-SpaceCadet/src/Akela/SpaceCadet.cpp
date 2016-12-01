@@ -53,6 +53,11 @@ namespace Akela {
 
   bool
   SpaceCadetShift::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    // If nothing happened, bail out fast.
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      return false;
+    }
+
     // If a key has been just toggled on...
     if (key_toggled_on (keyState)) {
       if (mappedKey.raw == Key_LShift.raw) { // if it is LShift, remember it

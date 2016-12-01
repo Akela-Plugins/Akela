@@ -99,6 +99,11 @@ eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
   if (!isOSL (mappedKey))
     return false;
 
+  // If nothing happened, bail out fast.
+  if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+    return true;
+  }
+
   // Released?
   if (!key_is_pressed (keyState)) {
     if (hasTimedOut ())
