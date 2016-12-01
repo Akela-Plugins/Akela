@@ -1,0 +1,1 @@
+../../docs/_plugins/ShapeShifter.md
