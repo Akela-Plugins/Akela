@@ -35,8 +35,8 @@ namespace Akela {
 
     Key newKey = { KEY_FLAGS, mappedKey.rawKey };
     if (layerDefault) {
-      uint8_t layerIndex = mappedKey.flags & ~0b11100000;
-      newKey = { KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, layerIndex + MOMENTARY_OFFSET};
+      uint8_t m = (mappedKey.flags & ~0b11100000) + MOMENTARY_OFFSET;
+      newKey = { KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, m };
     }
 
     handle_key_event (newKey, row, col, keyState | INJECTED);
@@ -84,8 +84,8 @@ namespace Akela {
     // switch. The states will decide if it is a hold or a release, we do not
     // need to care.
     if (!bitRead (altActionNeededMap, layerIndex)) {
-      Key newKey = { KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, layerIndex + MOMENTARY_OFFSET};
-      handle_key_event (newKey, row, col, keyState | INJECTED);
+      uint8_t m = layerIndex + MOMENTARY_OFFSET;
+      handle_key_event ({ KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, m }, row, col, keyState | INJECTED);
       return true;
     }
 
