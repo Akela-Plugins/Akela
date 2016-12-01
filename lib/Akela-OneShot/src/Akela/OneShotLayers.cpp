@@ -97,7 +97,7 @@ namespace Akela {
 
   bool
   OneShotLayers::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (State && shouldInterrupt (mappedKey))
+    if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState))
       cancel ();
 
     if (!isOSL (mappedKey))
