@@ -34,5 +34,13 @@ namespace Akela {
     static void enableAuto (void);
     static bool isActive (void);
     static void cancel (void);
+
+  private:
+    static bool eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopNoOpHook (void);
+
+    static bool eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (void);
   };
 };

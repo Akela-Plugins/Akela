@@ -20,16 +20,17 @@
 
 using namespace Akela::Ranges;
 
-// ---- state ---------
+namespace Akela {
+  // ---- state ---------
 
-static uint16_t Timer = 0;
-static uint16_t TimeOut = DEFAULT_TIMEOUT;
-static uint32_t State = 0;
-static uint32_t stickyState = 0;
-static Key prevKey;
-static bool shouldCancel = false;
+  static uint16_t Timer = 0;
+  static uint16_t TimeOut = DEFAULT_TIMEOUT;
+  static uint32_t State = 0;
+  static uint32_t stickyState = 0;
+  static Key prevKey;
+  static bool shouldCancel = false;
 
-// --- helper macros ------
+  // --- helper macros ------
 
 #define isOSL(key) (key.raw >= OSL_FIRST && key.raw <= OSL_LAST)
 #define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.rawKey >= MOMENTARY_OFFSET)
@@ -46,120 +47,122 @@ static bool shouldCancel = false;
 #define saveAsPrevious(key) prevKey.raw = key.raw
 
 #define Key_Keymap0_Momentary (Key){ KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, KEYMAP_0 + MOMENTARY_OFFSET}
-#define toNormalKey(key, idx) key.flags = KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP; key.rawKey = KEYMAP_0 + MOMENTARY_OFFSET + idx
+#define toNormalKey(key, idx) {                           \
+    key.flags = KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP; \
+    key.rawKey = KEYMAP_0 + MOMENTARY_OFFSET + idx;       \
+}
 #define hasTimedOut() (Timer > TimeOut)
 
-// ----- passthrough ------
+  // ----- passthrough ------
 
-static bool
-eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-  if (!isOSL (mappedKey))
-    return false;
+  bool
+  OneShotLayers::eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!isOSL (mappedKey))
+      return false;
 
-  uint8_t layer = mappedKey.rawKey - OSL_FIRST;
-  toNormalKey (mappedKey, layer);
+    uint8_t layer = mappedKey.rawKey - OSL_FIRST;
+    toNormalKey (mappedKey, layer);
 
-  handle_key_event (mappedKey, row, col, keyState | INJECTED);
+    handle_key_event (mappedKey, row, col, keyState | INJECTED);
 
-  return true;
-}
-
-static void
-loopNoOpHook (void) {
-}
-
-// ---- OneShot stuff ----
-
-static bool
-shouldInterrupt (Key mappedKey) {
-  return !isOSL (mappedKey);
-}
-
-static bool
-eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-  if (!isLayerKey (mappedKey))
-    return false;
-
-  // If mappedKey is an injected key, we don't fiddle with those.
-  if (keyState & INJECTED)
-    return false;
-
-  uint8_t layer = mappedKey.rawKey - OSL_FIRST;
-  Key newKey = OSL(layer);
-
-  handle_key_event (newKey, row, col, keyState | INJECTED);
-  return true;
-}
-
-static bool
-eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-  if (State && shouldInterrupt (mappedKey))
-    Akela::OneShotLayers::cancel ();
-
-  if (!isOSL (mappedKey))
-    return false;
-
-  // If nothing happened, bail out fast.
-  if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
     return true;
   }
 
-  // Released?
-  if (!key_is_pressed (keyState)) {
+  void
+  OneShotLayers::loopNoOpHook (void) {
+  }
+
+  // ---- OneShot stuff ----
+
+  static bool
+  shouldInterrupt (Key mappedKey) {
+    return !isOSL (mappedKey);
+  }
+
+  bool
+  OneShotLayers::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!isLayerKey (mappedKey))
+      return false;
+
+    // If mappedKey is an injected key, we don't fiddle with those.
+    if (keyState & INJECTED)
+      return false;
+
+    uint8_t layer = mappedKey.rawKey - OSL_FIRST;
+    Key newKey = OSL(layer);
+
+    handle_key_event (newKey, row, col, keyState | INJECTED);
+    return true;
+  }
+
+  bool
+  OneShotLayers::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (State && shouldInterrupt (mappedKey))
+      cancel ();
+
+    if (!isOSL (mappedKey))
+      return false;
+
+    // If nothing happened, bail out fast.
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      return true;
+    }
+
+    // Released?
+    if (!key_is_pressed (keyState)) {
+      if (hasTimedOut ())
+        cancel ();
+
+      return true;
+    }
+
+    uint8_t idx = mappedKey.rawKey - OSL_FIRST;
+
+    if (isSticky(idx)) {
+      clearSticky (idx);
+      cancel ();
+      return true;
+    } else if (isSameAsPrevious (mappedKey)) {
+      setSticky (idx);
+    }
+
+    saveAsPrevious (mappedKey);
+    toNormalKey (mappedKey, idx);
+    setOneShot (idx);
+
+    Layer.on (idx);
+
+    return true;
+  }
+
+  void
+  OneShotLayers::loopHook (void) {
+    if (!State)
+      return;
+
+    Timer++;
+
     if (hasTimedOut ())
-      Akela::OneShotLayers::cancel ();
+      cancel ();
 
-    return true;
-  }
+    for (uint8_t i = 0; i < 8; i++) {
+      if (!isOneShot (i))
+        continue;
 
-  uint8_t idx = mappedKey.rawKey - OSL_FIRST;
+      if (shouldCancel && !isSticky (i)) {
+        clearOneShot (i);
+        Layer.off (i);
+      }
+    }
 
-  if (isSticky(idx)) {
-    clearSticky (idx);
-    Akela::OneShotLayers::cancel ();
-    return true;
-  } else if (isSameAsPrevious (mappedKey)) {
-    setSticky (idx);
-  }
-
-  saveAsPrevious (mappedKey);
-  toNormalKey (mappedKey, idx);
-  setOneShot (idx);
-
-  Layer.on (idx);
-
-  return true;
-}
-
-static void
-loopHook (void) {
-  if (!State)
-    return;
-
-  Timer++;
-
-  if (hasTimedOut ())
-    Akela::OneShotLayers::cancel ();
-
-  for (uint8_t i = 0; i < 8; i++) {
-    if (!isOneShot (i))
-      continue;
-
-    if (shouldCancel && !isSticky (i)) {
-      clearOneShot (i);
-      Layer.off (i);
+    if (shouldCancel) {
+      Timer = 0;
+      shouldCancel = false;
     }
   }
 
-  if (shouldCancel) {
-    Timer = 0;
-    shouldCancel = false;
-  }
-}
+  // --- glue code ---
 
-// --- glue code ---
-
-namespace Akela {
   OneShotLayers::OneShotLayers (uint8_t defaultState) {
     if (defaultState == Default::Off) {
       event_handler_hook_add (eventHandlerPassthroughHook);
