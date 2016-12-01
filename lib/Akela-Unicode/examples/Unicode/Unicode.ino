@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-Unicode.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -45,11 +42,11 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 static Akela::Unicode unicode;
 
-void setup() {
-  Keyboardio.setup(1);
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
   unicode.type (0x2328);
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }

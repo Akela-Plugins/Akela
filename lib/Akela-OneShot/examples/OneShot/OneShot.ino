@@ -63,12 +63,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 Akela::OneShotMods oneShotMods (Akela::Default::On);
 Akela::OneShotLayers oneShotLayers (Akela::Default::On);
 
-void setup() {
-  oneShotMods.enableAuto();
-  oneShotLayers.enableAuto();
-  Keyboardio.setup(1);
+void setup () {
+  oneShotMods.enableAuto ();
+  oneShotLayers.enableAuto ();
+  Keyboardio.setup (KEYMAP_SIZE);
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }

@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-MagicCombo.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 void _print_example (uint32_t leftHand, uint32_t rightHand) {
   Serial.print ("It's a kind of magic!");
 }
@@ -33,7 +30,7 @@ Akela::MagicCombo::dictionary_t dictionary[] = {
   }
 };
 
-Akela::MagicCombo exampleMagic(dictionary);
+Akela::MagicCombo exampleMagic (dictionary);
 
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
@@ -56,10 +53,10 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ),
 };
 
-void setup() {
-  Keyboardio.setup(1);
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }

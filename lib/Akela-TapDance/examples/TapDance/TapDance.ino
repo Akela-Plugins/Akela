@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-TapDance.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -54,14 +51,14 @@ void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::A
   case 0:
     return tapDanceActionKeys (tapDance, tapCount, tapDanceAction, Key_Tab, Key_Esc);
   case 1:
-    return tapDanceEsc(tapDanceIndex, tapCount, tapDanceAction);
+    return tapDanceEsc (tapDanceIndex, tapCount, tapDanceAction);
   }
 }
 
-void setup() {
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }

@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-ShapeShifter.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -48,12 +45,12 @@ static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
   {Key_2, Key_1},
 };
 
-static Akela::ShapeShifter shapeShifter(shapeShiftDictionary);
+static Akela::ShapeShifter shapeShifter (shapeShiftDictionary);
 
-void setup() {
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }

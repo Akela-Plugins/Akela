@@ -19,9 +19,6 @@
 #include <KeyboardioFirmware.h>
 #include <Akela-Colormap.h>
 
-uint8_t primary_keymap = 0;
-uint8_t temporary_keymap = 0;
-
 enum {
   OFF,
   RED,
@@ -88,11 +85,11 @@ const cRGB colors[] PROGMEM = {
 
 static Akela::ColormapEffect colormapEffect (colors, colormap);
 
-void setup() {
-  Keyboardio.setup(1);
-  colormapEffect.activate();
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
+  colormapEffect.activate ();
 }
 
-void loop() {
-  Keyboardio.loop();
+void loop () {
+  Keyboardio.loop ();
 }
