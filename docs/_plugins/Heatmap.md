@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin."
-modified: 2016-11-23T10:20:00+01:00
+modified: 2016-12-01T09:30:00+01:00
 ---
 
 {% include toc %}
@@ -42,8 +42,10 @@ As a general rule of thumb, the following snippet is a good starting point:
 static LEDOff ledOffEffect;
 static Akela::Heatmap heatmap;
 
+// keymap declaration comes somewhere here...
+
 void setup () {
-  Keyboardio.setup();
+  Keyboardio.setup(KEYMAP_SIZE);
   heatmap.activate();
 }
 
