@@ -1,8 +1,8 @@
 ---
-title: "Dual-use modifier keys"
-permalink: /plugins/DualUseMods/
-excerpt: "Dual-use modifier key plugin."
-modified: 2016-11-29T10:45:00+01:00
+title: "Dual-use modifier & layer keys"
+permalink: /plugins/DualUse/
+excerpt: "Dual-use modifier and layer key plugin."
+modified: 2016-12-04T12:30:00+01:00
 ---
 
 {% include toc %}
@@ -19,19 +19,20 @@ isolation? No useful functionality lost, and we have one key less to place on
 the keyboard! We can even put `Esc` to a more convenient position, perhaps.
 
 Dual-use keys do just this: if you hold them, and press any other key, they will
-act as a modifier. If you hold them for a longer period, they - again - will act
-as modifiers. But if you tap and release them in isolation, they will act as
-another key instead.
+act as a modifier or momentary layer switcher. If you hold them for a longer
+period, they - again - will act as modifiers / momentary switchers. But if you
+tap and release them in isolation, they will act as another key instead.
 
 ## Using the plugin
 
 ```c++
 #include <Akela-DualUse.h>
 
-static Akela::DualUseMods dualUseMods;
+static Akela::DualUseMods   dualUseMods;
+static Akela::DualUseLayers dualUseLayers;
 
 // in the keymap:
-CTL_T(ESC)
+CTL_T(Esc), LT(_LAYER, Esc)
 ```
 
 ## Keymap markup
@@ -48,10 +49,12 @@ The plugin provides a number of macros one can use in keymap definitions:
   other keys, but as `key` when tapped in isolation.
 * `MT(mod, key)`: A key that acts as `mod` when held, or used in conjunction
   with other keys, but as `key` when tapped in isolation.
+* `LT(layer, key)`: A key that momentarily switches to `layer` when held, or
+  used in conjunction with other keys, but as `key` when tapped in isolation.
   
-All of these, except `MT`, use the left modifier. The `key` argument is always
-an unmodified, normal key, it can't have any modifiers or special behaviour
-applied.
+All of these, except `MT` and `LT`, use the left modifier. The `key` argument is
+always an unmodified, normal key, it can't have any modifiers or special
+behaviour applied.
 
 ## Plugin methods
 
@@ -65,6 +68,16 @@ namespace Akela {
 
     void on (void);
     void off (void);
+  };
+  class DualUseLayers {
+  public:
+    DualUseLayers (uint8_t defaultMode, uint8_t defaultAction);
+    DualUseLayers (uint8_t defaultAction);
+    DualUseLayers (void);
+
+    void on (void);
+    void off (void);
+  };
 };
 ```
 
@@ -73,12 +86,12 @@ with the new behaviour disabled. However, to do so, we must know what the
 disabled behaviour should be: act as a modifier, or as a normal key?
 
 With `defaultMode` set to *off*, the key will act as a normal key, sending
-either the first (the modifier) or the second (the alternate key) to the host,
-depending on the value of `defaultAction`. If the `defaultMode` is *on* (the
-default), the key will behave as explained above.
+either the first (the modifier or layer switch) or the second (the alternate
+key) to the host, depending on the value of `defaultAction`. If the
+`defaultMode` is *on* (the default), the key will behave as explained above.
 
 It is possible to toggle the feature on and off, with the `on()` and `off()`
-methods.
+methods of the appropriate object.
 
 ## Further reading
 

@@ -19,8 +19,8 @@ plugins:
         url: /plugins/OneShot/
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
-      - title: "Dual-use modifier keys"
-        url: /plugins/DualUseMods/
+      - title: "Dual-use modifier & layer keys"
+        url: /plugins/DualUse/
       - title: "Tap-dance keys"
         url: /plugins/TapDance/
       - title: "Shifted symbol replacement"
