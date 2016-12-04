@@ -32,17 +32,17 @@ namespace Akela {
     if (keyState & INJECTED)
       return false;
 
-    Serial.print ("KL: row=");
+    Serial.print (F("KL: row="));
     Serial.print (row, DEC);
-    Serial.print (", col=");
+    Serial.print (F(", col="));
     Serial.print (col, DEC);
-    Serial.print (", pressed=");
+    Serial.print (F(", pressed="));
     Serial.print (key_toggled_on (keyState), DEC);
-    Serial.print (", defaultLayer=");
+    Serial.print (F(", defaultLayer="));
     Serial.print (Layer.defaultLayer (), DEC);
-    Serial.print (", layerState=");
+    Serial.print (F(", layerState="));
     Serial.print (Layer.getLayerState (), BIN);
-    Serial.print (", mappedKey=");
+    Serial.print (F(", mappedKey="));
     Serial.println (mappedKey.raw, HEX);
 
     return false;
