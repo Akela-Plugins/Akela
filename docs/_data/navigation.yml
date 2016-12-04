@@ -15,10 +15,8 @@ plugins:
         url: /plugins/KeyLogger/
       - title: "Heatmap"
         url: /plugins/Heatmap/
-      - title: "One-shot modifiers"
-        url: /plugins/OneShotMods/
-      - title: "One-shot layers"
-        url: /plugins/OneShotLayers/
+      - title: "One-shot modifiers & layers"
+        url: /plugins/OneShot/
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
       - title: "Dual-use modifier keys"
