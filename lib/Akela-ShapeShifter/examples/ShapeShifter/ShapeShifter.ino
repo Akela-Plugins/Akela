@@ -43,6 +43,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
   {Key_1, Key_2},
   {Key_2, Key_1},
+  {Key_NoKey, Key_NoKey},
 };
 
 static Akela::ShapeShifter shapeShifter (shapeShiftDictionary);
