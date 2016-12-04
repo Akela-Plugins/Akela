@@ -2,7 +2,7 @@
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
 excerpt: "KeyLogger plugin."
-modified: 2016-11-29T10:45:00+01:00
+modified: 2016-12-04T12:25:00+01:00
 ---
 
 {% include toc %}
@@ -37,6 +37,6 @@ Monitor* built into the Arduino IDE), one will be able to see the following
 output:
 
 ```
-KL: row=1, col=2, pressed=1, layer=0
-KL: row=1, col=2, pressed=0, layer=0
+KL: row=1, col=2, pressed=1, defaultLayer=0, layerState=00000000000000000000000000000001, mappedKey=0xffff
+KL: row=1, col=2, pressed=0, defaultLayer=0, layerState=00000000000000000000000000000001, mappedKey=0xffff
 ```
