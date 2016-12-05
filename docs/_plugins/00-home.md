@@ -2,7 +2,7 @@
 title: "Plugins"
 permalink: /plugins/
 excerpt: "Plugins for Keyboardio boards"
-modified: 2016-11-29T10:45:00+01:00
+modified: 2016-12-05T21:35:00+01:00
 read_time: true
 ---
 
@@ -29,13 +29,12 @@ $ git clone --recurse-submodules https://github.com/algernon/Akela
 $ cd Akela
 $ install -d ~/Arduino/libraries/
 $ ln -s $(pwd)/lib/* ~/Arduino/libraries/
+$ ln -s $(pwd)/hardware ~/Arduino/hardware
 ```
 
-Of course, the Model 01 hardware support also needs to be installed, but that is
-out of the scope for this document, for now. With the Model 01 support installed
-for the IDE, and after the above few lines, when we start up the IDE, the
-`File/Examples` menu will have all the available examples under the "*Examples
-from Custom Libraries*" heading. Select one from there, and we can start playing!
+After these, when we start up the IDE, the `File/Examples` menu will have all
+the available examples under the "*Examples from Custom Libraries*" heading.
+Select one from there, and we can start playing!
 
 ## Plugins and Extensions
 
