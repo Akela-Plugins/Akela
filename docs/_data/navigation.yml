@@ -15,11 +15,11 @@ plugins:
         url: /plugins/KeyLogger/
       - title: "Heatmap"
         url: /plugins/Heatmap/
-      - title: "One-shot modifiers & layers"
+      - title: "One-shot mods & layers"
         url: /plugins/OneShot/
       - title: "Space Cadet Shift"
         url: /plugins/SpaceCadet/
-      - title: "Dual-use modifier & layer keys"
+      - title: "Dual-use mods & layers"
         url: /plugins/DualUse/
       - title: "Tap-dance keys"
         url: /plugins/TapDance/
