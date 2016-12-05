@@ -26,8 +26,7 @@
 namespace Akela {
   class OneShotLayers {
   public:
-    OneShotLayers (uint8_t defaultState);
-    OneShotLayers (void) : OneShotLayers (Default::On) {};
+    OneShotLayers (void);
 
     static void on (void);
     static void off (void);

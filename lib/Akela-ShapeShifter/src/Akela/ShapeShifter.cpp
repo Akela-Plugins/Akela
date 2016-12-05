@@ -23,13 +23,10 @@ namespace Akela {
 
   static const ShapeShifter::dictionary_t *shapeShiftDictionary = NULL;
 
-  ShapeShifter::ShapeShifter (uint8_t defaultMode, const dictionary_t dictionary[]) {
+  ShapeShifter::ShapeShifter (const dictionary_t dictionary[]) {
     shapeShiftDictionary = (const dictionary_t *)dictionary;
 
-    if (defaultMode == Akela::Default::On)
-      event_handler_hook_add (this->eventHandlerHook);
-    else
-      event_handler_hook_add (this->noOpHook);
+    event_handler_hook_add (this->eventHandlerHook);
   }
 
   void

@@ -33,20 +33,11 @@ select text, for example.
 static Akela::SpaceCadetShift spaceCadetShift;
 ```
 
-There are two properties one can configure: the default behaviour, and the paren
-keys. See the constructors [below](#plugin-methods) to see how to set these
-properties.
-
-The first property, `defaultMode` controls whether the new behaviour is on or
-off when the keyboard starts. It defaults to *on*, but if set to *off*, it can
-later be enabled with the `on()` method. The keymap does not need to be updated
-at all, the plugin overrides the normal `Shift` keys when the functionality is
-enabled.
-
-The other option is the keys to use for the parens. The plugin defaults to `9`
-and `0`, which, when shifted, mean the opening and closing parens in US QWERTY,
-and a lot of other layouts. If one uses an OS-side layout where the parens are
-on different keys, the `left` and `right` options are the ones to change.
+There is only one property one can configure: the keys to use for the parens.
+The plugin defaults to `9` and `0`, which, when shifted, mean the opening and
+closing parens in US QWERTY, and a lot of other layouts. If one uses an OS-side
+layout where the parens are on different keys, the `left` and `right` options
+are the ones to change.
 
 ## Plugin methods
 
@@ -54,8 +45,6 @@ on different keys, the `left` and `right` options are the ones to change.
 namespace Akela {
   class SpaceCadetShift {
   public:
-    SpaceCadetShift (uint8_t defaultMode, Key left, Key right);
-    SpaceCadetShift (uint8_t defaultMode);
     SpaceCadetShift (Key left, Key right);
     SpaceCadetShift (void);
 

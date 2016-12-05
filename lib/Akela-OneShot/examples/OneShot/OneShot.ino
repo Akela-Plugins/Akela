@@ -60,8 +60,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 };
 
-Akela::OneShotMods oneShotMods (Akela::Default::On);
-Akela::OneShotLayers oneShotLayers (Akela::Default::On);
+Akela::OneShotMods oneShotMods;
+Akela::OneShotLayers oneShotLayers;
 
 void setup () {
   oneShotMods.enableAuto ();

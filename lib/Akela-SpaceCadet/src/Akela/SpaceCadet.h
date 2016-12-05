@@ -24,10 +24,8 @@
 namespace Akela {
   class SpaceCadetShift {
   public:
-    SpaceCadetShift (uint8_t defaultMode, Key left, Key right);
-    SpaceCadetShift (uint8_t defaultMode) : SpaceCadetShift (defaultMode, Key_9, Key_0) {};
-    SpaceCadetShift (Key left, Key right) : SpaceCadetShift (Akela::Default::On, left, right) {};
-    SpaceCadetShift (void) : SpaceCadetShift (Akela::Default::On) {};
+    SpaceCadetShift (Key left, Key right);
+    SpaceCadetShift (void) : SpaceCadetShift (Key_9, Key_0) {};
 
     void on (void);
     void off (void);

@@ -28,13 +28,10 @@ namespace Akela {
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
   static bool modifierDefault;
 
-  DualUseMods::DualUseMods (uint8_t defaultMode, uint8_t defaultAction) {
+  DualUseMods::DualUseMods (uint8_t defaultAction) {
     modifierDefault = !!defaultAction;
 
-    if (defaultMode == Akela::Default::On)
-      event_handler_hook_add (this->eventHandlerHook);
-    else
-      event_handler_hook_add (this->disabledHook);
+    event_handler_hook_add (this->eventHandlerHook);
   }
 
   void
