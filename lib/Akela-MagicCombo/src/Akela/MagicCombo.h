@@ -28,9 +28,13 @@ namespace Akela {
       uint32_t leftHand, rightHand;
       comboCallback_t callback;
     } dictionary_t;
-    MagicCombo (dictionary_t dictionary[]);
+
+    MagicCombo (void);
+    static void configure (const dictionary_t dictionary[]);
 
   private:
     static bool comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
+
+static Akela::MagicCombo MagicCombo;

@@ -40,11 +40,9 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ),
 };
 
-static Akela::Heatmap heatmapEffect (500);
-
 void setup () {
   Keyboardio.setup (KEYMAP_SIZE);
-  heatmapEffect.activate ();
+  HeatmapEffect.activate ();
 }
 
 void loop () {

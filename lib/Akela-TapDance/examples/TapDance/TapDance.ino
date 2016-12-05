@@ -40,16 +40,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ),
 };
 
-static Akela::TapDance tapDance;
-
 static void tapDanceEsc (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
-  tapDanceActionKeys (tapDance, tapCount, tapDanceAction, Key_Esc, Key_Tab);
+  tapDanceActionKeys (tapCount, tapDanceAction, Key_Esc, Key_Tab);
 }
 
 void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
   switch (tapDanceIndex) {
   case 0:
-    return tapDanceActionKeys (tapDance, tapCount, tapDanceAction, Key_Tab, Key_Esc);
+    return tapDanceActionKeys (tapCount, tapDanceAction, Key_Tab, Key_Esc);
   case 1:
     return tapDanceEsc (tapDanceIndex, tapCount, tapDanceAction);
   }

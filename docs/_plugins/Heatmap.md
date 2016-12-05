@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin."
-modified: 2016-12-01T09:30:00+01:00
+modified: 2016-12-05T12:00:00+01:00
 ---
 
 {% include toc %}
@@ -22,8 +22,6 @@ explicitly configured:
 
 ```c++
 #include <Akela-Heatmap.h>
-
-static Akela::Heatmap heatmap(500);
 ```
 
 This sets up the heatmap to update every 500 cycles, which is about 2.5 seconds,
@@ -40,13 +38,12 @@ As a general rule of thumb, the following snippet is a good starting point:
 #include <Akela-Heatmap.h>
 
 static LEDOff ledOffEffect;
-static Akela::Heatmap heatmap;
 
 // keymap declaration comes somewhere here...
 
 void setup () {
   Keyboardio.setup(KEYMAP_SIZE);
-  heatmap.activate();
+  HeatmapEffect.activate();
 }
 
 void loop () {

@@ -23,8 +23,9 @@
 namespace Akela {
   class Heatmap : public LEDMode {
   public:
-    Heatmap (uint16_t updateFrequency);
-    Heatmap (void) : Heatmap (500) {};
+    Heatmap (void);
+
+    static void configure (uint16_t updateFrequency);
 
     virtual void update (void) final;
   private:
@@ -32,3 +33,5 @@ namespace Akela {
     static void loopHook (void);
   };
 };
+
+static Akela::Heatmap HeatmapEffect;

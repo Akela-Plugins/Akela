@@ -31,8 +31,9 @@ namespace Akela {
       CUSTOM
     } Mode;
 
-    Unicode (Mode inputMode);
-    Unicode (void) : Unicode (AUTO) {};
+    Unicode (void);
+
+    static void setup (void);
 
     static void setMode (Mode inputMode);
     static Mode getMode (void);
@@ -50,3 +51,5 @@ Key hexToKey (uint8_t hex);
 void unicodeCustomStart (void);
 void unicodeCustomEnd (void);
 void unicodeCustomInput (void);
+
+static Akela::Unicode Unicode;

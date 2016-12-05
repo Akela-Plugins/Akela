@@ -2,7 +2,7 @@
 title: "Dual-use modifier & layer keys"
 permalink: /plugins/DualUse/
 excerpt: "Dual-use modifier and layer key plugin."
-modified: 2016-12-05T11:00:00+01:00
+modified: 2016-12-05T12:00:00+01:00
 ---
 
 {% include toc %}
@@ -27,9 +27,6 @@ tap and release them in isolation, they will act as another key instead.
 
 ```c++
 #include <Akela-DualUse.h>
-
-static Akela::DualUseMods   dualUseMods;
-static Akela::DualUseLayers dualUseLayers;
 
 // in the keymap:
 CTL_T(Esc), LT(_LAYER, Esc)
@@ -62,17 +59,20 @@ behaviour applied.
 namespace Akela {
   class DualUseMods {
   public:
-    DualUseMods (uint8_t defaultAction);
     DualUseMods (void);
+
+    static void configure (uint8_t offAction);
 
     void on (void);
     void off (void);
   };
+
   class DualUseLayers {
   public:
-    DualUseLayers (uint8_t defaultAction);
     DualUseLayers (void);
-
+    
+    static void configure (uint8_t offAction);
+    
     void on (void);
     void off (void);
   };
@@ -81,10 +81,9 @@ namespace Akela {
 
 By default, the `DualUse` plugins will start enabled, like all other plugins.
 However, when turned off, they must be aware which of the two actions they
-should perform in off state. By default, unless otherwise specified with the
-`defaultAction` constructor argument, they will perform the second action, the
+should perform in off state. By default they will perform the second action, the
 single key action. This can be changed to be the modifier or the layer switch,
-by setting `defaultAction` to zero.
+by calling the `configure` method with `offAction` set to zero.
 
 It is possible to toggle the feature on and off, with the `on()` and `off()`
 methods of the appropriate object.

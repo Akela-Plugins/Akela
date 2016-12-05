@@ -26,7 +26,11 @@ namespace Akela {
   static const uint8_t *colorMap;
   static uint32_t previousLayerState;
 
-  ColormapEffect::ColormapEffect (const cRGB _colors[], const uint8_t _colorMap[][ROWS][COLS]) {
+  ColormapEffect::ColormapEffect (void) {
+  }
+
+  void
+  ColormapEffect::configure (const cRGB _colors[], const uint8_t _colorMap[][ROWS][COLS]) {
     colors = _colors;
     colorMap = (const uint8_t *)_colorMap;
     LEDControl.mode_add (this);

@@ -22,14 +22,20 @@ namespace Akela {
 
   static MagicCombo::dictionary_t *_magicDictionary = NULL;
 
-  MagicCombo::MagicCombo (dictionary_t dictionary[]) {
-    _magicDictionary = (dictionary_t *)dictionary;
-
+  MagicCombo::MagicCombo (void) {
     event_handler_hook_add (this->comboHandler);
+  }
+
+  void
+  MagicCombo::configure (const MagicCombo::dictionary_t dictionary[]) {
+    _magicDictionary = (dictionary_t *)dictionary;
   }
 
   bool
   MagicCombo::comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!_magicDictionary)
+      return false;
+
     for (byte i = 0; _magicDictionary[i].callback != NULL; i++) {
       dictionary_t combo = _magicDictionary[i];
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&

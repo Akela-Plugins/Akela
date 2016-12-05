@@ -27,10 +27,13 @@
 namespace Akela {
   class DualUseLayers {
   public:
-    DualUseLayers (uint8_t defaultAction);
-    DualUseLayers (void) : DualUseLayers (1) {};
+    DualUseLayers (void);
+
+    static void configure (uint8_t offAction);
 
     void on (void);
     void off (void);
   };
 };
+
+static Akela::DualUseLayers DualUseLayers;

@@ -26,9 +26,12 @@ namespace Akela {
 
   static Unicode::Mode inputMode;
 
-  Unicode::Unicode (Mode inputMode_) {
-    if (inputMode_ != AUTO) {
-      setMode (inputMode_);
+  Unicode::Unicode (void) {
+  }
+
+  void
+  Unicode::setup (void) {
+    if (inputMode != AUTO) {
       return;
     }
 

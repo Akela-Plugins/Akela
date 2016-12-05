@@ -60,12 +60,9 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 };
 
-Akela::OneShotMods oneShotMods;
-Akela::OneShotLayers oneShotLayers;
-
 void setup () {
-  oneShotMods.enableAuto ();
-  oneShotLayers.enableAuto ();
+  OneShotMods.enableAuto ();
+  OneShotLayers.enableAuto ();
   Keyboardio.setup (KEYMAP_SIZE);
 }
 

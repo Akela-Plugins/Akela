@@ -109,10 +109,13 @@ namespace Akela {
     return true;
   }
 
-  DualUseLayers::DualUseLayers (uint8_t defaultAction) {
-    layerDefault = !!defaultAction;
-
+  DualUseLayers::DualUseLayers (void) {
     event_handler_hook_add (eventHandlerHook);
+  }
+
+  void
+  DualUseLayers::configure (uint8_t offAction) {
+    layerDefault = !!offAction;
   }
 
   void

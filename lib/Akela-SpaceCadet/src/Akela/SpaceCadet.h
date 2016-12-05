@@ -24,8 +24,9 @@
 namespace Akela {
   class SpaceCadetShift {
   public:
-    SpaceCadetShift (Key left, Key right);
-    SpaceCadetShift (void) : SpaceCadetShift (Key_9, Key_0) {};
+    SpaceCadetShift (void);
+
+    static void configure (Key left, Key right);
 
     void on (void);
     void off (void);
@@ -34,3 +35,5 @@ namespace Akela {
     static bool noOpHook (Key, byte row, byte col, uint8_t keyState);
   };
 };
+
+static Akela::SpaceCadetShift SpaceCadetShift;

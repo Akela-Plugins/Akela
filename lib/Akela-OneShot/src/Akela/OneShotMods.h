@@ -44,3 +44,5 @@ namespace Akela {
     static void loopHook (void);
   };
 };
+
+static Akela::OneShotMods OneShotMods;
