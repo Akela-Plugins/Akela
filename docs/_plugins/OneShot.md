@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-05T11:15:00+01:00
+modified: 2016-12-05T14:30:00+01:00
 ---
 
 {% include toc %}
@@ -26,95 +26,83 @@ active if another one-shot of the same type is tapped, so `Ctrl, Alt, b` becomes
 
 ## Using the plugin
 
+There are two major ways in which the plugin can be used: one is to turn
+existing modifiers or momentary layer toggles into one-shot keys:
+
 ```c++
 #include <Akela-OneShot.h>
 
-static Akela::OneShotMods   oneShotMods;
-static Akela::OneShotLayers oneShotLayers;
-
 void setup () {
-  oneShotMods.enableAuto();
-  oneShotLayers.enableAuto();
+  OneShotMods.enableAuto();
+  OneShotLayers.enableAuto();
   Keyboardio.setup(KEYMAP_SIZE);
 }
 ```
 
-To use the plugin, the header needs to be included, and some behaviour
-configured by instantiating an `Akela::OneShotMods` or `Akela::OneShotLayers`
-(or both) object with the desired parameters. 
+The other is to explicitly mark keys as one-shot in the keymap:
 
-By default, one-shot keys start enabled, meaning any modifier marked up with the
-`OSM()` or `OSL()` macros will have the one-shot behaviour. If told to start
-disabled, then these keys will behave as usual, without the added behaviour.
+```c++
+#include <Akela-OneShot.h>
+
+// somewhere in the keymap...
+OSM(LCtrl), OSL(_FN)
+```
 
 ## Keymap markup
 
-There are two macros the plugin provides: `OSM(mod)`, that takes a single
-argument, the name of the modifier: `LCtrl`, `LShift`, `LAlt`, `LGUI` or their
-right-side variant. When marked up with this macro, the modifier will act as a
-one-shot modifier. The other is `OSL(layer)`, that takes a layer number, and
-turns the key into a one-shot layer key.
+There are two macros the plugin provides: 
 
-To avoid having to change the keymap to add `OSM()` or `OSL()` markup, the
-`enableAuto()` method of either class discussed above, can be used to turn all
-modifiers, or momentary layer keys into one-shots.
+### `OSM(mod)`
+
+A macro that takes a single argument, the name of the modifier: `LCtrl`,
+`LShift`, `LAlt`, `LGUI` or their right-side variant. When marked up with this
+macro, the modifier will act as a one-shot modifier.
+
+### `OSL(layer)`
+
+Takes a layer number as argument, and sets up the key to act as a one-shot layer
+key.
 
 ## Plugin methods
 
-```c++
-namespace Akela {
-  class OneShotMods {
-  public:
-    OneShotMods (void);
+The plugin provides two objects, `OneShotMods` and `OneShotLayers`, both with
+the same set of methods:
 
-    static void on (void);
-    static void off (void);
-    static void enableAuto (void);
-    static bool isActive (void);
-    static void cancel (void);
-  };
+### `.enableAuto()`
 
-  class OneShotLayers {
-  public:
-    OneShotLayers (void);
+Automatically turns modifiers (if called on `OneShotMods`) or momentary layer
+switches (if called on `OneShotLayers`) into their one-shot variant. It will
+only turn keys on the keymap into one-shots: if any macro injects a modifier or
+a momentary layer switch key, those will be left alone, as-is.
 
-    static void on (void);
-    static void off (void);
-    static void enableAuto (void);
-    static bool isActive (void);
-    static void cancel (void);
-  };
-};
-```
+This **must** be called before `Keyboardio.setup()` in the `setup()` method of
+your Sketch.
 
-The `on()` and `off()` methods can be used in macros, or elsewhere, to turn the
-*one-shot* behaviour on or off. When turned off, then modifiers that were marked
-as one-shot in the keymap, will behave as if they were just normal modifiers;
-and layers that were marked as one-shot will behave as momentary layer switcher.
-These can be called at any time, and have the effect one would expect.
+### `.isActive()`
 
-Similar to these, `enableAuto()` turns all the modifiers - or all the momentary
-layer keys - on the keymap into one-shot keys - but only those on the keymap.
-Any injected modifiers or layer switchers are ignored. This operation cannot
-later be reversed, but one can still turn the one-shot behaviour off with the
-`off()` method. Furthermore, for the transformation to work, this method needs
-to be called before `Keyboardio.setup()`. Its purpose is to make it possible to
-re-use a key layout without one-shot keys, as-is, but still have one-shot
-behaviour.
+Returns if any one-shot key is in flight. This makes it possible to
+differentiate between having a modifier or layer active, versus having them
+active only until after the next key getting pressed. And this, in turn, is
+useful for macros that need to fiddle with either modifier or layer state: if
+one-shots are not active, they need not restore the original state.
 
-The `isActive()` method can be used to check if any one-shot keys are active, to
-differentiate between having a modifier or layer active, and active only until
-the next key is pressed. This becomes important for macros that need to change
-which modifiers (or layers) are active: if they want to restore the previous
-state, they need to know if one-shot was in play. Because if it was, they need
-not do the restoration.
+### `.cancel()`
 
-Similarly, the `cancel()` method can be used to immediately cancel any one-shot
-modifiers or layers. Useful in case one wants to be able to change their minds,
-and cancel a one-shot pressed by mistake.
+The `cancel()` method can be used to cancel any pending one-shot effects, useful
+when one changed their minds, and does not wish to wait for the timeout.
 
-All of these must be called on the appropriate `Akela::OneShotMods` or
-`Akela::OneShotLayers` instance.
+### `.on()`
+
+Turns the one-shot behaviour on. This method is idempotent, you can call it any
+number of times, at any time.
+
+### `.off()`
+
+The counterpart of the `on()` method, this turns off one-shot behaviour.
+Modifiers will act as normal modifiers (if called on `OneShotMods`), and
+one-shot layer keys will act as momentary layer switchers (if called on
+`OneShotLayers`). As `on()`, this method is idempotent, and can be called at any
+time, from anywhere.
 
 ## Further reading
 

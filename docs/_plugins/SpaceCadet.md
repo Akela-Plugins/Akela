@@ -2,7 +2,7 @@
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
 excerpt: "Space Cadet Shift plugin."
-modified: 2016-11-29T10:45:00+01:00
+modified: 2016-12-05T14:40:00+01:00
 ---
 
 {% include toc %}
@@ -27,36 +27,45 @@ select text, for example.
 
 ## Using the plugin
 
+Using the plugin with its defaults is as simple as including the header:
+
 ```c++
 #include <Akela-SpaceCadet.h>
-
-static Akela::SpaceCadetShift spaceCadetShift;
 ```
 
-There is only one property one can configure: the keys to use for the parens.
-The plugin defaults to `9` and `0`, which, when shifted, mean the opening and
-closing parens in US QWERTY, and a lot of other layouts. If one uses an OS-side
-layout where the parens are on different keys, the `left` and `right` options
-are the ones to change.
+This assumes a US QWERTY layout on the host computer, and will use the `9` and
+`0` keys for the left and right parens, respectively. To change these keys, use
+the [`.configure()`](#configureleft-right) method outlined below.
 
 ## Plugin methods
 
-```c++
-namespace Akela {
-  class SpaceCadetShift {
-  public:
-    SpaceCadetShift (Key left, Key right);
-    SpaceCadetShift (void);
+The plugin has a number of methods available on the `SpaceCadetShift` object:
 
-    void on (void);
-    void off (void);
-  };
-};
+### `.configure(left, right)`
+
+Used to change the configuration of the plugin, namely, the keys used for the
+left and right parens. These keys will be pressed with `Shift` held, and should
+result in the opening and closing parens.
+
+As an example, assuming a Hungarian QWERTZ layout where the parens are not on
+`9` and `0`, we can use the following little snippet in the `setup` method of
+our Sketch:
+
+```c++
+void setup () {
+  SpaceCadetShift.configure(Key_8, Key_9);
+  Keyboardio.setup (KEYMAP_SIZE);
+}
 ```
 
-The `on()` and `off()` methods can be used in macros, or elsewhere, to turn the
-*Space Cadet Shift* behaviour on or off. When turned off, shifts behave as
-usual. These can be called at any time, and have the effect one would expect.
+### `.on()`
+
+This method turns the SpaceCadet Shift behaviour on, if it was turned off.
+
+### `.off()`
+
+Turns the SpaceCadet Shift behaviour off, making the `Shift` keys work as they
+did before, without the additional behaviour.
 
 ## Further reading
 
