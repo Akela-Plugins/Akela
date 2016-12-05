@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin."
-modified: 2016-12-05T12:00:00+01:00
+modified: 2016-12-05T14:00:00+01:00
 ---
 
 {% include toc %}
@@ -17,49 +17,41 @@ reasonable estimate.
 
 ## Using the plugin
 
-The plugin is not immediately enabled after including the header, it must be
-explicitly configured:
+The plugin comes with reasonable defaults pre-configured, all one needs to do is
+include the header:
 
 ```c++
 #include <Akela-Heatmap.h>
 ```
 
 This sets up the heatmap to update every 500 cycles, which is about 2.5 seconds,
-and is the default. To make it possible to turn the heatmap display off
-(collecting data will continue regardless), it is recommended to use another
-plugin, or built-in LED effect, such as `LEDOff`, and either have a key bound to
-`Key_LedEffectNext`, or have any other way to switch LED effects.
-
-As a general rule of thumb, the following snippet is a good starting point:
-
-```c++
-#include <KeyboardioFirmware.h>
-#include <LED-Off.h>
-#include <Akela-Heatmap.h>
-
-static LEDOff ledOffEffect;
-
-// keymap declaration comes somewhere here...
-
-void setup () {
-  Keyboardio.setup(KEYMAP_SIZE);
-  HeatmapEffect.activate();
-}
-
-void loop () {
-  Keyboardio.loop();
-}
-```
-
-This will activate the heatmap when the keyboard starts, but if you have a key
-to switch to another LED effect, `LEDOff` will be available too, and can be used
-to temporarily stop the heatmap display.
+and is the default. It also registers a new LED effect, which means that if you
+have not set up any other effects, then Heatmap will likely be the default. You
+may not want that, so setting up at least one other LED effect, such as `LEDOff`
+is highly recommended.
 
 ## Plugin methods
 
-The plugin only provides a single public method intended for use in a Sketch:
-`activate()`, which as the name implies, and as shown above, will activate the
-effect.
+The plugin provides two methods on the `HeatmapEffect` object:
+
+### `.configure(updateFrequency)`
+
+Sets up the update frequency of the heatmap. The smaller this value is, the more
+often the heatmap gets updated, but that comes with a cost: updating the heatmap
+takes a fairly large amount of computation, and is not fast. Doing it often will
+considerably slow down the keyboard, and that is rarely a desirable thing.
+
+Nevertheless, the frequency preferred is a very subjective thing, which is why
+this function exists. Give it a number, and it will wait that many scan cycles
+between updates.
+
+Defaults to *500*.
+
+### `.activate()`
+
+When called, immediately activates the Heatmap effect. Mostly useful in the
+`setup()` method of the Sketch, or in macros that are meant to switch to the
+heatmap effect, no matter where we are in the list.
 
 ## Further reading
 

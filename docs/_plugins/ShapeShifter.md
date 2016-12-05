@@ -2,7 +2,7 @@
 title: "Shifted symbol replacement"
 permalink: /plugins/ShapeShifter/
 excerpt: "Replace the shifted symbol on a number of keys."
-modified: 2016-12-05T11:20:00+01:00
+modified: 2016-12-05T15:15:00+01:00
 ---
 
 {% include toc %}
@@ -19,6 +19,9 @@ results in a `!`, it will press `4` instead of `1`, inputting `$`.
 
 ## Using the plugin
 
+To use the plugin, one needs to include the header, create a dictionary, and
+configure the provided `ShapeShifter` object to use the dictionary:
+
 ```c++
 #include <Akela-ShapeShifter.h>
 
@@ -28,7 +31,10 @@ static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
  {Key_NoKey, Key_NoKey},
 };
 
-static Akela::ShapeShifter shapeShifter(shapeShiftDictionary);
+void setup () {
+  ShapeShifter.configure(shapeShiftDictionary);
+  Keyboardio.setup(KEYMAP_SIZE);
+}
 ```
 
 The dictionary is made up of `Key` pairs: the first one is to replace, the
@@ -37,24 +43,28 @@ Key_NoKey}` pair.
 
 ## Plugin methods
 
-```c++
-namespace Akela {
-  class ShapeShifter {
-  public:
-    typedef struct {
-      Key original, replacement;
-    } dictionary_t;
+The plugin provides the `ShapeShifter` object, with the following methods:
 
-    ShapeShifter (const dictionary_t dictionary[]);
+### `.configure(dictionary)`
 
-    void on (void);
-    void off (void);
-  };
-};
-```
+Tells `ShapeShifter` to use the specified dictionary. The dictionary is an array
+of `Akela::ShapeShifter::dictionary_t` elements, which is just a very verbose
+way of saying that its a pair of keys. The first one is the one to replace, and
+the other is to replace it with.
 
-The `on()` and `off()` methods can be called anytime, to turn the plugin on and
-off, respectively.
+Be aware that the replacement key will be pressed with `Shift` held, so do keep
+that in mind!
+
+### `.on()`
+
+Turns the shape shifting functionality on. Requires that the plugin
+be [configured](#configuredictionary) first.
+
+### `.off()`
+
+Turns the shape shifting functionality off. In this case, no transformations
+will be applied, and even if symbols appear in the dictionary, they will be
+ignored until the plugin is turned back on.
 
 ## Further reading
 
