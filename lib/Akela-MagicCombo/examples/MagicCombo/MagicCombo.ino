@@ -30,8 +30,6 @@ Akela::MagicCombo::dictionary_t dictionary[] = {
   }
 };
 
-Akela::MagicCombo exampleMagic (dictionary);
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -54,6 +52,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
+  MagicCombo.configure (dictionary);
   Keyboardio.setup (KEYMAP_SIZE);
 }
 

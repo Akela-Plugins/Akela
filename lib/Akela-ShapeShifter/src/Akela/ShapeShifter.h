@@ -28,7 +28,9 @@ namespace Akela {
       Key original, replacement;
     } dictionary_t;
 
-    ShapeShifter (const dictionary_t dictionary[]);
+    ShapeShifter (void);
+
+    static void configure (const dictionary_t dictionary[]);
 
     void on (void);
     void off (void);
@@ -38,3 +40,5 @@ namespace Akela {
     static bool noOpHook (Key, byte row, byte col, uint8_t keyState);
   };
 };
+
+static Akela::ShapeShifter ShapeShifter;

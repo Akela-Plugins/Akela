@@ -23,10 +23,10 @@
 
 #define TD(n) (Key){.raw = Akela::Ranges::TD_FIRST + n }
 
-#define tapDanceActionKeys(o, tapCount, tapDanceAction, ...) ({        \
-    static const Key __k[] PROGMEM = { __VA_ARGS__ };                   \
-    o.actionKeys (tapCount, tapDanceAction,                             \
-                  sizeof (__k) / sizeof (Key), &__k[0]);                \
+#define tapDanceActionKeys(tapCount, tapDanceAction, ...) ({            \
+      static const Key __k[] PROGMEM = { __VA_ARGS__ };                 \
+      TapDance.actionKeys (tapCount, tapDanceAction,                    \
+                           sizeof (__k) / sizeof (Key), &__k[0]);       \
     })
 
 namespace Akela {
@@ -56,3 +56,5 @@ namespace Akela {
 };
 
 void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction);
+
+static Akela::TapDance TapDance;

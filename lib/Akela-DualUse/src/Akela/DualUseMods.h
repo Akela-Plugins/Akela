@@ -32,8 +32,9 @@
 namespace Akela {
   class DualUseMods {
   public:
-    DualUseMods (uint8_t defaultAction);
-    DualUseMods (void) : DualUseMods (1) {};
+    DualUseMods (void);
+
+    static void configure (uint8_t offAction);
 
     void on (void);
     void off (void);

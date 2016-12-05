@@ -43,3 +43,5 @@ namespace Akela {
     static void loopHook (void);
   };
 };
+
+static Akela::OneShotLayers OneShotLayers;

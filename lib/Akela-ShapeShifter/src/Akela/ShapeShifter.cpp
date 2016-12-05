@@ -23,10 +23,13 @@ namespace Akela {
 
   static const ShapeShifter::dictionary_t *shapeShiftDictionary = NULL;
 
-  ShapeShifter::ShapeShifter (const dictionary_t dictionary[]) {
-    shapeShiftDictionary = (const dictionary_t *)dictionary;
-
+  ShapeShifter::ShapeShifter (void) {
     event_handler_hook_add (this->eventHandlerHook);
+  }
+
+  void
+  ShapeShifter::configure (const dictionary_t dictionary[]) {
+    shapeShiftDictionary = (const dictionary_t *)dictionary;
   }
 
   void
@@ -46,6 +49,9 @@ namespace Akela {
 
   bool
   ShapeShifter::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!shapeShiftDictionary)
+      return false;
+
     // If Shift is not active, bail out early.
     if (!Keyboard.isModifierActive (Key_LShift.rawKey) &&
         !Keyboard.isModifierActive (Key_RShift.rawKey))

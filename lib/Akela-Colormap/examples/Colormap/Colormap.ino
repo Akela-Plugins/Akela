@@ -83,11 +83,10 @@ const cRGB colors[] PROGMEM = {
   {0xf1, 0xf1, 0xf0},
 };
 
-static Akela::ColormapEffect colormapEffect (colors, colormap);
-
 void setup () {
   Keyboardio.setup (KEYMAP_SIZE);
-  colormapEffect.activate ();
+  ColormapEffect.configure (colors, colormap);
+  ColormapEffect.activate ();
 }
 
 void loop () {

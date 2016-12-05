@@ -26,11 +26,14 @@ namespace Akela {
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
   static Key leftParen, rightParen;
 
-  SpaceCadetShift::SpaceCadetShift (Key left, Key right) {
+  SpaceCadetShift::SpaceCadetShift () {
+    event_handler_hook_add (this->eventHandlerHook);
+  }
+
+  void
+  SpaceCadetShift::configure (Key left, Key right) {
     leftParen = left;
     rightParen = right;
-
-    event_handler_hook_add (this->eventHandlerHook);
   }
 
   void

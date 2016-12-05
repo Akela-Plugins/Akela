@@ -40,8 +40,6 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ),
 };
 
-static Akela::SpaceCadetShift spaceCadetShift;
-
 void setup () {
   Keyboardio.setup (KEYMAP_SIZE);
 }

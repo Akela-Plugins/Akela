@@ -22,7 +22,7 @@ namespace Akela {
   static uint8_t heatmap[ROWS][COLS];
   static uint16_t totalKeys;
   static uint8_t highestCount;
-  static uint16_t updateFrequency;
+  static uint16_t updateFrequency = 500;
   static uint16_t loopCount;
 
   static const float heatColors[][3] = {{0.3, 0.3, 0.3}, {0.3, 1, 0.3}, {1, 1, 0.3}, {1, 0.3, 0.3}};
@@ -63,11 +63,14 @@ namespace Akela {
     return {r, g, b};
   }
 
-  Heatmap::Heatmap (uint16_t updateFreq) {
+  Heatmap::Heatmap (void) {
     LEDControl.mode_add (this);
     event_handler_hook_add (this->eventHook);
     loop_hook_add (this->loopHook);
+  }
 
+  void
+  Heatmap::configure (uint16_t updateFreq) {
     updateFrequency = updateFreq;
   }
 
