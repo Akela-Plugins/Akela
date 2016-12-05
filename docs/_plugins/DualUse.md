@@ -2,7 +2,7 @@
 title: "Dual-use modifier & layer keys"
 permalink: /plugins/DualUse/
 excerpt: "Dual-use modifier and layer key plugin."
-modified: 2016-12-04T12:30:00+01:00
+modified: 2016-12-05T11:00:00+01:00
 ---
 
 {% include toc %}
@@ -62,7 +62,6 @@ behaviour applied.
 namespace Akela {
   class DualUseMods {
   public:
-    DualUseMods (uint8_t defaultMode, uint8_t defaultAction);
     DualUseMods (uint8_t defaultAction);
     DualUseMods (void);
 
@@ -71,7 +70,6 @@ namespace Akela {
   };
   class DualUseLayers {
   public:
-    DualUseLayers (uint8_t defaultMode, uint8_t defaultAction);
     DualUseLayers (uint8_t defaultAction);
     DualUseLayers (void);
 
@@ -81,14 +79,12 @@ namespace Akela {
 };
 ```
 
-Like most plugins that add new behaviour, this one can be configured to start
-with the new behaviour disabled. However, to do so, we must know what the
-disabled behaviour should be: act as a modifier, or as a normal key?
-
-With `defaultMode` set to *off*, the key will act as a normal key, sending
-either the first (the modifier or layer switch) or the second (the alternate
-key) to the host, depending on the value of `defaultAction`. If the
-`defaultMode` is *on* (the default), the key will behave as explained above.
+By default, the `DualUse` plugins will start enabled, like all other plugins.
+However, when turned off, they must be aware which of the two actions they
+should perform in off state. By default, unless otherwise specified with the
+`defaultAction` constructor argument, they will perform the second action, the
+single key action. This can be changed to be the modifier or the layer switch,
+by setting `defaultAction` to zero.
 
 It is possible to toggle the feature on and off, with the `on()` and `off()`
 methods of the appropriate object.

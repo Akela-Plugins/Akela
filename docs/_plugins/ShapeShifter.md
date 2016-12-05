@@ -2,7 +2,7 @@
 title: "Shifted symbol replacement"
 permalink: /plugins/ShapeShifter/
 excerpt: "Replace the shifted symbol on a number of keys."
-modified: 2016-12-04T13:05:00+01:00
+modified: 2016-12-05T11:20:00+01:00
 ---
 
 {% include toc %}
@@ -45,7 +45,6 @@ namespace Akela {
       Key original, replacement;
     } dictionary_t;
 
-    ShapeShifter (uint8_t defaultMode, const dictionary_t dictionary[]);
     ShapeShifter (const dictionary_t dictionary[]);
 
     void on (void);
@@ -53,10 +52,6 @@ namespace Akela {
   };
 };
 ```
-
-Like most plugins that add new behaviour, this one can be configured to start
-with the new behaviour disabled. In this case, no replacements will be made
-until the plugin is activated.
 
 The `on()` and `off()` methods can be called anytime, to turn the plugin on and
 off, respectively.

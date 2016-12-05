@@ -159,14 +159,9 @@ namespace Akela {
 
   // --- glue code ---
 
-  OneShotMods::OneShotMods (uint8_t defaultState) {
-    if (defaultState == Default::Off) {
-      event_handler_hook_add (eventHandlerPassthroughHook);
-      loop_hook_add (loopNoOpHook);
-    } else {
-      event_handler_hook_add (eventHandlerHook);
-      loop_hook_add (loopHook);
-    }
+  OneShotMods::OneShotMods (void) {
+    event_handler_hook_add (eventHandlerHook);
+    loop_hook_add (loopHook);
   }
 
   bool

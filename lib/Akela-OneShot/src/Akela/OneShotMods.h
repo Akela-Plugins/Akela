@@ -27,8 +27,7 @@
 namespace Akela {
   class OneShotMods {
   public:
-    OneShotMods (uint8_t defaultState);
-    OneShotMods (void) : OneShotMods (Default::On) {};
+    OneShotMods (void);
 
     static void on (void);
     static void off (void);

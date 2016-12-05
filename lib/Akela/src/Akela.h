@@ -21,13 +21,6 @@
 #define DEFAULT_TIMEOUT 40
 
 namespace Akela {
-  namespace Default {
-    enum {
-      Off,
-      On
-    };
-  };
-
   namespace Ranges {
     enum {
       AKELA_FIRST = 0xc000,

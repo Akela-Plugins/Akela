@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-04T12:15:00+01:00
+modified: 2016-12-05T11:15:00+01:00
 ---
 
 {% include toc %}
@@ -65,7 +65,6 @@ modifiers, or momentary layer keys into one-shots.
 namespace Akela {
   class OneShotMods {
   public:
-    OneShotMods (uint8_t defaultState);
     OneShotMods (void);
 
     static void on (void);
@@ -77,7 +76,6 @@ namespace Akela {
 
   class OneShotLayers {
   public:
-    OneShotLayers (uint8_t defaultState);
     OneShotLayers (void);
 
     static void on (void);

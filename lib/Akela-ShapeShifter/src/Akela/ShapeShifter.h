@@ -28,9 +28,7 @@ namespace Akela {
       Key original, replacement;
     } dictionary_t;
 
-    ShapeShifter (uint8_t defaultMode, const dictionary_t dictionary[]);
-    ShapeShifter (const dictionary_t dictionary[])
-      : ShapeShifter (Akela::Default::On, dictionary) {};
+    ShapeShifter (const dictionary_t dictionary[]);
 
     void on (void);
     void off (void);
