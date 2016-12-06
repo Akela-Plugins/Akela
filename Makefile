@@ -15,16 +15,22 @@ ifeq (${VERBOSE},2)
 VERBOSE_BUILD				= -verbose
 endif
 
-EXAMPLES						= $(sort $(subst lib/Akela-,firmware/,$(wildcard lib/Akela-*)))
+FW_EXAMPLES						= $(sort $(subst lib/Akela-,firmware/,$(wildcard lib/Akela-*)))
 
-all: firmware
+EXAMPLES							= $(sort $(subst lib/Akela-Examples/examples/,examples/,$(wildcard lib/Akela-Examples/examples/*)))
 
-firmware: ${EXAMPLES}
+all: firmware examples
+
+firmware: ${FW_EXAMPLES}
 firmware/%: .FORCE
 	${MAKE} -C lib/Akela-$*/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=$* SKETCH=$*
+
+examples: ${EXAMPLES}
+examples/%: .FORCE
+	${MAKE} -C lib/Akela-Examples/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=Examples SKETCH=$*
 
 clean:
 	${SS} echo Cleaning in the firmwares ...
 	${SC} rm -rf firmware
 
-.PHONY: .FORCE firmware all clean
+.PHONY: .FORCE firmware examples all clean
