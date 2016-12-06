@@ -30,6 +30,8 @@ plugins:
     children:
       - title: "Colormap"
         url: /plugins/Colormap/
+      - title: "HostOS"
+        url: /plugins/HostOS/
       - title: "Unicode input"
         url: /plugins/Unicode/
       - title: "Magic combos"
