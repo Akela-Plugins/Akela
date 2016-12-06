@@ -17,62 +17,21 @@
  */
 
 #include "Unicode.h"
-#include <EEPROM.h>
-#include <FingerprintUSBHost.h>
-
-#define EEPROM_UNICODE_MODE_LOCATION 2
 
 namespace Akela {
-
-  static Unicode::Mode inputMode;
 
   Unicode::Unicode (void) {
   }
 
   void
   Unicode::setup (void) {
-    if (inputMode != AUTO) {
-      return;
-    }
-
-    if ((inputMode = (Mode)EEPROM.read (EEPROM_UNICODE_MODE_LOCATION)) != AUTO)
-      return;
-
-    Serial.begin (9600);
-
-    delay (15000);
-
-    switch (FingerprintUSBHost.guessHostOS ()) {
-    case GuessedHost::WINDOWS:
-      inputMode = WINDOWS;
-      break;
-    case GuessedHost::LINUX:
-      inputMode = LINUX;
-      break;
-    case GuessedHost::MACOS:
-      inputMode = OSX;
-      break;
-    default:
-      inputMode = CUSTOM;
-      break;
-    }
-  }
-
-  void
-  Unicode::setMode (Mode inputMode_) {
-    inputMode = inputMode_;
-    EEPROM.update (EEPROM_UNICODE_MODE_LOCATION, inputMode);
-  }
-
-  Unicode::Mode
-  Unicode::getMode (void) {
-    return inputMode;
+    ::HostOS.setup ();
   }
 
   void
   Unicode::start (void) {
-    switch (inputMode) {
-    case LINUX:
+    switch (::HostOS.os ()) {
+    case HostOS::LINUX:
       Keyboard.press (Key_LCtrl.rawKey);
       Keyboard.press (Key_LShift.rawKey);
       Keyboard.press (Key_U.rawKey);
@@ -82,7 +41,7 @@ namespace Akela {
       Keyboard.release (Key_U.rawKey);
       Keyboard.sendReport ();
       break;
-    case WINDOWS:
+    case HostOS::WINDOWS:
       Keyboard.press (Key_RAlt.rawKey);
       Keyboard.sendReport ();
       Keyboard.release (Key_RAlt.rawKey);
@@ -92,7 +51,7 @@ namespace Akela {
       Keyboard.release (Key_U.rawKey);
       Keyboard.sendReport ();
       break;
-    case OSX:
+    case HostOS::OSX:
       Keyboard.press (Key_LAlt.rawKey);
       break;
     default:
@@ -103,11 +62,11 @@ namespace Akela {
 
   void
   Unicode::input (void) {
-    switch (inputMode) {
-    case LINUX:
-    case WINDOWS:
+    switch (::HostOS.os ()) {
+    case HostOS::LINUX:
+    case HostOS::WINDOWS:
       break;
-    case OSX:
+    case HostOS::OSX:
       Keyboard.press (Key_LAlt.rawKey);
       break;
     default:
@@ -118,16 +77,16 @@ namespace Akela {
 
   void
   Unicode::end (void) {
-    switch (inputMode) {
-    case LINUX:
+    switch (::HostOS.os ()) {
+    case HostOS::LINUX:
       Keyboard.press (Key_Space.rawKey);
       Keyboard.sendReport ();
       Keyboard.release (Key_Space.rawKey);
       Keyboard.sendReport ();
       break;
-    case WINDOWS:
+    case HostOS::WINDOWS:
       break;
-    case OSX:
+    case HostOS::OSX:
       Keyboard.release (Key_LAlt.rawKey);
       Keyboard.sendReport ();
       break;

@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define AKELA_HOSTOS_GUESSER 1
+
 #include <KeyboardioFirmware.h>
 #include <Akela-Unicode.h>
 

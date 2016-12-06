@@ -19,24 +19,14 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela-HostOS.h>
 
 namespace Akela {
   class Unicode {
   public:
-    typedef enum {
-      AUTO,
-      LINUX,
-      OSX,
-      WINDOWS,
-      CUSTOM
-    } Mode;
-
     Unicode (void);
 
     static void setup (void);
-
-    static void setMode (Mode inputMode);
-    static Mode getMode (void);
 
     static void start (void);
     static void input (void);
