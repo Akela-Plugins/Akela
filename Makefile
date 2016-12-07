@@ -15,7 +15,7 @@ ifeq (${VERBOSE},2)
 VERBOSE_BUILD				= -verbose
 endif
 
-FW_EXAMPLES						= $(sort $(subst lib/Akela-,firmware/,$(wildcard lib/Akela-*)))
+FW_EXAMPLES						= $(filter-out firmware/Examples,$(sort $(subst lib/Akela-,firmware/,$(wildcard lib/Akela-*))))
 
 EXAMPLES							= $(sort $(subst lib/Akela-Examples/examples/,examples/,$(wildcard lib/Akela-Examples/examples/*)))
 
