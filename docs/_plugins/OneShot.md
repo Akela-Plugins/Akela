@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-05T14:30:00+01:00
+modified: 2016-12-08T13:20:00+01:00
 ---
 
 {% include toc %}
@@ -86,10 +86,14 @@ active only until after the next key getting pressed. And this, in turn, is
 useful for macros that need to fiddle with either modifier or layer state: if
 one-shots are not active, they need not restore the original state.
 
-### `.cancel()`
+### `.cancel([withStickies])`
 
 The `cancel()` method can be used to cancel any pending one-shot effects, useful
 when one changed their minds, and does not wish to wait for the timeout.
+
+The optional `withStickies` argument, if set to `true`, will also cancel sticky
+one-shot effects. If omitted, it defaults to `false`, and not canceling
+stickies.
 
 ### `.on()`
 

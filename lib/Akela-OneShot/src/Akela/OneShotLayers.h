@@ -32,7 +32,8 @@ namespace Akela {
     static void off (void);
     static void enableAuto (void);
     static bool isActive (void);
-    static void cancel (void);
+    static void cancel (bool withStickies);
+    static void cancel (void) { cancel (false); };
 
   private:
     static bool eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
