@@ -29,6 +29,7 @@ namespace Akela {
   static uint32_t stickyState = 0;
   static Key prevKey;
   static bool shouldCancel = false;
+  static bool shouldCancelStickies = false;
 
   // --- helper macros ------
 
@@ -119,8 +120,7 @@ namespace Akela {
     uint8_t idx = mappedKey.rawKey - OSL_FIRST;
 
     if (isSticky(idx)) {
-      clearSticky (idx);
-      cancel ();
+      cancel (true);
       return true;
     } else if (isSameAsPrevious (mappedKey)) {
       setSticky (idx);
@@ -149,15 +149,21 @@ namespace Akela {
       if (!isOneShot (i))
         continue;
 
-      if (shouldCancel && !isSticky (i)) {
-        clearOneShot (i);
-        Layer.off (i);
+      if (shouldCancel) {
+        if (isSticky (i)) {
+          if (shouldCancelStickies)
+            clearSticky (i);
+        } else {
+          clearOneShot (i);
+          Layer.off (i);
+        }
       }
     }
 
     if (shouldCancel) {
       Timer = 0;
       shouldCancel = false;
+      shouldCancelStickies = false;
     }
   }
 
@@ -174,8 +180,9 @@ namespace Akela {
   }
 
   void
-  OneShotLayers::cancel (void) {
+  OneShotLayers::cancel (bool withStickies) {
     shouldCancel = true;
+    shouldCancelStickies = withStickies;
   }
 
   void
