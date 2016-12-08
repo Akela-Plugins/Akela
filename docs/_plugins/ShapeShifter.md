@@ -2,7 +2,7 @@
 title: "Shifted symbol replacement"
 permalink: /plugins/ShapeShifter/
 excerpt: "Replace the shifted symbol on a number of keys."
-modified: 2016-12-05T15:15:00+01:00
+modified: 2016-12-08T14:15:00+01:00
 ---
 
 {% include toc %}
@@ -47,24 +47,24 @@ The plugin provides the `ShapeShifter` object, with the following methods:
 
 ### `.configure(dictionary)`
 
-Tells `ShapeShifter` to use the specified dictionary. The dictionary is an array
-of `Akela::ShapeShifter::dictionary_t` elements, which is just a very verbose
-way of saying that its a pair of keys. The first one is the one to replace, and
-the other is to replace it with.
-
-Be aware that the replacement key will be pressed with `Shift` held, so do keep
-that in mind!
+> Tells `ShapeShifter` to use the specified dictionary. The dictionary is an
+> array of `Akela::ShapeShifter::dictionary_t` elements, which is just a very
+> verbose way of saying that its a pair of keys. The first one is the one to
+> replace, and the other is to replace it with.
+>
+> Be aware that the replacement key will be pressed with `Shift` held, so do
+> keep that in mind!
 
 ### `.on()`
 
-Turns the shape shifting functionality on. Requires that the plugin
-be [configured](#configuredictionary) first.
+> Turns the shape shifting functionality on. Requires that the plugin
+> be [configured](#configuredictionary) first.
 
 ### `.off()`
 
-Turns the shape shifting functionality off. In this case, no transformations
-will be applied, and even if symbols appear in the dictionary, they will be
-ignored until the plugin is turned back on.
+> Turns the shape shifting functionality off. In this case, no transformations
+> will be applied, and even if symbols appear in the dictionary, they will be
+> ignored until the plugin is turned back on.
 
 ## Further reading
 

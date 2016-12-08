@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-08T13:20:00+01:00
+modified: 2016-12-08T14:00:00+01:00
 ---
 
 {% include toc %}
@@ -54,14 +54,14 @@ There are two macros the plugin provides:
 
 ### `OSM(mod)`
 
-A macro that takes a single argument, the name of the modifier: `LCtrl`,
-`LShift`, `LAlt`, `LGUI` or their right-side variant. When marked up with this
-macro, the modifier will act as a one-shot modifier.
+> A macro that takes a single argument, the name of the modifier: `LCtrl`,
+> `LShift`, `LAlt`, `LGUI` or their right-side variant. When marked up with this
+> macro, the modifier will act as a one-shot modifier.
 
 ### `OSL(layer)`
 
-Takes a layer number as argument, and sets up the key to act as a one-shot layer
-key.
+> Takes a layer number as argument, and sets up the key to act as a one-shot
+> layer key.
 
 ## Plugin methods
 
@@ -70,43 +70,44 @@ the same set of methods:
 
 ### `.enableAuto()`
 
-Automatically turns modifiers (if called on `OneShotMods`) or momentary layer
-switches (if called on `OneShotLayers`) into their one-shot variant. It will
-only turn keys on the keymap into one-shots: if any macro injects a modifier or
-a momentary layer switch key, those will be left alone, as-is.
-
-This **must** be called before `Keyboardio.setup()` in the `setup()` method of
-your Sketch.
+> Automatically turns modifiers (if called on `OneShotMods`) or momentary layer
+> switches (if called on `OneShotLayers`) into their one-shot variant. It will
+> only turn keys on the keymap into one-shots: if any macro injects a modifier
+> or a momentary layer switch key, those will be left alone, as-is.
+>
+> This **must** be called before `Keyboardio.setup()` in the `setup()` method of
+> your Sketch.
 
 ### `.isActive()`
 
-Returns if any one-shot key is in flight. This makes it possible to
-differentiate between having a modifier or layer active, versus having them
-active only until after the next key getting pressed. And this, in turn, is
-useful for macros that need to fiddle with either modifier or layer state: if
-one-shots are not active, they need not restore the original state.
+> Returns if any one-shot key is in flight. This makes it possible to
+> differentiate between having a modifier or layer active, versus having them
+> active only until after the next key getting pressed. And this, in turn, is
+> useful for macros that need to fiddle with either modifier or layer state: if
+> one-shots are not active, they need not restore the original state.
 
 ### `.cancel([withStickies])`
 
-The `cancel()` method can be used to cancel any pending one-shot effects, useful
-when one changed their minds, and does not wish to wait for the timeout.
-
-The optional `withStickies` argument, if set to `true`, will also cancel sticky
-one-shot effects. If omitted, it defaults to `false`, and not canceling
-stickies.
+> The `cancel()` method can be used to cancel any pending one-shot effects,
+> useful when one changed their minds, and does not wish to wait for the
+> timeout.
+>
+> The optional `withStickies` argument, if set to `true`, will also cancel
+> sticky one-shot effects. If omitted, it defaults to `false`, and not canceling
+> stickies.
 
 ### `.on()`
 
-Turns the one-shot behaviour on. This method is idempotent, you can call it any
-number of times, at any time.
+> Turns the one-shot behaviour on. This method is idempotent, you can call it
+> any number of times, at any time.
 
 ### `.off()`
 
-The counterpart of the `on()` method, this turns off one-shot behaviour.
-Modifiers will act as normal modifiers (if called on `OneShotMods`), and
-one-shot layer keys will act as momentary layer switchers (if called on
-`OneShotLayers`). As `on()`, this method is idempotent, and can be called at any
-time, from anywhere.
+> The counterpart of the `on()` method, this turns off one-shot behaviour.
+> Modifiers will act as normal modifiers (if called on `OneShotMods`), and
+> one-shot layer keys will act as momentary layer switchers (if called on
+> `OneShotLayers`). As `on()`, this method is idempotent, and can be called at
+> any time, from anywhere.
 
 ## Further reading
 

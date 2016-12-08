@@ -2,7 +2,7 @@
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
 excerpt: "Space Cadet Shift plugin."
-modified: 2016-12-05T14:40:00+01:00
+modified: 2016-12-08T14:15:00+01:00
 ---
 
 {% include toc %}
@@ -43,13 +43,13 @@ The plugin has a number of methods available on the `SpaceCadetShift` object:
 
 ### `.configure(left, right)`
 
-Used to change the configuration of the plugin, namely, the keys used for the
-left and right parens. These keys will be pressed with `Shift` held, and should
-result in the opening and closing parens.
-
-As an example, assuming a Hungarian QWERTZ layout where the parens are not on
-`9` and `0`, we can use the following little snippet in the `setup` method of
-our Sketch:
+> Used to change the configuration of the plugin, namely, the keys used for the
+> left and right parens. These keys will be pressed with `Shift` held, and
+> should result in the opening and closing parens.
+>
+> As an example, assuming a Hungarian QWERTZ layout where the parens are not on
+> `9` and `0`, we can use the following little snippet in the `setup` method of
+> our Sketch:
 
 ```c++
 void setup () {
@@ -60,12 +60,12 @@ void setup () {
 
 ### `.on()`
 
-This method turns the SpaceCadet Shift behaviour on, if it was turned off.
+> This method turns the SpaceCadet Shift behaviour on, if it was turned off.
 
 ### `.off()`
 
-Turns the SpaceCadet Shift behaviour off, making the `Shift` keys work as they
-did before, without the additional behaviour.
+> Turns the SpaceCadet Shift behaviour off, making the `Shift` keys work as they
+> did before, without the additional behaviour.
 
 ## Further reading
 
