@@ -1,0 +1,1 @@
+../../docs/_plugins/LEDEffects.md

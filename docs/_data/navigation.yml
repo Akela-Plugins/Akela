@@ -25,6 +25,8 @@ plugins:
         url: /plugins/TapDance/
       - title: "Shifted symbol replacement"
         url: /plugins/ShapeShifter/
+      - title: "LED Effects"
+        url: /plugins/LEDEffects/
   - title: Extensions
     url: /plugins/#extensions
     children:
