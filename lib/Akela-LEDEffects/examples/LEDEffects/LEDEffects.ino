@@ -20,7 +20,6 @@
 #include <Akela-LEDEffects.h>
 
 #include "LED-Off.h"
-#include "Akela/Miami.h"
 
 static LEDOff LEDOffEffect;
 
