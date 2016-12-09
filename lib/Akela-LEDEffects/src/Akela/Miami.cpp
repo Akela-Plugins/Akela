@@ -23,12 +23,20 @@
 
 namespace Akela {
   namespace LEDEffects {
+
+    static uint32_t previousLayerState;
+
     Miami::Miami (void) {
       LEDControl.mode_add (this);
     }
 
     void
     Miami::update (void) {
+      uint8_t layerState = Layer.getLayerState ();
+      if (previousLayerState == layerState)
+        return;
+      previousLayerState = layerState;
+
       for (uint8_t r = 0; r < ROWS; r++) {
         for (uint8_t c = 0; c < COLS; c++) {
           Key k = Layer.lookup (r, c);
