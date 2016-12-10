@@ -110,6 +110,7 @@ namespace Akela {
         return false;
       }
 
+      leaderTimer = 0;
       leaderSeq[leaderSeqPos].raw = mappedKey.raw;
       actionIndex = lookup ();
 
