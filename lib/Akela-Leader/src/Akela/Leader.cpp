@@ -73,6 +73,7 @@ namespace Akela {
 
   void
   Leader::reset (void) {
+    leaderTimer = 0;
     leaderSeqPos = 0;
     leaderSeq[0].raw = Key_NoKey.raw;
   }
