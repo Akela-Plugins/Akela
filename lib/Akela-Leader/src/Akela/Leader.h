@@ -39,6 +39,7 @@ namespace Akela {
     Leader (void);
 
     static void configure (const dictionary_t dictionary[]);
+    static void reset (void);
 
   private:
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);

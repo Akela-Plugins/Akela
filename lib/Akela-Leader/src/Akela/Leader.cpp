@@ -71,6 +71,12 @@ namespace Akela {
     leaderDictionary = dictionary;
   }
 
+  void
+  Leader::reset (void) {
+    leaderSeqPos = 0;
+    leaderSeq[0].raw = Key_NoKey.raw;
+  }
+
   // --- hooks ---
   bool
   Leader::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
@@ -99,7 +105,7 @@ namespace Akela {
     if (key_toggled_on (keyState)) {
       leaderSeqPos++;
       if (leaderSeqPos > LEADER_MAX_SEQUENCE_LENGTH) {
-        leaderSeq[0].raw = Key_NoKey.raw;
+        reset ();
         return false;
       }
 
@@ -108,7 +114,7 @@ namespace Akela {
 
       if (actionIndex < 0) {
         // No match, abort and pass it through.
-        leaderSeq[0].raw = Key_NoKey.raw;
+        reset ();
         return false;
       }
       return true;
@@ -119,7 +125,7 @@ namespace Akela {
 
     if (actionIndex < 0) {
       // No match, abort and pass it through.
-      leaderSeq[0].raw = Key_NoKey.raw;
+      reset ();
       return false;
     }
 
@@ -135,8 +141,7 @@ namespace Akela {
     if (leaderTimer < leaderTimeOut)
       leaderTimer++;
 
-    if (leaderTimer >= leaderTimeOut) {
-      leaderSeq[0].raw = Key_NoKey.raw;
-    }
+    if (leaderTimer >= leaderTimeOut)
+      reset ();
   }
 };
