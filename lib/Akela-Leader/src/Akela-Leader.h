@@ -18,26 +18,4 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
-
-namespace Akela {
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      DUL_FIRST,
-      DUL_LAST    = DUL_FIRST + (32 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-      LEAD_FIRST,
-      LEAD_LAST   = LEAD_FIRST + 7,
-
-      AKELA_SAFE_START,
-    };
-  };
-};
+#include "Akela/Leader.h"

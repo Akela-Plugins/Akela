@@ -18,26 +18,33 @@
 
 #pragma once
 
-#define DEFAULT_TIMEOUT 40
+#include <Akela.h>
+#include <KeyboardioFirmware.h>
+
+#define LEADER_MAX_SEQUENCE_LENGTH 16
+
+#define LEAD(n) (Key){ .raw = Akela::Ranges::LEAD_FIRST + n }
+
+#define LSEQ(...) { __VA_ARGS__, Key_NoKey }
+#define LDICT(...) { __VA_ARGS__, {{Key_NoKey}, NULL} }
 
 namespace Akela {
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      DUL_FIRST,
-      DUL_LAST    = DUL_FIRST + (32 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-      LEAD_FIRST,
-      LEAD_LAST   = LEAD_FIRST + 7,
+  class Leader {
+  public:
+    typedef struct {
+      Key sequence[LEADER_MAX_SEQUENCE_LENGTH + 1];
+      void (*action) (void);
+    } dictionary_t;
 
-      AKELA_SAFE_START,
-    };
+    Leader (void);
+
+    static void configure (const dictionary_t dictionary[]);
+
+  private:
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (void);
+    static int8_t lookup (void);
   };
 };
+
+static Akela::Leader Leader;
