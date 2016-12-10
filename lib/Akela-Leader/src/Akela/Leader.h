@@ -25,8 +25,8 @@
 
 #define LEAD(n) (Key){ .raw = Akela::Ranges::LEAD_FIRST + n }
 
-#define LSEQ(...) { __VA_ARGS__, Key_NoKey }
-#define LDICT(...) { __VA_ARGS__, {{Key_NoKey}, NULL} }
+#define LEADER_SEQ(...) { __VA_ARGS__, Key_NoKey }
+#define LEADER_DICT(...) { __VA_ARGS__, {{Key_NoKey}, NULL} }
 
 namespace Akela {
   class Leader {
