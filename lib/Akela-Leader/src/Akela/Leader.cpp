@@ -134,7 +134,7 @@ namespace Akela {
       return false;
     }
 
-    (*(leaderDictionary[actionIndex].action)) ();
+    (*(leaderDictionary[actionIndex].action)) (actionIndex);
     return true;
   }
 

@@ -31,9 +31,10 @@
 namespace Akela {
   class Leader {
   public:
+    typedef void (*action_t) (uint8_t seqIndex);
     typedef struct {
       Key sequence[LEADER_MAX_SEQUENCE_LENGTH + 1];
-      void (*action) (void);
+      action_t action;
     } dictionary_t;
 
     Leader (void);
