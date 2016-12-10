@@ -33,6 +33,7 @@ namespace Akela {
     static void end (void);
 
     static void type (uint32_t unicode);
+    static void type_code (uint32_t unicode);
   };
 };
 
