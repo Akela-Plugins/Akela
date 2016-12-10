@@ -40,11 +40,11 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ),
 };
 
-static void leaderTestA (void) {
+static void leaderTestA (uint8_t seqIndex) {
   Serial.println (F("leaderTestA"));
 }
 
-static void leaderTestAA (void) {
+static void leaderTestAA (uint8_t seqIndex) {
   Serial.println (F("leaderTestAA"));
 }
 
