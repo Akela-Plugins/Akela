@@ -21,8 +21,7 @@
 #include <KeyboardioFirmware.h>
 #include <Akela.h>
 
-#define _LT_KEY(key) Key_ ## key
-#define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + _LT_KEY(key).rawKey }
+#define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + (Key_ ## key).rawKey }
 
 namespace Akela {
   class DualUseLayers {

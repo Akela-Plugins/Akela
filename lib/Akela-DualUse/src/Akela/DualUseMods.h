@@ -21,9 +21,8 @@
 #include <KeyboardioFirmware.h>
 #include <Akela.h>
 
-#define _MT_KEY(key) Key_ ## key
-#define _MT_MOD(mod) ((_MT_KEY(mod).rawKey - Key_LCtrl.rawKey) << 8)
-#define MT(mod, key) (Key){ .raw = Akela::Ranges::DUM_FIRST + _MT_MOD(mod) + _MT_KEY(key).rawKey }
+#define _MT_MOD(mod) (((Key_ ## mod).rawKey - Key_LCtrl.rawKey) << 8)
+#define MT(mod, key) (Key){ .raw = Akela::Ranges::DUM_FIRST + _MT_MOD(mod) + (Key_ ## key).rawKey }
 #define SFT_T(key) MT(LShift, key)
 #define CTL_T(key) MT(LCtrl, key)
 #define ALT_T(key) MT(LAlt, key)

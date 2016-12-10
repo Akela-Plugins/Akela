@@ -21,8 +21,7 @@
 #include <Akela.h>
 #include <KeyboardioFirmware.h>
 
-#define _OSM_HELPER(kc) Key_ ## kc
-#define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + _OSM_HELPER(kc).rawKey - Key_LCtrl.rawKey}
+#define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
 
 namespace Akela {
   class OneShotMods {
