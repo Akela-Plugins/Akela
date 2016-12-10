@@ -81,6 +81,9 @@ namespace Akela {
   // --- hooks ---
   bool
   Leader::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (keyState & INJECTED)
+      return false;
+
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState))
       return isLeader (mappedKey);
 
