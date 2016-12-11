@@ -197,4 +197,10 @@ namespace Akela {
   OneShotMods::enableAuto (void) {
     event_handler_hook_add (eventHandlerAutoHook);
   }
+
+  void
+  OneShotMods::inject (Key key, uint8_t keyState) {
+    eventHandlerHook (key, 255, 255, keyState);
+  }
+
 };

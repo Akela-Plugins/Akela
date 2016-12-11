@@ -201,4 +201,10 @@ namespace Akela {
   OneShotLayers::enableAuto (void) {
     event_handler_hook_add (eventHandlerAutoHook);
   }
+
+  void
+  OneShotLayers::inject (Key key, uint8_t keyState) {
+    eventHandlerHook (key, 255, 255, keyState);
+  }
+
 };

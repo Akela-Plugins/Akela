@@ -78,6 +78,11 @@ namespace Akela {
     leaderSeq[0].raw = Key_NoKey.raw;
   }
 
+  void
+  Leader::inject (Key key, uint8_t keyState) {
+    eventHandlerHook (key, 255, 255, keyState);
+  }
+
   // --- hooks ---
   bool
   Leader::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {

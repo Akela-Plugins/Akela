@@ -35,6 +35,8 @@ namespace Akela {
     static void cancel (bool withStickies);
     static void cancel (void) { cancel (false); };
 
+    void inject (Key key, uint8_t keyState);
+
   private:
     static bool eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopNoOpHook (void);

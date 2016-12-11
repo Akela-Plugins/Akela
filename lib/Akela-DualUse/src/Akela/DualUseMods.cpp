@@ -47,6 +47,11 @@ namespace Akela {
     event_handler_hook_replace (this->eventHandlerHook, this->disabledHook);
   }
 
+  void
+  DualUseMods::inject (Key key, uint8_t keyState) {
+    eventHandlerHook (key, 255, 255, keyState);
+  }
+
   bool
   DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)

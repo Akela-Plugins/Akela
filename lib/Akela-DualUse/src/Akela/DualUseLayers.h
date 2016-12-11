@@ -32,6 +32,8 @@ namespace Akela {
 
     void on (void);
     void off (void);
+
+    void inject (Key key, uint8_t keyState);
   };
 };
 

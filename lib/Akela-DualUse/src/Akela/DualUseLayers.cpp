@@ -128,4 +128,9 @@ namespace Akela {
     event_handler_hook_replace (eventHandlerHook, disabledHook);
   }
 
+  void
+  DualUseLayers::inject (Key key, uint8_t keyState) {
+    eventHandlerHook (key, 255, 255, keyState);
+  }
+
 };

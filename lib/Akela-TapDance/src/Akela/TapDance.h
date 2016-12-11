@@ -44,6 +44,8 @@ namespace Akela {
 
     void actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]);
 
+    void inject (Key key, uint8_t keyState);
+
   private:
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (void);
