@@ -48,7 +48,7 @@ static void leaderTestAA (uint8_t seqIndex) {
   Serial.println (F("leaderTestAA"));
 }
 
-static const Akela::Leader::dictionary_t leaderDictionary[] = LEADER_DICT
+static const Akela::Leader::dictionary_t leaderDictionary[] PROGMEM = LEADER_DICT
   (
    {LEADER_SEQ(LEAD(0), Key_A), leaderTestA},
    {LEADER_SEQ(LEAD(0), Key_A, Key_A), leaderTestAA}

@@ -38,11 +38,17 @@ namespace Akela {
   Leader::lookup (void) {
     bool match;
 
-    for (uint8_t seqIndex = 0; leaderDictionary[seqIndex].sequence[0].raw != Key_NoKey.raw; seqIndex++) {
+    for (uint8_t seqIndex = 0; ; seqIndex++) {
       match = true;
 
+      if (pgm_read_word (&(leaderDictionary[seqIndex].sequence[0].raw)) == Key_NoKey.raw)
+        break;
+
+      Key seqKey;
       for (uint8_t i = 0; i <= leaderSeqPos; i++) {
-        if (leaderSeq[i].raw != leaderDictionary[seqIndex].sequence[i].raw) {
+        seqKey.raw = pgm_read_word (&(leaderDictionary[seqIndex].sequence[i].raw));
+
+        if (leaderSeq[i].raw != seqKey.raw) {
           match = false;
           break;
         }
@@ -51,7 +57,8 @@ namespace Akela {
       if (!match)
         continue;
 
-      if (leaderDictionary[seqIndex].sequence[leaderSeqPos + 1].raw == Key_NoKey.raw) {
+      seqKey.raw = pgm_read_word (&(leaderDictionary[seqIndex].sequence[leaderSeqPos + 1].raw));
+      if (seqKey.raw == Key_NoKey.raw) {
         return seqIndex;
       }
     }
@@ -139,7 +146,8 @@ namespace Akela {
       return false;
     }
 
-    (*(leaderDictionary[actionIndex].action)) (actionIndex);
+    action_t leaderAction = (action_t) pgm_read_ptr (&(leaderDictionary[actionIndex].action));
+    (*leaderAction) (actionIndex);
     return true;
   }
 
