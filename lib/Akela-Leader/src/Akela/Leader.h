@@ -29,7 +29,7 @@
 #define LEADER_DICT(...) { __VA_ARGS__, {{Key_NoKey}, NULL} }
 
 namespace Akela {
-  class Leader {
+  class Leader : public Plugin {
   public:
     typedef void (*action_t) (uint8_t seqIndex);
     typedef struct {
@@ -51,4 +51,4 @@ namespace Akela {
   };
 };
 
-static Akela::Leader Leader;
+extern Akela::Leader Leader;

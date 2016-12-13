@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin."
-modified: 2016-12-08T14:00:00+01:00
+modified: 2016-12-13T09:40:00+01:00
 ---
 
 {% include toc %}
@@ -18,10 +18,16 @@ reasonable estimate.
 ## Using the plugin
 
 The plugin comes with reasonable defaults pre-configured, all one needs to do is
-include the header:
+include the header, and make sure the plugin is in use:
 
 ```c++
 #include <Akela-Heatmap.h>
+
+void setup(void) {
+  Akela::USE(HeatmapEffect);
+  
+  Keyboardio.setup(KEYMAP_SIZE);
+}
 ```
 
 This sets up the heatmap to update every 500 cycles, which is about 2.5 seconds,

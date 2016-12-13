@@ -17,6 +17,8 @@
  */
 
 #include <KeyboardioFirmware.h>
+#include <Akela-HostOS.h>
+
 #include "Macros.h"
 
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -51,6 +53,9 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 }
 
 void setup () {
+  Akela::USE (HostOS);
+  HostOS.setup ();
+
   Keyboardio.setup (KEYMAP_SIZE);
 }
 

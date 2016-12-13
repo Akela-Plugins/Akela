@@ -117,3 +117,5 @@ namespace Akela {
   }
 
 };
+
+Akela::SpaceCadetShift SpaceCadetShift;

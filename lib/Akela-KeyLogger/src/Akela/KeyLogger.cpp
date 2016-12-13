@@ -48,3 +48,5 @@ namespace Akela {
     return false;
   }
 };
+
+Akela::KeyLogger KeyLogger;

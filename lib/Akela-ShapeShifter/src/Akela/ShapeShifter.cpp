@@ -80,3 +80,5 @@ namespace Akela {
   }
 
 };
+
+Akela::ShapeShifter ShapeShifter;

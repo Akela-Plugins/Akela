@@ -24,7 +24,7 @@
 #define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
 
 namespace Akela {
-  class OneShotMods {
+  class OneShotMods : public Plugin {
   public:
     OneShotMods (void);
 
@@ -47,4 +47,4 @@ namespace Akela {
   };
 };
 
-static Akela::OneShotMods OneShotMods;
+extern Akela::OneShotMods OneShotMods;

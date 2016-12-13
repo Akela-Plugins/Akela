@@ -22,7 +22,7 @@
 #include <Akela.h>
 
 namespace Akela {
-  class ShapeShifter {
+  class ShapeShifter : public Plugin {
   public:
     typedef struct {
       Key original, replacement;
@@ -41,4 +41,4 @@ namespace Akela {
   };
 };
 
-static Akela::ShapeShifter ShapeShifter;
+extern Akela::ShapeShifter ShapeShifter;

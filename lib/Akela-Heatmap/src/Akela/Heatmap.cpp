@@ -115,3 +115,5 @@ namespace Akela {
     }
   }
 };
+
+Akela::Heatmap HeatmapEffect;

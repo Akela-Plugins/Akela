@@ -64,10 +64,6 @@ namespace Akela {
         }
       }
     }
-
-    void
-    Miami::enable (void) {
-    }
   };
 };
 

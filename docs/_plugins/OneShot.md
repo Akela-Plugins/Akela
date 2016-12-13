@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-08T14:00:00+01:00
+modified: 2016-12-13T10:10:00+01:00
 ---
 
 {% include toc %}
@@ -32,7 +32,10 @@ existing modifiers or momentary layer toggles into one-shot keys:
 ```c++
 #include <Akela-OneShot.h>
 
-void setup () {
+void setup() {
+  Akela::USE(OneShotMods);
+  Akela::USE(OneShotLayers);
+
   OneShotMods.enableAuto();
   OneShotLayers.enableAuto();
   Keyboardio.setup(KEYMAP_SIZE);
@@ -46,6 +49,13 @@ The other is to explicitly mark keys as one-shot in the keymap:
 
 // somewhere in the keymap...
 OSM(LCtrl), OSL(_FN)
+
+void setup () {
+  Akela::USE(OneShotMods);
+  Akela::USE(OneShotLayers);
+  
+  Keyboardio.setup(KEYMAP_SIZE);
+}
 ```
 
 ## Keymap markup

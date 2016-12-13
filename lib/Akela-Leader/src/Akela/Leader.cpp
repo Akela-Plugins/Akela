@@ -163,3 +163,5 @@ namespace Akela {
       reset ();
   }
 };
+
+Akela::Leader Leader;

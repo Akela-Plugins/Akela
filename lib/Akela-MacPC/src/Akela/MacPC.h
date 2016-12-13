@@ -24,7 +24,7 @@
 #define Key_AltCmd Key_LAlt
 
 namespace Akela {
-  class MacPC {
+  class MacPC : public Plugin {
   public:
     MacPC (void);
 
@@ -34,4 +34,4 @@ namespace Akela {
   };
 };
 
-static Akela::MacPC MacPC;
+extern Akela::MacPC MacPC;

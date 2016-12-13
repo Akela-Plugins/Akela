@@ -30,7 +30,7 @@
     })
 
 namespace Akela {
-  class TapDance {
+  class TapDance : public Plugin {
   public:
     typedef enum {
       Tap,
@@ -59,4 +59,4 @@ namespace Akela {
 
 void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction);
 
-static Akela::TapDance TapDance;
+extern Akela::TapDance TapDance;

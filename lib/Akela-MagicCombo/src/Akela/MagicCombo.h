@@ -19,9 +19,10 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
-  class MagicCombo {
+  class MagicCombo : public Plugin {
   public:
     typedef void (*comboCallback_t) (uint32_t leftHand, uint32_t rightHand);
     typedef struct {
@@ -37,4 +38,4 @@ namespace Akela {
   };
 };
 
-static Akela::MagicCombo MagicCombo;
+extern Akela::MagicCombo MagicCombo;

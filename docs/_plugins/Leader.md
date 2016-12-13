@@ -2,7 +2,7 @@
 title: "Leader keys"
 permalink: /plugins/Leader/
 excerpt: "VIM-style Leader keys"
-modified: 2016-12-10T12:40:00+01:00
+modified: 2016-12-13T09:50:00+01:00
 ---
 
 {% include toc %}
@@ -52,6 +52,8 @@ static const Akela::Leader::dictionary_t leaderDictionary = LEADER_DICT
   );
 
 void setup () {
+  Akela::USE (Leader);
+
   Leader.configure(shapeShiftDictionary);
   Keyboardio.setup(KEYMAP_SIZE);
 }

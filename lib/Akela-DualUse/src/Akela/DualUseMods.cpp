@@ -134,3 +134,5 @@ namespace Akela {
   }
 
 };
+
+Akela::DualUseMods DualUseMods;

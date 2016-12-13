@@ -52,6 +52,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
+  Akela::USE (MagicCombo);
+
   MagicCombo.configure (dictionary);
   Keyboardio.setup (KEYMAP_SIZE);
 }

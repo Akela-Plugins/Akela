@@ -24,7 +24,7 @@
 #define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 
 namespace Akela {
-  class OneShotLayers {
+  class OneShotLayers : public Plugin {
   public:
     OneShotLayers (void);
 
@@ -47,4 +47,4 @@ namespace Akela {
   };
 };
 
-static Akela::OneShotLayers OneShotLayers;
+extern Akela::OneShotLayers OneShotLayers;

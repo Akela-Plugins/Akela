@@ -43,6 +43,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
+  Akela::USE (MacPC);
+
   MacPC.setup ();
   Keyboardio.setup (KEYMAP_SIZE);
 }

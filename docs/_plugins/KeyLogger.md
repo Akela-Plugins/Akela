@@ -2,7 +2,7 @@
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
 excerpt: "KeyLogger plugin."
-modified: 2016-12-04T12:25:00+01:00
+modified: 2016-12-13T09:50:00+01:00
 ---
 
 {% include toc %}
@@ -22,10 +22,16 @@ enable this plugin.
 ## Using the plugin
 
 There is nothing configurable about the plugin, using it is as simple as
-including the header file:
+including the header file, and declaring it used:
 
 ```c++
 #include <Akela-KeyLogger.h>
+
+void setup(void) {
+  Akela::USE(KeyLogger);
+  
+  Keyboardio.setup(KEYMAP_SIZE);
+}
 ```
 
 That, in itself, will do all that is necessary to have the key logger active.

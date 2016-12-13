@@ -19,9 +19,10 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
-  class Heatmap : public LEDMode {
+  class Heatmap : public LEDMode, public Plugin {
   public:
     Heatmap (void);
 
@@ -34,4 +35,4 @@ namespace Akela {
   };
 };
 
-static Akela::Heatmap HeatmapEffect;
+extern Akela::Heatmap HeatmapEffect;

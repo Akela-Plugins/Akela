@@ -21,6 +21,13 @@
 #define DEFAULT_TIMEOUT 40
 
 namespace Akela {
+  class Plugin {
+  public:
+    void __use(void) volatile {};
+  };
+
+  void USE (Plugin& plugin);
+
   namespace Ranges {
     enum {
       AKELA_FIRST = 0xc000,

@@ -16,14 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "Akela.h"
 
-#include "Akela/HostOS.h"
-#include "Akela/HostOS-Tracker.h"
-#include "Akela/HostOS-Guesser.h"
-
-#ifdef AKELA_HOSTOS_GUESSER
-extern Akela::HostOS::Guesser HostOS;
-#else
-extern Akela::HostOS::Tracker HostOS;
-#endif
+namespace Akela {
+  void USE (Plugin& plugin) {
+    plugin.__use ();
+  }
+};

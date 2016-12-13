@@ -47,3 +47,5 @@ namespace Akela {
     }
   };
 };
+
+Akela::HostOS::Guesser HostOS;

@@ -19,6 +19,7 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
   namespace HostOS {
@@ -30,7 +31,7 @@ namespace Akela {
       OTHER
     } Type;
 
-    class Base {
+    class Base : public Plugin {
     public:
       void setup (void);
 

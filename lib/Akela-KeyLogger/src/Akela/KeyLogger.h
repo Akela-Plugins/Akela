@@ -19,9 +19,10 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
-  class KeyLogger {
+  class KeyLogger : public Plugin {
   public:
     KeyLogger (void);
 
@@ -30,4 +31,4 @@ namespace Akela {
   };
 };
 
-static Akela::KeyLogger KeyLogger;
+extern Akela::KeyLogger KeyLogger;

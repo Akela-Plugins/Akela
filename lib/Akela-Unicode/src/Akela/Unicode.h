@@ -20,9 +20,10 @@
 
 #include <KeyboardioFirmware.h>
 #include <Akela-HostOS.h>
+#include <Akela.h>
 
 namespace Akela {
-  class Unicode {
+  class Unicode : public Plugin {
   public:
     Unicode (void);
 
@@ -43,4 +44,4 @@ void unicodeCustomStart (void);
 void unicodeCustomEnd (void);
 void unicodeCustomInput (void);
 
-static Akela::Unicode Unicode;
+extern Akela::Unicode Unicode;

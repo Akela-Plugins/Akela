@@ -41,6 +41,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
+  Akela::USE (SpaceCadetShift);
+
   Keyboardio.setup (KEYMAP_SIZE);
 }
 

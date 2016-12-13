@@ -208,3 +208,5 @@ namespace Akela {
   }
 
 };
+
+Akela::OneShotLayers OneShotLayers;

@@ -172,3 +172,5 @@ __attribute__((weak))
 void
 unicodeCustomInput (void) {
 }
+
+Akela::Unicode Unicode;

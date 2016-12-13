@@ -29,7 +29,7 @@
 #define GUI_T(key) MT(LGUI, key)
 
 namespace Akela {
-  class DualUseMods {
+  class DualUseMods : public Plugin {
   public:
     DualUseMods (void);
 
@@ -45,3 +45,5 @@ namespace Akela {
     static bool disabledHook (Key, byte row, byte col, uint8_t keyState);
   };
 };
+
+extern Akela::DualUseMods DualUseMods;

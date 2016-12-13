@@ -19,9 +19,10 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
-  class ColormapEffect : public LEDMode {
+  class ColormapEffect : public LEDMode, public Plugin {
   public:
     static const uint8_t Transparent = 255;
 
@@ -33,4 +34,4 @@ namespace Akela {
   };
 };
 
-static Akela::ColormapEffect ColormapEffect;
+extern Akela::ColormapEffect ColormapEffect;

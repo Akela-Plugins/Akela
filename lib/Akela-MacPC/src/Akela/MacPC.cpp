@@ -37,10 +37,12 @@ namespace Akela {
     if (mappedKey.raw != Key_AltCmd.raw)
       return false;
 
-    if (::HostOS.os () != HostOS::OSX)
+    if (::HostOS.os () != Akela::HostOS::OSX)
       return false;
 
     handle_key_event (Key_LGUI, row, col, keyState | INJECTED);
     return true;
   }
 };
+
+Akela::MacPC MacPC;

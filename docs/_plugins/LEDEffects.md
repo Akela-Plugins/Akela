@@ -2,7 +2,7 @@
 title: "LED Effects"
 permalink: /plugins/LEDEffects/
 excerpt: "An assorted collection of LED effects."
-modified: 2016-12-08T19:45:00+01:00
+modified: 2016-12-13T09:55:00+01:00
 ---
 
 {% include toc %}
@@ -22,7 +22,7 @@ effects we are interested in.
 ```
 
 Then, in the `setup()` method of our Sketch, we will call
-the [`.enable()`](#enable) method of the appropriate effect.
+`Akela::USE(pluginEffect)`, with the selected effect objects.
 
 ## Included effects
 
@@ -40,13 +40,7 @@ our layout!
 
 ## Plugin methods
 
-The plugin provides two methods on each of the included effect objects:
-
-### `.enable()`
-
-> Enable the effect. Without either this or [.activate()](#activate), the effect
-> will not be included in our firmware. This method simply makes sure that the
-> effect is registered, it will not activate it.
+The plugin provides a single method on each of the included effect objects:
 
 ### `.activate()`
 

@@ -17,8 +17,6 @@
  */
 
 #include <KeyboardioFirmware.h>
-
-#define AKELA_HOSTOS_GUESSER 1
 #include <Akela-HostOS.h>
 
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -43,7 +41,11 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
+  Akela::USE (HostOS);
+  HostOS.setup ();
+
   Keyboardio.setup (KEYMAP_SIZE);
+
   Serial.print ("Host OS id is: ");
   Serial.println (HostOS.os (), DEC);
 }

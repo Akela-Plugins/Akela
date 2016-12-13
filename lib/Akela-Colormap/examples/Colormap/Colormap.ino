@@ -84,6 +84,8 @@ const cRGB colors[] PROGMEM = {
 };
 
 void setup () {
+  Akela::USE (ColormapEffect);
+
   Keyboardio.setup (KEYMAP_SIZE);
   ColormapEffect.configure (colors, colormap);
   ColormapEffect.activate ();

@@ -24,7 +24,7 @@
 #define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + (Key_ ## key).rawKey }
 
 namespace Akela {
-  class DualUseLayers {
+  class DualUseLayers : public Plugin {
   public:
     DualUseLayers (void);
 
@@ -37,4 +37,4 @@ namespace Akela {
   };
 };
 
-static Akela::DualUseLayers DualUseLayers;
+extern Akela::DualUseLayers DualUseLayers;

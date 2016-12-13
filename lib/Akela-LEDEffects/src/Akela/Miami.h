@@ -19,16 +19,15 @@
 #pragma once
 
 #include <KeyboardioFirmware.h>
+#include <Akela.h>
 
 namespace Akela {
   namespace LEDEffects {
-    class Miami : public LEDMode {
+    class Miami : public LEDMode, public Plugin {
     public:
       Miami (void);
 
       virtual void update (void) final;
-
-      static void enable (void);
     };
   };
 };

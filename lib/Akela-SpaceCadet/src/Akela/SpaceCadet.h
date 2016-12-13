@@ -22,7 +22,7 @@
 #include <Akela.h>
 
 namespace Akela {
-  class SpaceCadetShift {
+  class SpaceCadetShift : public Plugin {
   public:
     SpaceCadetShift (void);
 
@@ -36,4 +36,4 @@ namespace Akela {
   };
 };
 
-static Akela::SpaceCadetShift SpaceCadetShift;
+extern Akela::SpaceCadetShift SpaceCadetShift;

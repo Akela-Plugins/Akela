@@ -49,3 +49,5 @@ namespace Akela {
   }
 
 };
+
+Akela::MagicCombo MagicCombo;

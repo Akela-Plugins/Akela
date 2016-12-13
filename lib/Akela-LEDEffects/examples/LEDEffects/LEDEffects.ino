@@ -46,7 +46,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
 void setup () {
-  MiamiEffect.enable ();
+  Akela::USE (MiamiEffect);
+
   Keyboardio.setup (KEYMAP_SIZE);
 }
 

@@ -47,6 +47,8 @@ static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
 };
 
 void setup () {
+  Akela::USE (ShapeShifter);
+
   Keyboardio.setup (KEYMAP_SIZE);
   ShapeShifter.configure (shapeShiftDictionary);
 }

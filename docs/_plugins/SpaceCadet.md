@@ -2,7 +2,7 @@
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
 excerpt: "Space Cadet Shift plugin."
-modified: 2016-12-08T14:15:00+01:00
+modified: 2016-12-13T10:15:00+01:00
 ---
 
 {% include toc %}
@@ -27,10 +27,17 @@ select text, for example.
 
 ## Using the plugin
 
-Using the plugin with its defaults is as simple as including the header:
+Using the plugin with its defaults is as simple as including the header, and
+enabling the plugin:
 
 ```c++
 #include <Akela-SpaceCadet.h>
+
+void setup() {
+  Akela::USE(SpaceCadetShift);
+
+  Keyboardio.setup(KEYMAP_SIZE);
+}
 ```
 
 This assumes a US QWERTY layout on the host computer, and will use the `9` and

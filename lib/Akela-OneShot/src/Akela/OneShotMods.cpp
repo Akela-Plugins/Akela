@@ -204,3 +204,5 @@ namespace Akela {
   }
 
 };
+
+Akela::OneShotMods OneShotMods;

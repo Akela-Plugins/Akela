@@ -69,3 +69,5 @@ namespace Akela {
   }
 
 };
+
+Akela::ColormapEffect ColormapEffect;

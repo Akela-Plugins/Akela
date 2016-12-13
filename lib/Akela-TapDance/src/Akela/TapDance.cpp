@@ -179,3 +179,5 @@ __attribute__((weak))
 void
 tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::ActionType tapDanceAction) {
 }
+
+Akela::TapDance TapDance;
