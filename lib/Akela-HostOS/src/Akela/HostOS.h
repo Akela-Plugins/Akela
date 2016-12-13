@@ -40,6 +40,9 @@ namespace Akela {
 
     protected:
       Type osType;
+
+    private:
+      bool isConfigured = false;
     };
   };
 };

@@ -25,6 +25,11 @@ namespace Akela {
   namespace HostOS {
     void
     Base::setup (void) {
+      if (isConfigured)
+        return;
+
+      isConfigured = true;
+
       if (osType != AUTO) {
         return;
       }
