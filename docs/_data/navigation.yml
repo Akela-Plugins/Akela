@@ -29,6 +29,8 @@ plugins:
         url: /plugins/ShapeShifter/
       - title: "LED Effects"
         url: /plugins/LEDEffects/
+      - title: "Mac/PC switch"
+        url: /plugins/MacPC/
   - title: Extensions
     url: /plugins/#extensions
     children:
