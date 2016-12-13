@@ -37,7 +37,7 @@ namespace Akela {
     if (mappedKey.raw != Key_AltCmd.raw)
       return false;
 
-    if (::HostOS.os () != HostOS::MACOS)
+    if (::HostOS.os () != HostOS::OSX)
       return false;
 
     handle_key_event (Key_LGUI, row, col, keyState | INJECTED);
