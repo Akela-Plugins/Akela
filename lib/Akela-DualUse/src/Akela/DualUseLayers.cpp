@@ -28,8 +28,8 @@ namespace Akela {
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
   static bool layerDefault;
 
-  static bool
-  disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+  bool
+  DualUseLayers::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (mappedKey.raw < DUL_FIRST || mappedKey.raw > DUL_LAST)
       return false;
 
@@ -43,8 +43,8 @@ namespace Akela {
     return true;
   }
 
-  static bool
-  eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+  bool
+  DualUseLayers::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
       if (mappedKey.raw < DUL_FIRST || mappedKey.raw > DUL_LAST)
@@ -110,7 +110,7 @@ namespace Akela {
   }
 
   DualUseLayers::DualUseLayers (void) {
-    event_handler_hook_add (eventHandlerHook);
+    event_handler_hook_add (this->eventHandlerHook);
   }
 
   void
@@ -120,12 +120,12 @@ namespace Akela {
 
   void
   DualUseLayers::on (void) {
-    event_handler_hook_replace (disabledHook, eventHandlerHook);
+    event_handler_hook_replace (this->disabledHook, this->eventHandlerHook);
   }
 
   void
   DualUseLayers::off (void) {
-    event_handler_hook_replace (eventHandlerHook, disabledHook);
+    event_handler_hook_replace (this->eventHandlerHook, this->disabledHook);
   }
 
   void
