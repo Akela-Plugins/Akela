@@ -18,7 +18,16 @@
 
 #pragma once
 
-#include <KeyboardioFirmware.h>
+#ifdef ARDUINO_AVR_MODEL01
+#  define AKELA_KEYBOARDIO
+#  define AKELA_KEYBOARDIO_MODEL01
+#endif
+
+#ifdef AKELA_KEYBOARDIO
+#  include <KeyboardioFirmware.h>
+#else
+#  error Target firmware integration is not supported
+#endif
 
 #define DEFAULT_TIMEOUT 40
 
