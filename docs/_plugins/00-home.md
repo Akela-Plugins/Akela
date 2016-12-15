@@ -2,7 +2,7 @@
 title: "Plugins"
 permalink: /plugins/
 excerpt: "Plugins for Keyboardio boards"
-modified: 2016-12-05T21:35:00+01:00
+modified: 2016-12-15T19:30:00+01:00
 read_time: true
 ---
 
@@ -16,11 +16,16 @@ them, it is enough to include the header into your Sketch, and declare a
 configuration for the plugin. For some, including the header is enough in
 itself. This is well documented for each plugin, of course.
 
-The easiest way to use the libraries is via the [Arduino IDE][arduino:ide], but
-we need to make the libraries available to the IDE first. To do this from
-scratch, we will see an example that clones the Akela project, and sets it up
-for use with the Arduino IDE. The example assumes that our Sketchbook location
-is set to `~/Arduino`.
+The easiest way to use the libraries is via the [Arduino IDE][arduino:ide], of
+which we require at least version **1.6.7**. If working under Debian, Ubuntu, or
+a derivative of either, keep in mind that the Arduino package they ship with is
+ancient. In almost all cases, it is highly recommended to download the IDE from
+their website, and use the latest version.
+
+But the IDE itself is not enough, we need to make the libraries available to it
+too. To do this from scratch, we will see an example that clones the Akela
+project, and sets it up for use with the Arduino IDE. The example assumes that
+our Sketchbook location is set to `~/Arduino`.
 
  [arduino:ide]: https://www.arduino.cc/en/Main/Software
 
