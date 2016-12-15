@@ -1,0 +1,28 @@
+#! /bin/sh
+set -e
+
+ARDUINO_DIRECTORY="${1}"
+
+if [ -z "${ARDUINO_DIRECTORY}" ]; then
+    cat <<EOF
+Usage: $0 <arduino_path>
+
+Where <arduino_path> is the path to the Arduino Sketchbook location.
+EOF
+    exit 1
+fi
+
+install -d "${ARDUINO_DIRECTORY}/libraries"
+for lib in lib/*; do
+    rm -f "${ARDUINO_DIRECTORY}/libraries/$(basename ${lib})"
+    ln -s "$(pwd)/${lib}" "${ARDUINO_DIRECTORY}/libraries/"
+done
+
+for lib in lib/KeyboardioFirmware/libraries/*; do
+    rm -f "${ARDUINO_DIRECTORY}/libraries/$(basename ${lib})"
+    ln -s "$(pwd)/${lib}" "${ARDUINO_DIRECTORY}/libraries/"
+done
+
+install -d "${ARDUINO_DIRECTORY}/hardware"
+rm -f "${ARDUINO_DIRECTORY}/hardware/keyboardio"
+ln -s "$(pwd)/hardware/keyboardio" "${ARDUINO_DIRECTORY}/hardware/"

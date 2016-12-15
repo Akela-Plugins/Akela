@@ -27,9 +27,7 @@ is set to `~/Arduino`.
 ```
 $ git clone --recurse-submodules https://github.com/algernon/Akela
 $ cd Akela
-$ install -d ~/Arduino/libraries/
-$ ln -s $(pwd)/lib/* ~/Arduino/libraries/
-$ ln -s $(pwd)/hardware ~/Arduino/hardware
+$ tools/install-for-arduino ~/Arduino/
 ```
 
 After these, when we start up the IDE, the `File/Examples` menu will have all
