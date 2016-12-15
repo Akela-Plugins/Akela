@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <KeyboardioFirmware.h>
 #include <Akela.h>
 
 #define _MT_MOD(mod) (((Key_ ## mod).rawKey - Key_LCtrl.rawKey) << 8)

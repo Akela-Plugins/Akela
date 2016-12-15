@@ -19,7 +19,6 @@
 #pragma once
 
 #include <Akela.h>
-#include <KeyboardioFirmware.h>
 
 #define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 

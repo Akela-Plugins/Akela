@@ -18,9 +18,8 @@
 
 #pragma once
 
-#include <KeyboardioFirmware.h>
-#include <Akela-HostOS.h>
 #include <Akela.h>
+#include <Akela-HostOS.h>
 
 namespace Akela {
   class Unicode : public Plugin {

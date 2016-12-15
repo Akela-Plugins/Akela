@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <KeyboardioFirmware.h>
 #include <Akela.h>
 
 #define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + (Key_ ## key).rawKey }

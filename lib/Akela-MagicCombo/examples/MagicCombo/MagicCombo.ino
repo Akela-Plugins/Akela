@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <KeyboardioFirmware.h>
+#include <Akela.h>
 #include <Akela-MagicCombo.h>
 
 void _print_example (uint32_t leftHand, uint32_t rightHand) {

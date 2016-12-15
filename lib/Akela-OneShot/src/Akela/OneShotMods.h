@@ -19,7 +19,6 @@
 #pragma once
 
 #include <Akela.h>
-#include <KeyboardioFirmware.h>
 
 #define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
 

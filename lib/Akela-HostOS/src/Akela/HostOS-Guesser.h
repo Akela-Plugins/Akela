@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <KeyboardioFirmware.h>
 #include "HostOS.h"
 
 namespace Akela {

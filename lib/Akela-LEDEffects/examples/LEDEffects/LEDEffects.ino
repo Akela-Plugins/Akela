@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <KeyboardioFirmware.h>
+#include <Akela.h>
 #include <Akela-LEDEffects.h>
 
 #include "LED-Off.h"

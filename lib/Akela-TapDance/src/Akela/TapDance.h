@@ -19,7 +19,6 @@
 #pragma once
 
 #include <Akela.h>
-#include <KeyboardioFirmware.h>
 
 #define TD(n) (Key){.raw = Akela::Ranges::TD_FIRST + n }
 

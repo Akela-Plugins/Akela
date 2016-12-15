@@ -19,7 +19,6 @@
 #pragma once
 
 #include <Akela.h>
-#include <KeyboardioFirmware.h>
 
 #define LEADER_MAX_SEQUENCE_LENGTH 16
 

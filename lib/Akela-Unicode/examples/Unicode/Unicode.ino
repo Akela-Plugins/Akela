@@ -18,7 +18,7 @@
 
 #define AKELA_HOSTOS_GUESSER 1
 
-#include <KeyboardioFirmware.h>
+#include <Akela.h>
 #include <Akela-Unicode.h>
 
 const Key keymaps[][ROWS][COLS] PROGMEM = {

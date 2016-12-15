@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <KeyboardioFirmware.h>
+
 #define DEFAULT_TIMEOUT 40
 
 namespace Akela {
