@@ -18,53 +18,5 @@
 
 #include "Miami.h"
 
-#define CYAN (cRGB){0x4e, 0xd6, 0xd6}
-#define MAGENTA (cRGB){0xfa, 0x67, 0xaf}
-
-namespace Akela {
-  namespace LEDEffects {
-
-    static uint32_t previousLayerState;
-
-    Miami::Miami (void) {
-      LEDControl.mode_add (this);
-    }
-
-    void
-    Miami::update (void) {
-      uint8_t layerState = Layer.getLayerState ();
-      if (previousLayerState == layerState)
-        return;
-      previousLayerState = layerState;
-
-      for (uint8_t r = 0; r < ROWS; r++) {
-        for (uint8_t c = 0; c < COLS; c++) {
-          Key k = Layer.lookup (r, c);
-
-          // Special keys are always MAGENTA
-          if (k.flags != 0) {
-            led_set_crgb_at (r, c, MAGENTA);
-            continue;
-          }
-
-          cRGB color = MAGENTA;
-
-          switch (k.rawKey) {
-          case Key_A.rawKey ... Key_0.rawKey:
-          case Key_Space.rawKey:
-          case Key_Minus.rawKey ... Key_Slash.rawKey:
-          case Key_Keypad1.rawKey ... Key_KeypadDot.rawKey:
-          case Key_F1.rawKey ... Key_F4.rawKey:
-          case Key_F9.rawKey ... Key_F12.rawKey:
-            color = CYAN;
-            break;
-          }
-
-          led_set_crgb_at (r, c, color);
-        }
-      }
-    }
-  };
-};
-
-Akela::LEDEffects::Miami MiamiEffect;
+Akela::LEDEffects::TwoColor MiamiEffect((cRGB){0x4e, 0xd6, 0xd6} /* Cyan */,
+                                        (cRGB){0xfa, 0x67, 0xaf} /* Magenta */);

@@ -19,6 +19,19 @@
 #pragma once
 
 #include <Akela.h>
-#include "TwoColor.h"
 
-extern Akela::LEDEffects::TwoColor MiamiEffect;
+namespace Akela {
+  namespace LEDEffects {
+    class TwoColor : public LEDMode, public Plugin {
+    public:
+      TwoColor (cRGB baseColor, cRGB modColor);
+
+      virtual void update (void) final;
+
+    private:
+      uint32_t previousLayerState;
+      cRGB baseColor;
+      cRGB modColor;
+    };
+  };
+};
