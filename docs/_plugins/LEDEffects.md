@@ -2,7 +2,7 @@
 title: "LED Effects"
 permalink: /plugins/LEDEffects/
 excerpt: "An assorted collection of LED effects."
-modified: 2016-12-13T09:55:00+01:00
+modified: 2016-12-16T12:20:00+01:00
 ---
 
 {% include toc %}
@@ -26,17 +26,32 @@ Then, in the `setup()` method of our Sketch, we will call
 
 ## Included effects
 
+All of these effects will scan the active layers, and apply effects based on
+what keys are active on each position, thus, it needs no hints or configuration
+to figure out our layout!
+
 ### `MiamiEffect`
 
-Applies a color effect to the keyboard inspired by the popular Miami keyset:
+Applies a color effect to the keyboard, inspired by the popular Miami keyset:
 
 ![Miami]({{ '/assets/images/LEDEffects/MiamiEffect.png' | absolute_url }})
 
 Alphas, punctuation, numbers, the space bar, the numbers and the dot on the
-keypad, and half the modifiers will be in a cyan-ish color, the rest in magenta.
-The effect will scan the active layers, and apply effects based on what keys are
-active on each position, thus, it needs no hints or configuration to figure out
-our layout!
+keypad, and half the function keys will be in a cyan-ish color, the rest in
+magenta.
+
+### `JukeBoxEffect`
+
+Applies a color effect to the keyboard, inspired by the JukeBox keyset:
+
+![Jukebox]({{ '/assets/images/LEDEffects/JukeboxEffect.png' | absolute_url }})
+
+Alphas, punctuation, numbers, the space bar, the numbers and the dot on the
+keypad, and half the function keys will be in a beige-ish color, the rest in
+light green, except for the `Esc` key, which will be in red.
+
+An alternative color scheme exists under the `JukeBoxAlternateEffect` name,
+where the light green and red colors are swapped.
 
 ## Plugin methods
 

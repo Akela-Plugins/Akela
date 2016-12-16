@@ -18,5 +18,8 @@
 
 #pragma once
 
-#include "Akela/Miami.h"
-#include "Akela/Jukebox.h"
+#include <Akela.h>
+#include "TriColor.h"
+
+extern Akela::LEDEffects::TriColor JukeboxEffect;
+extern Akela::LEDEffects::TriColor JukeboxAlternateEffect;

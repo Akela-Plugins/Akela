@@ -16,7 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "Jukebox.h"
 
-#include "Akela/Miami.h"
-#include "Akela/Jukebox.h"
+Akela::LEDEffects::TriColor JukeboxEffect((cRGB){0xee, 0xe8, 0xc8} /* TM */,
+                                          (cRGB){0x8c, 0xee, 0xc3} /* VCO */,
+                                          (cRGB){0xd7, 0x38, 0x21} /* RN */);
+
+Akela::LEDEffects::TriColor JukeboxAlternateEffect((cRGB){0xee, 0xe8, 0xc8} /* TM */,
+                                                   (cRGB){0xd7, 0x38, 0x21} /* RN */,
+                                                   (cRGB){0x8c, 0xee, 0xc3} /* VCO */);

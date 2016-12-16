@@ -47,8 +47,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 void setup () {
   Akela::USE (MiamiEffect);
+  Akela::USE (JukeboxEffect);
+  Akela::USE (JukeboxAlternateEffect);
 
   Keyboardio.setup (KEYMAP_SIZE);
+
+  MiamiEffect.activate ();
 }
 
 void loop () {
