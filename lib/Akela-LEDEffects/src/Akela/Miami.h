@@ -19,6 +19,6 @@
 #pragma once
 
 #include <Akela.h>
-#include "TwoColor.h"
+#include "TriColor.h"
 
-extern Akela::LEDEffects::TwoColor MiamiEffect;
+extern Akela::LEDEffects::TriColor MiamiEffect;

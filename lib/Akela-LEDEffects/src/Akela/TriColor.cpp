@@ -16,20 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "TwoColor.h"
+#include "TriColor.h"
 
 namespace Akela {
   namespace LEDEffects {
 
-    TwoColor::TwoColor (cRGB baseColor, cRGB modColor) {
+    TriColor::TriColor (cRGB baseColor, cRGB modColor, cRGB escColor) {
       this->baseColor = baseColor;
       this->modColor = modColor;
+      this->escColor = escColor;
 
       LEDControl.mode_add (this);
     }
 
     void
-    TwoColor::update (void) {
+    TriColor::update (void) {
       uint8_t layerState = Layer.getLayerState ();
       if (previousLayerState == layerState)
         return;
@@ -55,6 +56,9 @@ namespace Akela {
           case Key_F1.rawKey ... Key_F4.rawKey:
           case Key_F9.rawKey ... Key_F12.rawKey:
             color = baseColor;
+            break;
+          case Key_Esc.rawKey:
+            color = escColor;
             break;
           }
 

@@ -22,9 +22,10 @@
 
 namespace Akela {
   namespace LEDEffects {
-    class TwoColor : public LEDMode, public Plugin {
+    class TriColor : public LEDMode, public Plugin {
     public:
-      TwoColor (cRGB baseColor, cRGB modColor);
+      TriColor (cRGB baseColor, cRGB modColor, cRGB escColor);
+      TriColor (cRGB baseColor, cRGB modColor) : TriColor (baseColor, modColor, modColor) {};
 
       virtual void update (void) final;
 
@@ -32,6 +33,7 @@ namespace Akela {
       uint32_t previousLayerState;
       cRGB baseColor;
       cRGB modColor;
+      cRGB escColor;
     };
   };
 };

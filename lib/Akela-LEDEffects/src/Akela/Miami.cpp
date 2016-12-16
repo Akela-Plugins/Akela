@@ -18,5 +18,5 @@
 
 #include "Miami.h"
 
-Akela::LEDEffects::TwoColor MiamiEffect((cRGB){0x4e, 0xd6, 0xd6} /* Cyan */,
+Akela::LEDEffects::TriColor MiamiEffect((cRGB){0x4e, 0xd6, 0xd6} /* Cyan */,
                                         (cRGB){0xfa, 0x67, 0xaf} /* Magenta */);
