@@ -48,7 +48,7 @@ namespace Akela {
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&
           KeyboardHardware.rightHandState.all == combo.rightHand) {
         magicComboActions (i, combo.leftHand, combo.rightHand);
-        return true;
+        break;
       }
     }
 
