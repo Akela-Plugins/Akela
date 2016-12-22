@@ -2,7 +2,7 @@
 title: "Host OS detection & tracking"
 permalink: /plugins/HostOS/
 excerpt: "Utilities to help guess and/or track the Host OS."
-modified: 2016-12-22T11:30:00+01:00
+modified: 2016-12-22T11:45:00+01:00
 ---
 
 {% include toc %}
@@ -57,7 +57,7 @@ void setup (void) {
 
 The extension provides the following methods on the `HostOS` singleton:
 
-### `setup()`
+### `.setup()`
 
 > Initializes the plugin, by reading the `HostOS` setting from EEPROM. If set to
 > `AUTO`, it will attempt to do some auto-detection, if the
@@ -66,11 +66,11 @@ The extension provides the following methods on the `HostOS` singleton:
 >
 > This method should be called as early as possible.
 
-### `os()`
+### `.os()`
 
 > Returns the stored type of the Host OS.
 
-### `os(type)`
+### `.os(type)`
 
 > Sets the type of the host OS, overriding any previous value. The type is then
 > stored in EEPROM for persistence.
