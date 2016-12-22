@@ -2,9 +2,13 @@
 title: "Plugins"
 permalink: /plugins/
 excerpt: "Plugins for Keyboardio boards"
-modified: 2016-12-15T19:30:00+01:00
+modified: 2016-12-22T11:00:00+01:00
 read_time: true
 ---
+
+{% include toc %}
+
+# About the project
 
 The Akela project is composed of small libraries, that usually do one tiny
 thing. There are example Arduino Sketches included with each and ever library,
@@ -15,6 +19,8 @@ All of these plugins are built for ease of use first and foremost. For a lot of
 them, it is enough to include the header into your Sketch, and declare a
 configuration for the plugin. For some, including the header is enough in
 itself. This is well documented for each plugin, of course.
+
+# Installing the plugins
 
 The easiest way to use the libraries is via the [Arduino IDE][arduino:ide], of
 which we require at least version **1.6.7**. If working under Debian, Ubuntu, or
@@ -39,12 +45,12 @@ After these, when we start up the IDE, the `File/Examples` menu will have all
 the available examples under the "*Examples from Custom Libraries*" heading.
 Select one from there, and we can start playing!
 
-## Plugins and Extensions
+# Plugins and Extensions
 
 There are two main types of libraries included in Akela: *Plugins* and
 *Extensions*. The difference between the two is the target audience.
 
-### Plugins
+## Plugins
 
 *Plugins* are meant to be used by end-users, who want to customize their
 firmware with additional features. Plugins, in general, require very little
@@ -53,14 +59,15 @@ plugin, and perhaps modify your keymap a little, and that's about it.
 
 They are rarely extensible further, as they are meant to be used as-is.
 
-### Extensions
+## Extensions
 
 *Extensions* on the other hand, are aimed at developers, who want to write
 additional features to extend the firmware with. These are building blocks one
 can compose together, to build upon. They typically require a lot more coding
-expertise, and are rarely useful out of the box.
+expertise, and are rarely useful out of the box. Nevertheless, simplicity and
+ease of use is still a goal, pursued by extensions too.
 
-## More information
+# More information
 
 For more in-depth information about each available plugin, please see the
 sidebar.
