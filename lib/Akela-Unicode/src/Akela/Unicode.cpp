@@ -97,7 +97,7 @@ namespace Akela {
   }
 
   void
-  Unicode::type_code (uint32_t unicode) {
+  Unicode::typeCode (uint32_t unicode) {
     bool onZeroStart = true;
 
     for (int8_t i = 7; i >= 0; i--) {
@@ -135,7 +135,7 @@ namespace Akela {
   void
   Unicode::type (uint32_t unicode) {
     start ();
-    type_code (unicode);
+    typeCode (unicode);
     end ();
   }
 };
