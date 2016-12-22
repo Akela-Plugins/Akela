@@ -32,6 +32,8 @@ plugins:
   - title: Extensions
     url: /plugins/#extensions
     children:
+      - title: "TriColor"
+        url: /plugins/TriColor/
       - title: "Colormap"
         url: /plugins/Colormap/
       - title: "HostOS"
