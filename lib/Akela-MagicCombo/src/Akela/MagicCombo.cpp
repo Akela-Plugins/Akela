@@ -20,7 +20,7 @@
 
 namespace Akela {
 
-  static MagicCombo::dictionary_t *_magicDictionary = NULL;
+  static const MagicCombo::dictionary_t *_magicDictionary = NULL;
 
   MagicCombo::MagicCombo (void) {
     event_handler_hook_add (this->comboHandler);
@@ -36,11 +36,18 @@ namespace Akela {
     if (!_magicDictionary)
       return false;
 
-    for (byte i = 0; _magicDictionary[i].callback != NULL; i++) {
-      dictionary_t combo = _magicDictionary[i];
+    for (byte i = 0;; i++) {
+      dictionary_t combo;
+
+      combo.leftHand = pgm_read_dword (&(_magicDictionary[i].leftHand));
+      combo.rightHand = pgm_read_dword (&(_magicDictionary[i].rightHand));
+
+      if (combo.leftHand == 0 && combo.rightHand == 0)
+        break;
+
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&
           KeyboardHardware.rightHandState.all == combo.rightHand) {
-        (*combo.callback) (combo.leftHand, combo.rightHand);
+        magicComboActions (i, combo.leftHand, combo.rightHand);
         return true;
       }
     }
@@ -49,5 +56,10 @@ namespace Akela {
   }
 
 };
+
+__attribute__((weak))
+void
+magicComboActions (uint8_t comboIndex, uint32_t leftHand, uint32_t rightHand) {
+}
 
 Akela::MagicCombo MagicCombo;

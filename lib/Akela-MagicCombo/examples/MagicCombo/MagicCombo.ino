@@ -19,15 +19,19 @@
 #include <Akela.h>
 #include <Akela-MagicCombo.h>
 
-void _print_example (uint32_t leftHand, uint32_t rightHand) {
-  Serial.print ("It's a kind of magic!");
+void magicComboActions (uint8_t comboIndex, uint32_t leftHand, uint32_t rightHand) {
+  switch (comboIndex) {
+  case 0:
+    Serial.print ("It's a kind of magic!");
+    break;
+  }
 }
 
-Akela::MagicCombo::dictionary_t dictionary[] = {
+static const Akela::MagicCombo::dictionary_t dictionary[] PROGMEM = {
   {R1C3 | R2C1 | R2C4 | R2C7, // left hand,
-   R0C11 | R1C12 | R2C14,     //right hand
-   _print_example             // callback
-  }
+   R0C11 | R1C12 | R2C14      //right hand
+  },
+  {0, 0}
 };
 
 const Key keymaps[][ROWS][COLS] PROGMEM = {

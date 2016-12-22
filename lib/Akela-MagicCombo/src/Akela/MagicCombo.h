@@ -23,10 +23,8 @@
 namespace Akela {
   class MagicCombo : public Plugin {
   public:
-    typedef void (*comboCallback_t) (uint32_t leftHand, uint32_t rightHand);
     typedef struct {
       uint32_t leftHand, rightHand;
-      comboCallback_t callback;
     } dictionary_t;
 
     MagicCombo (void);
@@ -36,5 +34,7 @@ namespace Akela {
     static bool comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
+
+void magicComboActions (uint8_t comboIndex, uint32_t leftHand, uint32_t rightHand);
 
 extern Akela::MagicCombo MagicCombo;
