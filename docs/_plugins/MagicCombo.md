@@ -2,20 +2,76 @@
 title: "Magic Combos"
 permalink: /plugins/MagicCombo/
 excerpt: "Magic combo framework extension."
-modified: 2016-11-29T10:45:00+01:00
+modified: 2016-12-22T15:10:00+01:00
 ---
 
 {% include toc %}
 
-*TODO*
+The `MagicCombo` extension provides a way to perform custom actions when a
+particular set of keys are held down together. The functionality assigned to
+these keys are not changed, and the custom action triggers as long as all keys
+within the set are pressed. The order in which they were pressed do not matter.
 
-## Using the plugin
+This can be used to tie complex actions to key chords.
 
-*TODO*
+## Using the extension
+
+To use the extension, we must include the header, create a dictionary, and
+configure the plugin to use it:
 
 ```c++
 #include <Akela-MagicCombo.h>
+
+static const Akela::MagicCombo::dictionary_t dictionary[] PROGMEM = {
+  {R1C3 | R2C1 | R2C4 | R2C7, // left hand,
+   R0C11 | R1C12 | R2C14      //right hand
+  },
+  {0, 0}
+};
+
+void setup (void) {
+  Akela::USE (MagicCombo);
+  
+  MagicCombo.configure (dictionary);
+  Keyboardio.setup (KEYMAP_SIZE);
+}
 ```
+
+The dictionary **must** reside in `PROGMEM`, and is a list of tuples. Each
+element in the array has two fields: the left hand state, and the right hand
+state upon which to trigger the custom action. Both of these are bit fields,
+each bit set tells the extension that the key with that index must be held for
+the action to trigger. It is recommended to use the `RxCy` macros of the core
+`KeyboardioFirmware`, and *or* them together to form a bitfield.
+
+The dictionary **must** end with an element containing zero values for both the
+left and the right halves.
+
+## Extension methods
+
+The extension provides a `MagicCombo` singleton object, with the following method:
+
+### `.configure(dictionary)`
+
+> Configures the extension to use the supplied dictionary.
+
+## Overrideable methods
+
+Whenever an combination is found to be held, the extension will trigger an
+action, in each scan cycle until the keys remain held. This is done by calling
+the overrideable `magicComboActions` function:
+
+### `magicComboActions(comboIndex, leftHand, rightHand)`
+
+> Called whenever a combination is found to be held. The function by default
+> does nothing, and it is recommended to override it from within the Sketch.
+>
+> The first argument will be the index in the dictionary, the other two are the
+> key states on the left and right halves, respectively.
+>
+> Plugins that build upon this extensions *should not* override this function,
+> but provide helpers that can be called from it. An override should only happen
+> in the Sketch.
 
 ## Further reading
 
