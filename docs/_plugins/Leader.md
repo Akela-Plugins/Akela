@@ -2,7 +2,7 @@
 title: "Leader keys"
 permalink: /plugins/Leader/
 excerpt: "VIM-style Leader keys"
-modified: 2016-12-13T09:50:00+01:00
+modified: 2016-12-22T14:50:00+01:00
 ---
 
 {% include toc %}
@@ -45,7 +45,7 @@ static void leaderTX (void) {
   Serial.println ("leaderTX");
 }
 
-static const Akela::Leader::dictionary_t leaderDictionary = LEADER_DICT
+static const Akela::Leader::dictionary_t leaderDictionary PROGMEM = LEADER_DICT
   (
     {LEADER_SEQ (LEAD (0), Key_A), leaderA},
     {LEADER_SEQ (LEAD (0), Key_T, Key_X), leaderTX}
@@ -60,7 +60,8 @@ void setup () {
 ```
 
 The dictionary is made up of a list of keys, and an action callback. Using the
-`LEADER_DICT` and `LEADER_SEQ` helpers is recommended.
+`LEADER_DICT` and `LEADER_SEQ` helpers is recommended. The dictionary *must* be
+marked `PROGMEM`!
 
 **Note** that we need to include `Akela-Leader.h` before any other plugin that
 adds or changes key behavior! It is best to include it right after
