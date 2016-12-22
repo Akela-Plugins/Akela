@@ -19,14 +19,14 @@ ELF_FILE_PATH				= $(OUTPUT_PATH)/$(OUTPUT_FILE_PREFIX).elf
 
 VERBOSE							?= 0
 
+SIZE_TOOL						= $(dir $(lastword ${MAKEFILE_LIST}))/firmware-size
+
 ifneq (${VERBOSE}, 0)
 SC									=
 SS									= @ true ||
-SR                  =
 else
 SC									= @
 SS									= @
-SR                  = | grep "\\(Program\\|Data\\):" | sed -e 's,^,  - ,' && echo
 MAKEFLAGS += -s
 endif
 
@@ -69,7 +69,7 @@ compile: ${OUTPUT_PATH}
 
 size: compile
 	${SS} echo "- Size: firmware/${LIBRARY}/${OUTPUT_FILE_PREFIX}.elf"
-	${SC} $(AVR_SIZE) -C --mcu=$(MCU) $(ELF_FILE_PATH) ${SR}
+	${SC} $(SIZE_TOOL) $(AVR_SIZE) -C --mcu=$(MCU) $(ELF_FILE_PATH)
 
 size-map: compile
 	$(AVR_NM) --size-sort -C -r -l $(ELF_FILE_PATH)
