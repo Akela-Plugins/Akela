@@ -22,7 +22,7 @@
 
 namespace Akela {
 
-  static const cRGB *colors;
+  static const cRGB *palette;
   static const uint8_t *colorMap;
   static uint32_t previousLayerState;
 
@@ -30,8 +30,8 @@ namespace Akela {
   }
 
   void
-  ColormapEffect::configure (const cRGB _colors[], const uint8_t _colorMap[][ROWS][COLS]) {
-    colors = _colors;
+  ColormapEffect::configure (const cRGB _palette[], const uint8_t _colorMap[][ROWS][COLS]) {
+    palette = _palette;
     colorMap = (const uint8_t *)_colorMap;
     LEDControl.mode_add (this);
   }
@@ -58,9 +58,9 @@ namespace Akela {
           if (colorIndex == Transparent)
             continue;
 
-          color.r = pgm_read_byte (colors + colorIndex * 3);
-          color.g = pgm_read_byte (colors + colorIndex * 3 + 1);
-          color.b = pgm_read_byte (colors + colorIndex * 3 + 2);
+          color.r = pgm_read_byte (palette + colorIndex * 3);
+          color.g = pgm_read_byte (palette + colorIndex * 3 + 1);
+          color.b = pgm_read_byte (palette + colorIndex * 3 + 2);
 
           led_set_crgb_at (r, c, color);
         }

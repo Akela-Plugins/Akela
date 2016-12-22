@@ -27,7 +27,7 @@ namespace Akela {
 
     ColormapEffect (void);
 
-    void configure (const cRGB colors[], const uint8_t colorMap[][ROWS][COLS]);
+    void configure (const cRGB palette[], const uint8_t colorMap[][ROWS][COLS]);
 
     virtual void update (void) final;
   };

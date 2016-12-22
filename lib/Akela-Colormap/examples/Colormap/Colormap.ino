@@ -72,7 +72,7 @@ const uint8_t colormap[][ROWS][COLS] PROGMEM = {
    )
 };
 
-const cRGB colors[] PROGMEM = {
+const cRGB palette[] PROGMEM = {
   {0, 0, 0},
   {0xff, 0x5c, 0x57},
   {0x5a, 0xf7, 0x8e},
@@ -87,7 +87,7 @@ void setup () {
   Akela::USE (ColormapEffect);
 
   Keyboardio.setup (KEYMAP_SIZE);
-  ColormapEffect.configure (colors, colormap);
+  ColormapEffect.configure (palette, colormap);
   ColormapEffect.activate ();
 }
 
