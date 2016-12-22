@@ -26,6 +26,7 @@ namespace Akela {
     public:
       Tracker (void) {};
 
+    protected:
       virtual void autoDetect (void) final {};
     };
   };

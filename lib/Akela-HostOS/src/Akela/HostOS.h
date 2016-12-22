@@ -34,11 +34,11 @@ namespace Akela {
     public:
       void setup (void);
 
-      virtual void autoDetect (void) = 0;
       Type os (void);
       void os (Type osType);
 
     protected:
+      virtual void autoDetect (void) = 0;
       Type osType;
 
     private:

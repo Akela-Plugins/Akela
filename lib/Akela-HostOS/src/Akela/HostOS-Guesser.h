@@ -26,6 +26,7 @@ namespace Akela {
     public:
       Guesser (void);
 
+    protected:
       virtual void autoDetect (void) final;
     };
   }
