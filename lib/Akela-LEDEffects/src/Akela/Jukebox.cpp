@@ -18,10 +18,10 @@
 
 #include "Jukebox.h"
 
-Akela::LEDEffects::TriColor JukeboxEffect((cRGB){0xee, 0xe8, 0xc8} /* TM */,
-                                          (cRGB){0x8c, 0xee, 0xc3} /* VCO */,
-                                          (cRGB){0xd7, 0x38, 0x21} /* RN */);
+Akela::LEDEffects::TriColor JukeboxEffect((cRGB){0xc8, 0xe8, 0xee} /* TM */,
+                                          (cRGB){0xc3, 0xee, 0x8c} /* VCO */,
+                                          (cRGB){0x21, 0x38, 0xd7} /* RN */);
 
-Akela::LEDEffects::TriColor JukeboxAlternateEffect((cRGB){0xee, 0xe8, 0xc8} /* TM */,
-                                                   (cRGB){0xd7, 0x38, 0x21} /* RN */,
-                                                   (cRGB){0x8c, 0xee, 0xc3} /* VCO */);
+Akela::LEDEffects::TriColor JukeboxAlternateEffect((cRGB){0xc8, 0xe8, 0xee} /* TM */,
+                                                   (cRGB){0x21, 0x38, 0xd7} /* RN */,
+                                                   (cRGB){0xc3, 0xee, 0x8c} /* VCO */);
