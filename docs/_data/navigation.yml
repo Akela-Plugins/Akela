@@ -27,6 +27,8 @@ plugins:
         url: /plugins/Leader/
       - title: "Shifted symbol replacement"
         url: /plugins/ShapeShifter/
+      - title: "Cycling key"
+        url: /plugins/Cycle/
       - title: "LED Effects"
         url: /plugins/LEDEffects/
   - title: Extensions

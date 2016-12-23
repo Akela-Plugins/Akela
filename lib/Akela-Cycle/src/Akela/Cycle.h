@@ -18,45 +18,28 @@
 
 #pragma once
 
-#ifdef ARDUINO_AVR_MODEL01
-#  define AKELA_KEYBOARDIO
-#  define AKELA_KEYBOARDIO_MODEL01
-#endif
+#include <Akela.h>
 
-#ifdef AKELA_KEYBOARDIO
-#  include <KeyboardioFirmware.h>
-#else
-#  error Target firmware integration is not supported
-#endif
+#define Key_Cycle (Key){ .raw = Akela::Ranges::CYCLE }
 
-#define DEFAULT_TIMEOUT 40
+#define cycleThrough(...) ({                                \
+      static const Key __k[] PROGMEM = { __VA_ARGS__ };     \
+      Cycle.replace (sizeof (__k) / sizeof (Key), &__k[0]); \
+    })
 
 namespace Akela {
-  class Plugin {
+  class Cycle : public Plugin {
   public:
-    void __use(void) volatile {};
-  };
+    Cycle (void);
 
-  void USE (Plugin& plugin);
+    static void replace (Key key);
+    static void replace (uint8_t cycleSize, const Key cycleSteps[]);
 
-  namespace Ranges {
-    enum {
-      AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
-      OSM_LAST    = OSM_FIRST + 7,
-      OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
-      DUM_FIRST,
-      DUM_LAST    = DUM_FIRST + (8 << 8),
-      DUL_FIRST,
-      DUL_LAST    = DUL_FIRST + (32 << 8),
-      TD_FIRST,
-      TD_LAST     = TD_FIRST + 31,
-      LEAD_FIRST,
-      LEAD_LAST   = LEAD_FIRST + 7,
-      CYCLE,
-
-      AKELA_SAFE_START,
-    };
+  private:
+    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
+
+void cycleAction (Key previousKey, uint8_t cycleCount);
+
+extern Akela::Cycle Cycle;
