@@ -23,11 +23,12 @@
 namespace Akela {
   namespace HostOS {
     typedef enum {
-      AUTO,
       LINUX,
       OSX,
       WINDOWS,
-      OTHER
+      OTHER,
+
+      AUTO = 0xff,
     } Type;
 
     class Base : public KeyboardioPlugin {
