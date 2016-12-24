@@ -22,11 +22,11 @@
 #include <Akela-HostOS.h>
 
 namespace Akela {
-  class Unicode : public Plugin {
+  class Unicode : public KeyboardioPlugin {
   public:
     Unicode (void);
 
-    static void setup (void);
+    virtual void begin (void) final;
 
     static void start (void);
     static void input (void);

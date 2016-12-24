@@ -41,10 +41,9 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (DualUseLayers);
-  Akela::USE (DualUseMods);
-
   Keyboardio.setup (KEYMAP_SIZE);
+
+  Keyboardio.use (&DualUseMods, &DualUseLayers, NULL);
 }
 
 void loop () {

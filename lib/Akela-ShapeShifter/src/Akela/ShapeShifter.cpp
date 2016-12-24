@@ -24,6 +24,10 @@ namespace Akela {
   static const ShapeShifter::dictionary_t *shapeShiftDictionary = NULL;
 
   ShapeShifter::ShapeShifter (void) {
+  }
+
+  void
+  ShapeShifter::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
   }
 

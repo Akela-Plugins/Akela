@@ -28,9 +28,11 @@
 #define GUI_T(key) MT(LGUI, key)
 
 namespace Akela {
-  class DualUseMods : public Plugin {
+  class DualUseMods : public KeyboardioPlugin {
   public:
     DualUseMods (void);
+
+    virtual void begin (void) final;
 
     static void configure (uint8_t offAction);
 

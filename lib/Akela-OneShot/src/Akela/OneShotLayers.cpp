@@ -170,6 +170,10 @@ namespace Akela {
   // --- glue code ---
 
   OneShotLayers::OneShotLayers (void) {
+  }
+
+  void
+  OneShotLayers::begin (void) {
     event_handler_hook_add (eventHandlerHook);
     loop_hook_add (loopHook);
   }

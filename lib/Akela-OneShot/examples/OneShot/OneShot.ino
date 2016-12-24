@@ -61,12 +61,11 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (OneShotMods);
-  Akela::USE (OneShotLayers);
-
   OneShotMods.enableAuto ();
   OneShotLayers.enableAuto ();
+
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
 }
 
 void loop () {

@@ -54,9 +54,9 @@ void cycleAction (Key previousKey, uint8_t cycleCount) {
 }
 
 void setup () {
-  Akela::USE (Cycle);
-
   Keyboardio.setup (KEYMAP_SIZE);
+
+  Keyboardio.use (&Cycle, NULL);
 }
 
 void loop () {

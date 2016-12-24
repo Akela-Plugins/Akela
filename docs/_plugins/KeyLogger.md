@@ -2,7 +2,7 @@
 title: "Keylogger"
 permalink: /plugins/KeyLogger/
 excerpt: "KeyLogger plugin."
-modified: 2016-12-13T09:50:00+01:00
+modified: 2016-12-24T13:45:00+01:00
 ---
 
 {% include toc %}
@@ -27,10 +27,9 @@ including the header file, and declaring it used:
 ```c++
 #include <Akela-KeyLogger.h>
 
-void setup(void) {
-  Akela::USE(KeyLogger);
-  
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup (void) {
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&KeyLogger, NULL);
 }
 ```
 

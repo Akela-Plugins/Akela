@@ -41,9 +41,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (KeyLogger);
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&KeyLogger, NULL);
 }
 
 void loop () {

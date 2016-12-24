@@ -21,9 +21,11 @@
 #include <Akela.h>
 
 namespace Akela {
-  class KeyLogger : public Plugin {
+  class KeyLogger : public KeyboardioPlugin {
   public:
     KeyLogger (void);
+
+    virtual void begin (void) final;
 
   private:
     static bool logger (Key mappedKey, byte row, byte col, uint8_t keyState);

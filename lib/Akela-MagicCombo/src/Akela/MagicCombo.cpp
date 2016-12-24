@@ -23,6 +23,10 @@ namespace Akela {
   static const MagicCombo::dictionary_t *_magicDictionary = NULL;
 
   MagicCombo::MagicCombo (void) {
+  }
+
+  void
+  MagicCombo::begin (void) {
     event_handler_hook_add (this->comboHandler);
   }
 

@@ -23,9 +23,11 @@
 #define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
 
 namespace Akela {
-  class OneShotMods : public Plugin {
+  class OneShotMods : public KeyboardioPlugin {
   public:
     OneShotMods (void);
+
+    virtual void begin (void) final;
 
     static void on (void);
     static void off (void);
@@ -36,13 +38,14 @@ namespace Akela {
 
     void inject (Key key, uint8_t keyState);
 
-  private:
     static bool eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopNoOpHook (void);
 
     static bool eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (void);
+
+  private:
   };
 };
 

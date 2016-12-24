@@ -47,10 +47,10 @@ static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
 };
 
 void setup () {
-  Akela::USE (ShapeShifter);
+  ShapeShifter.configure (shapeShiftDictionary);
 
   Keyboardio.setup (KEYMAP_SIZE);
-  ShapeShifter.configure (shapeShiftDictionary);
+  Keyboardio.use (&ShapeShifter, NULL);
 }
 
 void loop () {

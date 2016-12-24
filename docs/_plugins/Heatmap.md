@@ -2,7 +2,7 @@
 title: "Heatmap"
 permalink: /plugins/Heatmap/
 excerpt: "LED-based Heatmap plugin."
-modified: 2016-12-13T09:40:00+01:00
+modified: 2016-12-24T13:45:00+01:00
 ---
 
 {% include toc %}
@@ -23,10 +23,9 @@ include the header, and make sure the plugin is in use:
 ```c++
 #include <Akela-Heatmap.h>
 
-void setup(void) {
-  Akela::USE(HeatmapEffect);
-  
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup (void) {
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&HeatmapEffect, NULL);
 }
 ```
 

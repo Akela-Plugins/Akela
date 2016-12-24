@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-13T10:10:00+01:00
+modified: 2016-12-24T13:55:00+01:00
 ---
 
 {% include toc %}
@@ -32,13 +32,12 @@ existing modifiers or momentary layer toggles into one-shot keys:
 ```c++
 #include <Akela-OneShot.h>
 
-void setup() {
-  Akela::USE(OneShotMods);
-  Akela::USE(OneShotLayers);
-
-  OneShotMods.enableAuto();
-  OneShotLayers.enableAuto();
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup () {
+  OneShotMods.enableAuto ();
+  OneShotLayers.enableAuto ();
+  
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
 }
 ```
 
@@ -51,10 +50,8 @@ The other is to explicitly mark keys as one-shot in the keymap:
 OSM(LCtrl), OSL(_FN)
 
 void setup () {
-  Akela::USE(OneShotMods);
-  Akela::USE(OneShotLayers);
-  
-  Keyboardio.setup(KEYMAP_SIZE);
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
 }
 ```
 
@@ -85,8 +82,8 @@ the same set of methods:
 > only turn keys on the keymap into one-shots: if any macro injects a modifier
 > or a momentary layer switch key, those will be left alone, as-is.
 >
-> This **must** be called before `Keyboardio.setup()` in the `setup()` method of
-> your Sketch.
+> This **must** be called before any `Keyboardio.use()` call in the `setup()`
+> method of your Sketch.
 
 ### `.isActive()`
 

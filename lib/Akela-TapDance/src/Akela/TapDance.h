@@ -29,7 +29,7 @@
     })
 
 namespace Akela {
-  class TapDance : public Plugin {
+  class TapDance : public KeyboardioPlugin {
   public:
     typedef enum {
       Tap,
@@ -40,6 +40,8 @@ namespace Akela {
     } ActionType;
 
     TapDance (void);
+
+    virtual void begin (void) final;
 
     void actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]);
 

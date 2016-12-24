@@ -22,7 +22,7 @@
 
 namespace Akela {
   namespace LEDEffects {
-    class TriColor : public LEDMode, public Plugin {
+    class TriColor : public LEDMode {
     public:
       TriColor (cRGB baseColor, cRGB modColor, cRGB escColor);
       TriColor (cRGB baseColor, cRGB modColor) : TriColor (baseColor, modColor, modColor) {};

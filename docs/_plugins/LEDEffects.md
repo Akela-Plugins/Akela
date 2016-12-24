@@ -2,7 +2,7 @@
 title: "LED Effects"
 permalink: /plugins/LEDEffects/
 excerpt: "An assorted collection of LED effects."
-modified: 2016-12-16T12:20:00+01:00
+modified: 2016-12-24T13:50:00+01:00
 ---
 
 {% include toc %}
@@ -21,8 +21,8 @@ effects we are interested in.
 #include <Akela-LEDEffects.h>
 ```
 
-Then, in the `setup()` method of our Sketch, we will call
-`Akela::USE(pluginEffect)`, with the selected effect objects.
+Then, in the `setup()` method of our Sketch, we will call `Keyboardio.use()`,
+with the selected effect objects.
 
 ## Included effects
 

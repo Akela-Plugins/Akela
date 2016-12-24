@@ -21,7 +21,7 @@
 #include <Akela.h>
 
 namespace Akela {
-  class ColormapEffect : public LEDMode, public Plugin {
+  class ColormapEffect : public LEDMode {
   public:
     static const uint8_t Transparent = 255;
 

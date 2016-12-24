@@ -2,7 +2,7 @@
 title: "Per-layer color maps"
 permalink: /plugins/Colormap/
 excerpt: "Per-layer color map extension."
-modified: 2016-12-22T15:50:00+01:00
+modified: 2016-12-24T13:40:00+01:00
 ---
 
 {% include toc %}
@@ -34,10 +34,10 @@ static const uint8_t colormap[KEYMAP_SIZE][ROWS][COLS] PROGMEM = {
 };
 
 void setup (void) {
-  Akela::USE (ColorMap);
-  
   Colormap.configure (palette, colormap);
+
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&Colormap, NULL);
 }
 ``` 
 

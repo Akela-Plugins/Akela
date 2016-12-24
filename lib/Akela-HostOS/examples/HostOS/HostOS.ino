@@ -41,10 +41,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (HostOS);
-  HostOS.setup ();
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&HostOS, NULL);
 
   Serial.print ("Host OS id is: ");
   Serial.println (HostOS.os (), DEC);

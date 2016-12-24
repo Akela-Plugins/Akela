@@ -55,10 +55,12 @@ static const Akela::Leader::dictionary_t leaderDictionary[] PROGMEM = LEADER_DIC
   );
 
 void setup () {
-  Akela::USE (Leader);
+  Serial.begin (9600);
+
+  Leader.configure (leaderDictionary);
 
   Keyboardio.setup (KEYMAP_SIZE);
-  Leader.configure (leaderDictionary);
+  Keyboardio.use (&Leader, NULL);
 }
 
 void loop () {

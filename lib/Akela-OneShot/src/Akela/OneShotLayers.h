@@ -23,9 +23,11 @@
 #define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 
 namespace Akela {
-  class OneShotLayers : public Plugin {
+  class OneShotLayers : public KeyboardioPlugin {
   public:
     OneShotLayers (void);
+
+    virtual void begin (void) final;
 
     static void on (void);
     static void off (void);

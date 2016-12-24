@@ -2,7 +2,7 @@
 title: "Shifted symbol replacement"
 permalink: /plugins/ShapeShifter/
 excerpt: "Replace the shifted symbol on a number of keys."
-modified: 2016-12-13T10:15:00+01:00
+modified: 2016-12-24T13:55:00+01:00
 ---
 
 {% include toc %}
@@ -32,10 +32,10 @@ static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
 };
 
 void setup () {
-  Akela::USE (ShapeShifter);
-
-  ShapeShifter.configure(shapeShiftDictionary);
-  Keyboardio.setup(KEYMAP_SIZE);
+  ShapeShifter.configure (shapeShiftDictionary);
+  
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&ShapeShifter, NULL);
 }
 ```
 

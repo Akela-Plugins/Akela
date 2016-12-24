@@ -2,7 +2,7 @@
 title: "Cycling key"
 permalink: /plugins/Cycle/
 excerpt: "A dead key, that cycles through a sequence, based on the previous key."
-modified: 2016-12-23T09:00:00+01:00
+modified: 2016-12-24T13:40:00+01:00
 ---
 
 {% include toc %}
@@ -38,9 +38,9 @@ void cycleAction (Key previousKey, uint8_t cycleCount) {
 }
 
 void setup (void) {
-  Akela::USE (Cycle);
-  
   Keyboardio.setup (KEYMAP_SIZE);
+  
+  Keyboardio.use (&Cycle, NULL);
 }
 ```
 

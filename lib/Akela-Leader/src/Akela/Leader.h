@@ -28,7 +28,7 @@
 #define LEADER_DICT(...) { __VA_ARGS__, {{Key_NoKey}, NULL} }
 
 namespace Akela {
-  class Leader : public Plugin {
+  class Leader : public KeyboardioPlugin {
   public:
     typedef void (*action_t) (uint8_t seqIndex);
     typedef struct {
@@ -37,6 +37,8 @@ namespace Akela {
     } dictionary_t;
 
     Leader (void);
+
+    virtual void begin (void) final;
 
     static void configure (const dictionary_t dictionary[]);
     static void reset (void);

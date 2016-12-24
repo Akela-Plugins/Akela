@@ -69,6 +69,10 @@ namespace Akela {
   // --- api ---
 
   Leader::Leader (void) {
+  }
+
+  void
+  Leader::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
     loop_hook_add (this->loopHook);
   }

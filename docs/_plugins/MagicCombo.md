@@ -2,7 +2,7 @@
 title: "Magic Combos"
 permalink: /plugins/MagicCombo/
 excerpt: "Magic combo framework extension."
-modified: 2016-12-22T15:10:00+01:00
+modified: 2016-12-24T13:55:00+01:00
 ---
 
 {% include toc %}
@@ -30,10 +30,10 @@ static const Akela::MagicCombo::dictionary_t dictionary[] PROGMEM = {
 };
 
 void setup (void) {
-  Akela::USE (MagicCombo);
-  
   MagicCombo.configure (dictionary);
+
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&MagicCombo, NULL);
 }
 ```
 

@@ -43,9 +43,9 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (Unicode);
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&Unicode, NULL);
+
   Unicode.type (0x2328);
 }
 

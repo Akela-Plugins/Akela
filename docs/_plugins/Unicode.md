@@ -2,7 +2,7 @@
 title: "Unicode input method"
 permalink: /plugins/Unicode/
 excerpt: "Utilities to help inputting Unicode."
-modified: 2016-12-22T12:15:00+01:00
+modified: 2016-12-24T14:00:00+01:00
 ---
 
 {% include toc %}
@@ -16,16 +16,16 @@ codepoints.
 
 ## Using the extension
 
-Using the extension is as simple as including the header, calling the `setup()`
-function, and then using any of the methods provided by the `Unicode` singleton
-object.
+Using the extension is as simple as including the header, registering it with
+`Keyboardio.use()`, and then using any of the methods provided by the `Unicode`
+singleton object.
 
 ```c++
 #include <Akela-Unicode.h>
 
 void setup (void) {
-  Unicode.setup ();
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&Unicode, NULL);
   
   Unicode.type (0x2328);
 }
@@ -36,10 +36,6 @@ void setup (void) {
 The extension provides a number of methods on the `Unicode` object, but also has
 symbols that can be [overridden](#overrideable-methods), to add custom
 functionality.
-
-### `.setup()`
-
-> Sets up the `Unicode` singleton. Should be called as early as possible.
 
 ### `.type(codePoint)`
 

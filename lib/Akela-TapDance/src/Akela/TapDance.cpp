@@ -75,7 +75,10 @@ namespace Akela {
 
   TapDance::TapDance (void) {
     lastTapDanceKey.raw = Key_NoKey.raw;
+  }
 
+  void
+  TapDance::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
     loop_hook_add (this->loopHook);
   }

@@ -21,9 +21,11 @@
 #include <Akela.h>
 
 namespace Akela {
-  class Heatmap : public LEDMode, public Plugin {
+  class Heatmap : public LEDMode {
   public:
     Heatmap (void);
+
+    virtual void begin (void) final;
 
     static void configure (uint16_t updateFrequency);
 

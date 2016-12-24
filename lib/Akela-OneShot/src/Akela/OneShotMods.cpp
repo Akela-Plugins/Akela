@@ -77,6 +77,15 @@ namespace Akela {
 
   bool
   OneShotMods::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (keyState != 0) {
+      Serial.print ("OSM: eventAutoHook: isModifier=");
+      Serial.print (isModifier (mappedKey));
+      Serial.print ("; mappedKey.raw=");
+      Serial.print (mappedKey.raw, BIN);
+      Serial.print ("; LShift.raw=");
+      Serial.println (Key_LShift.raw, BIN);
+    }
+
     if (!isModifier (mappedKey))
       return false;
 
@@ -87,12 +96,15 @@ namespace Akela {
     Key newKey;
     newKey.raw = OSM_FIRST + newKey.rawKey - Key_LCtrl.rawKey;
 
-    handle_key_event (newKey, row, col, keyState | INJECTED);
+    //handle_key_event (newKey, row, col, keyState | INJECTED);
     return true;
   }
 
   bool
   OneShotMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (keyState != 0)
+      Serial.println ("OSM: eventHook");
+
     if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState))
       cancel ();
 
@@ -166,6 +178,10 @@ namespace Akela {
   // --- glue code ---
 
   OneShotMods::OneShotMods (void) {
+  }
+
+  void
+  OneShotMods::begin (void) {
     event_handler_hook_add (eventHandlerHook);
     loop_hook_add (loopHook);
   }

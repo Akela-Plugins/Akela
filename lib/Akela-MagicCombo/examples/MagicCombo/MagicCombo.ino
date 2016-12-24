@@ -22,7 +22,7 @@
 void magicComboActions (uint8_t comboIndex, uint32_t leftHand, uint32_t rightHand) {
   switch (comboIndex) {
   case 0:
-    Serial.print ("It's a kind of magic!");
+    Serial.println ("It's a kind of magic!");
     break;
   }
 }
@@ -56,10 +56,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  Akela::USE (MagicCombo);
+  Serial.begin (9600);
 
   MagicCombo.configure (dictionary);
+
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&MagicCombo, NULL);
 }
 
 void loop () {

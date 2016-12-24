@@ -54,9 +54,8 @@ void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount, Akela::TapDance::A
 }
 
 void setup () {
-  Akela::USE (TapDance);
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&TapDance, NULL);
 }
 
 void loop () {

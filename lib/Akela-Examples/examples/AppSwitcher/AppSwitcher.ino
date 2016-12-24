@@ -52,10 +52,8 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 }
 
 void setup () {
-  Akela::USE (HostOS);
-  HostOS.setup ();
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&HostOS, &Macros, NULL);
 }
 
 void loop () {

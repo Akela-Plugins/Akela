@@ -25,8 +25,7 @@ namespace Akela {
       this->baseColor = baseColor;
       this->modColor = modColor;
       this->escColor = escColor;
-
-      LEDControl.mode_add (this);
+      previousLayerState = 0xffffffff;
     }
 
     void

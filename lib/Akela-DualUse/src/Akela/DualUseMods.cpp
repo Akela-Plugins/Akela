@@ -29,6 +29,10 @@ namespace Akela {
   static bool modifierDefault;
 
   DualUseMods::DualUseMods (void) {
+  }
+
+  void
+  DualUseMods::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
   }
 

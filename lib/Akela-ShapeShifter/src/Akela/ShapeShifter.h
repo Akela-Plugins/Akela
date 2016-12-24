@@ -21,13 +21,15 @@
 #include <Akela.h>
 
 namespace Akela {
-  class ShapeShifter : public Plugin {
+  class ShapeShifter : public KeyboardioPlugin {
   public:
     typedef struct {
       Key original, replacement;
     } dictionary_t;
 
     ShapeShifter (void);
+
+    virtual void begin (void) final;
 
     static void configure (const dictionary_t dictionary[]);
 

@@ -2,7 +2,7 @@
 title: "Space Cadet Shift"
 permalink: /plugins/SpaceCadet/
 excerpt: "Space Cadet Shift plugin."
-modified: 2016-12-13T10:15:00+01:00
+modified: 2016-12-24T13:55:00+01:00
 ---
 
 {% include toc %}
@@ -33,10 +33,9 @@ enabling the plugin:
 ```c++
 #include <Akela-SpaceCadet.h>
 
-void setup() {
-  Akela::USE(SpaceCadetShift);
-
-  Keyboardio.setup(KEYMAP_SIZE);
+void setup () {
+  Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&SpaceCadetShift, NULL);
 }
 ```
 

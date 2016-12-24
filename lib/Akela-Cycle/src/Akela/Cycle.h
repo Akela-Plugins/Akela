@@ -28,9 +28,11 @@
     })
 
 namespace Akela {
-  class Cycle : public Plugin {
+  class Cycle : public KeyboardioPlugin {
   public:
     Cycle (void);
+
+    virtual void begin (void) final;
 
     static void replace (Key key);
     static void replace (uint8_t cycleSize, const Key cycleSteps[]);

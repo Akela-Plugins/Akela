@@ -23,9 +23,11 @@
 #define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + (Key_ ## key).rawKey }
 
 namespace Akela {
-  class DualUseLayers : public Plugin {
+  class DualUseLayers : public KeyboardioPlugin {
   public:
     DualUseLayers (void);
+
+    virtual void begin (void) final;
 
     static void configure (uint8_t offAction);
 

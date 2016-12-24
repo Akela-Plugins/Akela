@@ -21,13 +21,16 @@
 #include <Akela.h>
 
 namespace Akela {
-  class MagicCombo : public Plugin {
+  class MagicCombo : public KeyboardioPlugin {
   public:
     typedef struct {
       uint32_t leftHand, rightHand;
     } dictionary_t;
 
     MagicCombo (void);
+
+    virtual void begin (void) final;
+
     static void configure (const dictionary_t dictionary[]);
 
   private:

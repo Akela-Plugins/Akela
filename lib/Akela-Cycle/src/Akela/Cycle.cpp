@@ -34,7 +34,10 @@ namespace Akela {
   Cycle::Cycle (void) {
     lastNonCycleKey.raw = Key_NoKey.raw;
     cycleCount = 0;
+  }
 
+  void
+  Cycle::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
   }
 

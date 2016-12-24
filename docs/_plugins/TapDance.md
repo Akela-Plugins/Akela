@@ -2,7 +2,7 @@
 title: "Tap-dance keys"
 permalink: /plugins/TapDance/
 excerpt: "General purpose, multi-use keys, with different actions for each subsequent tap."
-modified: 2016-12-16T15:30:00+01:00
+modified: 2016-12-24T14:00:00+01:00
 ---
 
 {% include toc %}
@@ -80,9 +80,8 @@ void tapDanceAction (uint8_t tapDanceIndex, uint8_t tapCount,
 }
 
 void setup (void) {
-  Akela::USE (TapDance);
-  
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&TapDance, NULL);
 }
 ```
 

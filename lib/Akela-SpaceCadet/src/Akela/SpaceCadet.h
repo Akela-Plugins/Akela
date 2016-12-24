@@ -21,9 +21,11 @@
 #include <Akela.h>
 
 namespace Akela {
-  class SpaceCadetShift : public Plugin {
+  class SpaceCadetShift : public KeyboardioPlugin {
   public:
     SpaceCadetShift (void);
+
+    virtual void begin (void) final;
 
     static void configure (Key left, Key right);
 

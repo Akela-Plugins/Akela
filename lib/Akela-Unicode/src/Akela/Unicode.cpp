@@ -24,8 +24,8 @@ namespace Akela {
   }
 
   void
-  Unicode::setup (void) {
-    ::HostOS.setup ();
+  Unicode::begin (void) {
+    ::HostOS.begin ();
   }
 
   void

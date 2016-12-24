@@ -30,9 +30,9 @@ namespace Akela {
       OTHER
     } Type;
 
-    class Base : public Plugin {
+    class Base : public KeyboardioPlugin {
     public:
-      void setup (void);
+      virtual void begin (void) final;
 
       Type os (void);
       void os (Type osType);

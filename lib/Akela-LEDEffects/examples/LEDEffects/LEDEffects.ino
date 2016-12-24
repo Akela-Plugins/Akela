@@ -21,8 +21,6 @@
 
 #include "LED-Off.h"
 
-static LEDOff LEDOffEffect;
-
 const Key keymaps[][ROWS][COLS] PROGMEM = {
   [0] = KEYMAP_STACKED
   (
@@ -46,11 +44,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
 void setup () {
-  Akela::USE (MiamiEffect);
-  Akela::USE (JukeboxEffect);
-  Akela::USE (JukeboxAlternateEffect);
-
   Keyboardio.setup (KEYMAP_SIZE);
+  Keyboardio.use (&LEDOff, &MiamiEffect, &JukeboxEffect, &JukeboxAlternateEffect, NULL);
 
   MiamiEffect.activate ();
 }

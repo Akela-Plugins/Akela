@@ -2,7 +2,7 @@
 title: "Dual-use modifier & layer keys"
 permalink: /plugins/DualUse/
 excerpt: "Dual-use modifier and layer key plugin."
-modified: 2016-12-13T09:35:00+01:00
+modified: 2016-12-24T13:40:00+01:00
 ---
 
 {% include toc %}
@@ -31,11 +31,10 @@ tap and release them in isolation, they will act as another key instead.
 // in the keymap:
 CTL_T(Esc), LT(_LAYER, Esc)
 
-void setup(void) {
-  Akela::USE(DualUseMods);
-  Akela::USE(DualUseLayers);
+void setup (void) {
+  Keyboardio.setup (KEYMAP_SIZE);
   
-  Keyboardio.setup(KEYMAP_SIZE);
+  Keyboardio.use (&DualUseMods, &DualUseLayers, NULL);
 }
 ```
 

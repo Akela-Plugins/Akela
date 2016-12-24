@@ -110,6 +110,10 @@ namespace Akela {
   }
 
   DualUseLayers::DualUseLayers (void) {
+  }
+
+  void
+  DualUseLayers::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
   }
 

@@ -27,6 +27,10 @@ namespace Akela {
   static Key leftParen, rightParen;
 
   SpaceCadetShift::SpaceCadetShift () {
+  }
+
+  void
+  SpaceCadetShift::begin () {
     event_handler_hook_add (this->eventHandlerHook);
   }
 
