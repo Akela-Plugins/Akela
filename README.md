@@ -7,8 +7,11 @@
 
 This is a collection of small libraries to extend
 the [Keyboardio Model 01 firmware][kbdiofw]. A heavy work in progress, that has
-never been tried on real hardware yet. Consider it a proof of concept that may
-go away at any point.
+only recently been tried on real hardware. Most of the things do not work at all
+yet, work is under way to fix them.
+
+While lot may change, the approach seems solid, and the library will stick this
+time. Don't rely on it just yet, though.
 
  [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
 
