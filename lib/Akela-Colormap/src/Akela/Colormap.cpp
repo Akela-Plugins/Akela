@@ -57,9 +57,9 @@ namespace Akela {
           if (colorIndex == Transparent)
             continue;
 
-          color.b = pgm_read_byte (palette + colorIndex * 3);
-          color.g = pgm_read_byte (palette + colorIndex * 3 + 1);
-          color.r = pgm_read_byte (palette + colorIndex * 3 + 2);
+          color.b = pgm_read_byte (&(palette[colorIndex].b));
+          color.g = pgm_read_byte (&(palette[colorIndex].g));
+          color.r = pgm_read_byte (&(palette[colorIndex].r));
 
           led_set_crgb_at (r, c, color);
         }
