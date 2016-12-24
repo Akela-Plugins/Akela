@@ -46,8 +46,10 @@ namespace Akela {
     Serial.print (Layer.defaultLayer (), DEC);
     Serial.print (F(", layerState="));
     Serial.print (Layer.getLayerState (), BIN);
-    Serial.print (F(", mappedKey="));
-    Serial.println (mappedKey.raw, HEX);
+    Serial.print (F(", mappedKey.flags="));
+    Serial.print (mappedKey.flags, BIN);
+    Serial.print (F(", mappedKey.rawKey="));
+    Serial.println (mappedKey.rawKey, HEX);
 
     return false;
   }
