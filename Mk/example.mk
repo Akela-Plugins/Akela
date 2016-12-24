@@ -70,6 +70,7 @@ compile: ${OUTPUT_PATH}
 size: compile
 	${SS} echo "- Size: firmware/${LIBRARY}/${OUTPUT_FILE_PREFIX}.elf"
 	${SC} $(SIZE_TOOL) $(AVR_SIZE) -C --mcu=$(MCU) $(ELF_FILE_PATH)
+	@echo
 
 size-map: compile
 	$(AVR_NM) --size-sort -C -r -l $(ELF_FILE_PATH)
