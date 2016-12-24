@@ -47,7 +47,7 @@ namespace Akela {
 #define isSameAsPrevious(key) (key.raw == prevKey.raw)
 #define saveAsPrevious(key) prevKey.raw = key.raw
 
-#define toNormalKey(key) key.flags = 0; key.rawKey += Key_LCtrl.rawKey
+#define toNormalMod(key, idx) {key.flags = 0; key.rawKey = Key_LCtrl.rawKey + idx;}
 #define hasTimedOut() (Timer > TimeOut)
 
   // ----- passthrough ------
@@ -57,7 +57,8 @@ namespace Akela {
     if (!isOSM (mappedKey))
       return false;
 
-    toNormalKey (mappedKey);
+    uint8_t idx = mappedKey.raw - OSM_FIRST;
+    toNormalMod (mappedKey, idx);
 
     handle_key_event (mappedKey, row, col, keyState | INJECTED);
 
@@ -77,15 +78,6 @@ namespace Akela {
 
   bool
   OneShotMods::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (keyState != 0) {
-      Serial.print ("OSM: eventAutoHook: isModifier=");
-      Serial.print (isModifier (mappedKey));
-      Serial.print ("; mappedKey.raw=");
-      Serial.print (mappedKey.raw, BIN);
-      Serial.print ("; LShift.raw=");
-      Serial.println (Key_LShift.raw, BIN);
-    }
-
     if (!isModifier (mappedKey))
       return false;
 
@@ -96,20 +88,20 @@ namespace Akela {
     Key newKey;
     newKey.raw = OSM_FIRST + newKey.rawKey - Key_LCtrl.rawKey;
 
-    //handle_key_event (newKey, row, col, keyState | INJECTED);
+    handle_key_event (newKey, row, col, keyState | INJECTED);
     return true;
   }
 
   bool
   OneShotMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (keyState != 0)
-      Serial.println ("OSM: eventHook");
-
-    if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState))
+    if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState) && !(keyState & INJECTED))
       cancel ();
 
-    if (!isOSM (mappedKey))
+    if (!isOSM (mappedKey)) {
+      if (!(keyState & INJECTED) && key_toggled_on (keyState))
+        saveAsPrevious (mappedKey);
       return false;
+    }
 
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
@@ -124,17 +116,19 @@ namespace Akela {
       return true;
     }
 
-    uint8_t idx = mappedKey.rawKey;
+    uint8_t idx = mappedKey.raw - OSM_FIRST;
 
-    if (isSticky(idx)) {
-      cancel (true);
-      return true;
-    } else if (isSameAsPrevious (mappedKey)) {
-      setSticky (idx);
+    if (key_toggled_on (keyState)) {
+      if (isSticky(idx)) {
+        cancel (true);
+        return true;
+      } else if (isSameAsPrevious (mappedKey)) {
+        setSticky (idx);
+      }
     }
 
     saveAsPrevious (mappedKey);
-    toNormalKey (mappedKey);
+    toNormalMod (mappedKey, idx);
     setOneShot (idx);
 
     handle_key_event (mappedKey, row, col, keyState | INJECTED);
@@ -152,17 +146,15 @@ namespace Akela {
       cancel ();
 
     for (uint8_t i = 0; i < 8; i++) {
-      if (!isOneShot (i))
-        continue;
-
       if (shouldCancel) {
         if (isSticky (i)) {
-          if (shouldCancelStickies)
+          if (shouldCancelStickies) {
             clearSticky (i);
-        } else {
+          }
+        } else if (isOneShot (i)) {
           clearOneShot (i);
         }
-      } else {
+      } else if (isOneShot (i)) {
         uint8_t m = Key_LCtrl.rawKey + i;
         handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
       }
@@ -211,7 +203,8 @@ namespace Akela {
 
   void
   OneShotMods::enableAuto (void) {
-    event_handler_hook_add (eventHandlerAutoHook);
+    // FIXME: Does not work yet.
+    //event_handler_hook_add (eventHandlerAutoHook);
   }
 
   void
