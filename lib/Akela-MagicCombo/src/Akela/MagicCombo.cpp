@@ -35,10 +35,10 @@ namespace Akela {
     _magicDictionary = (dictionary_t *)dictionary;
   }
 
-  bool
+  Key
   MagicCombo::comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!_magicDictionary)
-      return false;
+      return mappedKey;
 
     for (byte i = 0;; i++) {
       dictionary_t combo;
@@ -56,7 +56,7 @@ namespace Akela {
       }
     }
 
-    return false;
+    return mappedKey;
   }
 
 };

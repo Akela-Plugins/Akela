@@ -31,8 +31,8 @@ namespace Akela {
 
     virtual void update (void) final;
   private:
-    static bool eventHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static void loopHook (void);
+    static Key eventHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (bool postClear);
   };
 };
 

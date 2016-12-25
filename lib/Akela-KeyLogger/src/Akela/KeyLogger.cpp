@@ -29,12 +29,12 @@ namespace Akela {
     event_handler_hook_add (this->logger);
   }
 
-  bool
+  Key
   KeyLogger::logger (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!key_toggled_on (keyState) && !key_toggled_off (keyState))
-      return false;
+      return mappedKey;
     if (keyState & INJECTED)
-      return false;
+      return mappedKey;
 
     Serial.print (F("KL: row="));
     Serial.print (row, DEC);
@@ -51,7 +51,7 @@ namespace Akela {
     Serial.print (F(", mappedKey.rawKey="));
     Serial.println (mappedKey.rawKey, HEX);
 
-    return false;
+    return mappedKey;
   }
 };
 

@@ -56,26 +56,25 @@ namespace Akela {
     eventHandlerHook (key, 255, 255, keyState);
   }
 
-  bool
+  Key
   DualUseMods::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
-      return false;
+      return mappedKey;
 
     Key newKey = { KEY_FLAGS, mappedKey.rawKey };
     if (modifierDefault)
       newKey.rawKey = Key_LCtrl.rawKey + (mappedKey.flags & ~(B00000111));
 
-    handle_key_event (newKey, row, col, keyState | INJECTED);
-    return true;
+    return newKey;
   }
 
-  bool
+  Key
   DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
       if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
-        return false;
-      return true;
+        return mappedKey;
+      return Key_NoKey;
     }
 
     // If a key has been just toggled on...
@@ -87,7 +86,7 @@ namespace Akela {
 
         // We do not need to register modifiers here, the dual-use keys will be looped over, and we'll register it then.
         // FIXME: We might want to register anyway, to make sure the key gets sent, and something before that does not trigger a sendReport.
-        return false;
+        return mappedKey;
       }
 
       uint8_t modIndex = mappedKey.flags & ~(B00000111);
@@ -96,13 +95,13 @@ namespace Akela {
         timer[modIndex]++;
 
       // We do not immediately register the modifier, so lets return here fast!
-      return true;
+      return Key_NoKey;
     }
 
     // So the key that was pressed is not toggled on, but either released or
     // held. If released or held, we don't care it it is not a DualUse key.
     if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
-      return false;
+      return mappedKey;
 
     // Now, we know it is a dual-use key, either released or held.
 
@@ -119,22 +118,24 @@ namespace Akela {
     // If we need no action for the key, then handle it as a modifier. The
     // states will decide if it is a hold or a release, we do not need to care.
     if (!bitRead (altActionNeededMap, modIndex)) {
-      uint8_t m = Key_LCtrl.rawKey + modIndex;
-      handle_key_event ({ KEY_FLAGS, m }, row, col, keyState | INJECTED);
-      return true;
+      Key newKey;
+
+      newKey.flags = KEY_FLAGS;
+      newKey.rawKey = Key_LCtrl.rawKey + modIndex;
+      return newKey;
     }
 
     // We do need an alt action for the key, and we did not time out.
 
     // If the key was just released, then register the alternate code, but don't register the modifier.
     if (key_toggled_off (keyState)) {
-      handle_key_event ({ KEY_FLAGS, mappedKey.rawKey }, row, col, IS_PRESSED | INJECTED);
+      return (Key) { KEY_FLAGS, mappedKey.rawKey };
     }
 
     // if the key is still held, we have not timed out yet, and an action is
     // needed, then we don't do anything, but wait.
 
-    return true;
+    return Key_NoKey;
   }
 
 };

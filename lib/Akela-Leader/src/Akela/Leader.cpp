@@ -95,16 +95,19 @@ namespace Akela {
   }
 
   // --- hooks ---
-  bool
+  Key
   Leader::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (keyState & INJECTED)
-      return false;
+      return mappedKey;
 
-    if (!key_is_pressed (keyState) && !key_was_pressed (keyState))
-      return isLeader (mappedKey);
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      if (isLeader (mappedKey))
+        return Key_NoKey;
+      return mappedKey;
+    }
 
     if (!isActive () && !isLeader (mappedKey))
-      return false;
+      return mappedKey;
 
     if (!isActive ()) {
       // Must be a leader key!
@@ -116,7 +119,7 @@ namespace Akela {
       }
 
       // If the sequence was not active yet, ignore the key.
-      return true;
+      return Key_NoKey;
     }
 
     // active
@@ -126,7 +129,7 @@ namespace Akela {
       leaderSeqPos++;
       if (leaderSeqPos > LEADER_MAX_SEQUENCE_LENGTH) {
         reset ();
-        return false;
+        return mappedKey;
       }
 
       leaderTimer = 0;
@@ -136,27 +139,30 @@ namespace Akela {
       if (actionIndex < 0) {
         // No match, abort and pass it through.
         reset ();
-        return false;
+        return mappedKey;
       }
-      return true;
+      return Key_NoKey;
     } else if (key_is_pressed (keyState)) {
       // held, no need for anything here.
-      return true;
+      return Key_NoKey;
     }
 
     if (actionIndex < 0) {
       // No match, abort and pass it through.
       reset ();
-      return false;
+      return mappedKey;
     }
 
     action_t leaderAction = (action_t) pgm_read_ptr (&(leaderDictionary[actionIndex].action));
     (*leaderAction) (actionIndex);
-    return true;
+    return Key_NoKey;
   }
 
   void
-  Leader::loopHook (void) {
+  Leader::loopHook (bool postClear) {
+    if (!postClear)
+      return;
+
     if (!isActive ())
       return;
 

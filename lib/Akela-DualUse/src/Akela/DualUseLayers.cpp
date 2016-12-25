@@ -28,10 +28,10 @@ namespace Akela {
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
   static bool layerDefault;
 
-  bool
+  Key
   DualUseLayers::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (mappedKey.raw < DUL_FIRST || mappedKey.raw > DUL_LAST)
-      return false;
+      return mappedKey;
 
     Key newKey = { KEY_FLAGS, mappedKey.rawKey };
     if (layerDefault) {
@@ -39,17 +39,16 @@ namespace Akela {
       newKey = { KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, m };
     }
 
-    handle_key_event (newKey, row, col, keyState | INJECTED);
-    return true;
+    return newKey;
   }
 
-  bool
+  Key
   DualUseLayers::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
       if (mappedKey.raw < DUL_FIRST || mappedKey.raw > DUL_LAST)
-        return false;
-      return true;
+        return mappedKey;
+      return Key_NoKey;
     }
 
     // If a key has been just toggled on...
@@ -59,7 +58,7 @@ namespace Akela {
         altActionNeededMap = 0;
         memset (timer, 0, 8);
 
-        return false;
+        return mappedKey;
       }
 
       uint8_t layerIndex = mappedKey.flags & ~0b11100000;
@@ -68,13 +67,13 @@ namespace Akela {
         timer[layerIndex]++;
 
       // We do not immediately switch layers, so lets return here fast!
-      return true;
+      return Key_NoKey;
     }
 
     // So the key that was pressed is not toggled on, but either released or
     // held. If released or held, we don't care it it is not a DualUse key.
     if (mappedKey.raw < DUL_FIRST || mappedKey.raw > DUL_LAST)
-      return false;
+      return mappedKey;
 
     // Now, we know it is a dual-use key, either released or held.
     uint8_t layerIndex = mappedKey.flags & ~0b11100000;
@@ -91,22 +90,24 @@ namespace Akela {
     // switch. The states will decide if it is a hold or a release, we do not
     // need to care.
     if (!bitRead (altActionNeededMap, layerIndex)) {
-      uint8_t m = layerIndex + MOMENTARY_OFFSET;
-      handle_key_event ({ KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP, m }, row, col, keyState | INJECTED);
-      return true;
+      Key newKey;
+
+      newKey.flags = KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP;
+      newKey.rawKey = layerIndex + MOMENTARY_OFFSET;
+      return newKey;
     }
 
     // We do need an alt action for the key, and we did not time out.
 
     // If the key was just released, then register the alternate code.
     if (key_toggled_off (keyState)) {
-      handle_key_event ({ KEY_FLAGS, mappedKey.rawKey }, row, col, IS_PRESSED | INJECTED);
+      return (Key) { KEY_FLAGS, mappedKey.rawKey };
     }
 
     // if the key is still held, we have not timed out yet, and an action is
     // needed, then we don't do anything, but wait.
 
-    return true;
+    return Key_NoKey;
   }
 
   DualUseLayers::DualUseLayers (void) {

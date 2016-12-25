@@ -38,7 +38,7 @@ namespace Akela {
     static void replace (uint8_t cycleSize, const Key cycleSteps[]);
 
   private:
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
 

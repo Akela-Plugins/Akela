@@ -56,21 +56,19 @@ namespace Akela {
 
   // ----- passthrough ------
 
-  bool
+  Key
   OneShotLayers::eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!isOSL (mappedKey))
-      return false;
+      return mappedKey;
 
     uint8_t layer = mappedKey.rawKey - OSL_FIRST;
     toNormalKey (mappedKey, layer);
 
-    handle_key_event (mappedKey, row, col, keyState | INJECTED);
-
-    return true;
+    return mappedKey;
   }
 
   void
-  OneShotLayers::loopNoOpHook (void) {
+  OneShotLayers::loopNoOpHook (bool postClear) {
   }
 
   // ---- OneShot stuff ----
@@ -80,33 +78,32 @@ namespace Akela {
     return !isOSL (mappedKey);
   }
 
-  bool
+  Key
   OneShotLayers::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!isLayerKey (mappedKey))
-      return false;
+      return mappedKey;
 
     // If mappedKey is an injected key, we don't fiddle with those.
     if (keyState & INJECTED)
-      return false;
+      return mappedKey;
 
     uint8_t layer = mappedKey.rawKey - OSL_FIRST;
     Key newKey = OSL(layer);
 
-    handle_key_event (newKey, row, col, keyState | INJECTED);
-    return true;
+    return newKey;
   }
 
-  bool
+  Key
   OneShotLayers::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState))
       cancel ();
 
     if (!isOSL (mappedKey))
-      return false;
+      return mappedKey;
 
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
-      return true;
+      return Key_NoKey;
     }
 
     // Released?
@@ -114,14 +111,14 @@ namespace Akela {
       if (hasTimedOut ())
         cancel ();
 
-      return true;
+      return Key_NoKey;
     }
 
     uint8_t idx = mappedKey.rawKey - OSL_FIRST;
 
     if (isSticky(idx)) {
       cancel (true);
-      return true;
+      return Key_NoKey;
     } else if (isSameAsPrevious (mappedKey)) {
       setSticky (idx);
     }
@@ -132,11 +129,14 @@ namespace Akela {
 
     Layer.on (idx);
 
-    return true;
+    return Key_NoKey;
   }
 
   void
-  OneShotLayers::loopHook (void) {
+  OneShotLayers::loopHook (bool postClear) {
+    if (!postClear)
+      return;
+
     if (!State)
       return;
 

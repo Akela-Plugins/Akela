@@ -78,26 +78,26 @@ namespace Akela {
     updateFrequency = updateFreq;
   }
 
-  bool
+  Key
   Heatmap::eventHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // if it is a synthetic key, skip it.
     if (keyState & INJECTED)
-      return false;
+      return mappedKey;
 
     // if the key is not toggled on, return.
     if (key_toggled_on (keyState))
-      return false;
+      return mappedKey;
 
     totalKeys++;
     heatmap[row][col]++;
     if (heatmap[row][col] > highestCount)
       highestCount = heatmap[row][col];
 
-    return false;
+    return mappedKey;
   }
 
   void
-  Heatmap::loopHook (void) {
+  Heatmap::loopHook (bool postClear) {
     if (highestCount > 191 || totalKeys > 16000)
       shiftStats();
   }

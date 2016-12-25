@@ -46,8 +46,8 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static void loopHook (void);
+    static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (bool postClear);
     static int8_t lookup (void);
   };
 };

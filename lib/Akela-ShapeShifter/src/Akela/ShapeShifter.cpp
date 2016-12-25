@@ -46,25 +46,25 @@ namespace Akela {
     event_handler_hook_replace (this->eventHandlerHook, this->noOpHook);
   }
 
-  bool
+  Key
   ShapeShifter::noOpHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    return false;
+    return mappedKey;
   }
 
-  bool
+  Key
   ShapeShifter::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (!shapeShiftDictionary)
-      return false;
+      return mappedKey;
 
     // If Shift is not active, bail out early.
     if (!Keyboard.isModifierActive (Key_LShift.rawKey) &&
         !Keyboard.isModifierActive (Key_RShift.rawKey))
-      return false;
 
     // If the key is injected, bail out too, to avoid getting into an endless
     // loop.
     if (keyState & INJECTED)
       return false;
+      return mappedKey;
 
     uint8_t i = 0;
 
@@ -75,12 +75,10 @@ namespace Akela {
     }
     // If not found, bail out.
     if (shapeShiftDictionary[i].original.raw == Key_NoKey.raw)
-      return false;
+      return mappedKey;
 
     // If found, handle the alternate key instead
-    handle_key_event (shapeShiftDictionary[i].replacement, row, col, keyState | INJECTED);
-
-    return true;
+    return shapeShiftDictionary[i].replacement;
   }
 
 };

@@ -65,25 +65,28 @@ namespace Akela {
 
   // --- hooks ---
 
-  bool
+  Key
   Cycle::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!key_is_pressed (keyState) && !key_was_pressed (keyState))
-      return isCycle (mappedKey);
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      if (isCycle (mappedKey))
+        return Key_NoKey;
+      return mappedKey;
+    }
 
     if (!isCycle (mappedKey)) {
       if (key_toggled_on (keyState)) {
         lastNonCycleKey.raw = mappedKey.raw;
         cycleCount = 0;
       }
-      return false;
+      return mappedKey;
     }
 
     if (!key_toggled_off (keyState))
-      return true;
+      return Key_NoKey;
 
     cycleCount++;
     cycleAction (lastNonCycleKey, cycleCount);
-    return true;
+    return Key_NoKey;
   }
 };
 

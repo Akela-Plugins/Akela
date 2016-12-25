@@ -51,15 +51,15 @@ namespace Akela {
     lastTapDanceKey.raw = Key_NoKey.raw;
   }
 
-  bool
+  Key
   TapDance::release (uint8_t tapDanceIndex) {
     tapDanceAction (tapDanceIndex, tapDanceCount[tapDanceIndex], Release);
     tapDanceCount[tapDanceIndex] = 0;
     bitClear (tapDancePressedState, tapDanceIndex);
-    return true;
+    return Key_NoKey;
   }
 
-  bool
+  Key
   TapDance::tap (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
 
@@ -68,7 +68,7 @@ namespace Akela {
 
     tapDanceAction (idx, tapDanceCount[idx], Tap);
 
-    return true;
+    return Key_NoKey;
   }
 
   // --- api ---
@@ -114,19 +114,22 @@ namespace Akela {
 
   // --- hooks ---
 
-  bool
+  Key
   TapDance::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!key_is_pressed (keyState) && !key_was_pressed (keyState))
-      return isTapDance (mappedKey);
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
+      if (isTapDance (mappedKey))
+        return Key_NoKey;
+      return mappedKey;
+    }
 
     if (!isTapDance (mappedKey)) {
       if (!isActive ())
-        return false;
+        return mappedKey;
 
       if (key_toggled_on (keyState))
         interrupt ();
 
-      return false;
+      return mappedKey;
     }
 
     uint8_t tapDanceIndex = mappedKey.raw - TD_FIRST;
@@ -144,7 +147,7 @@ namespace Akela {
         }
 
         if (!key_toggled_on (keyState))
-          return true;
+          return Key_NoKey;
 
         interrupt ();
       }
@@ -153,7 +156,7 @@ namespace Akela {
     // in sequence
 
     if (key_toggled_off (keyState))
-      return true;
+      return Key_NoKey;
 
     lastTapDanceKey.raw = mappedKey.raw;
     bitSet (tapDancePressedState, tapDanceIndex);
@@ -162,11 +165,11 @@ namespace Akela {
       return tap ();
 
     tapDanceAction (tapDanceIndex, tapDanceCount[tapDanceIndex], Hold);
-    return true;
+    return Key_NoKey;
   }
 
   void
-  TapDance::loopHook (void) {
+  TapDance::loopHook (bool postClear) {
     if (!isActive ())
       return;
 

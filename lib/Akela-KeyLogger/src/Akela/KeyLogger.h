@@ -28,7 +28,7 @@ namespace Akela {
     virtual void begin (void) final;
 
   private:
-    static bool logger (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static Key logger (Key mappedKey, byte row, byte col, uint8_t keyState);
   };
 };
 

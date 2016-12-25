@@ -50,16 +50,16 @@ namespace Akela {
     event_handler_hook_replace (this->eventHandlerHook, this->noOpHook);
   }
 
-  bool
+  Key
   SpaceCadetShift::noOpHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    return false;
+    return mappedKey;
   }
 
-  bool
+  Key
   SpaceCadetShift::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
-      return false;
+      return mappedKey;
     }
 
     // If a key has been just toggled on...
@@ -78,13 +78,13 @@ namespace Akela {
       }
 
       // this is all we need to do on keypress, let the next handler do its thing too.
-      return false;
+      return mappedKey;
     }
 
     // if the state is empty, that means that either the shifts weren't pressed,
     // or we used another key in the interim. in both cases, nothing special to do.
     if (!parenNeeded)
-      return false;
+      return mappedKey;
 
     // if we did not time out yet, up the timer
     if (timer < timeOut)
@@ -95,7 +95,7 @@ namespace Akela {
     if (timer >= timeOut) {
       parenNeeded = 0;
       timer = 0;
-      return false;
+      return mappedKey;
     }
 
     // if we have a state, but the key in question is not either of the shifts,
@@ -103,7 +103,7 @@ namespace Akela {
     // interrupt us.
     if (mappedKey.raw != Key_LShift.raw &&
         mappedKey.raw != Key_RShift.raw)
-      return false;
+      return mappedKey;
 
     // if a key toggled off (and that must be one of the shifts at this point),
     // send the parens too (if we were interrupted, we bailed out earlier).
@@ -117,7 +117,7 @@ namespace Akela {
       timer = 0;
     }
 
-    return false;
+    return mappedKey;
   }
 
 };

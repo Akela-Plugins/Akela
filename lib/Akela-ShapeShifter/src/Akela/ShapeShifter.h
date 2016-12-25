@@ -37,8 +37,8 @@ namespace Akela {
     void off (void);
 
   private:
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static bool noOpHook (Key, byte row, byte col, uint8_t keyState);
+    static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static Key noOpHook (Key, byte row, byte col, uint8_t keyState);
   };
 };
 

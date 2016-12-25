@@ -39,12 +39,12 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
-    static bool eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static void loopNoOpHook (void);
+    static Key eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopNoOpHook (bool postClear);
 
-    static bool eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static bool eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
-    static void loopHook (void);
+    static Key eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (bool postClear);
   };
 };
 
