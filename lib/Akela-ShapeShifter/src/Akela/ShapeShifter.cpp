@@ -22,6 +22,7 @@
 namespace Akela {
 
   static const ShapeShifter::dictionary_t *shapeShiftDictionary = NULL;
+  static bool shapeShiftModActive;
 
   ShapeShifter::ShapeShifter (void) {
   }
@@ -29,6 +30,7 @@ namespace Akela {
   void
   ShapeShifter::begin (void) {
     event_handler_hook_add (this->eventHandlerHook);
+    loop_hook_add (this->loopHook);
   }
 
   void
@@ -39,16 +41,31 @@ namespace Akela {
   void
   ShapeShifter::on (void) {
     event_handler_hook_replace (this->noOpHook, this->eventHandlerHook);
+    loop_hook_replace (this->noOpLoopHook, this->loopHook);
   }
 
   void
   ShapeShifter::off (void) {
     event_handler_hook_replace (this->eventHandlerHook, this->noOpHook);
+    loop_hook_replace (this->loopHook, this->noOpLoopHook);
   }
 
   Key
   ShapeShifter::noOpHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     return mappedKey;
+  }
+
+  void
+  ShapeShifter::noOpLoopHook (bool postClear) {
+  }
+
+  void
+  ShapeShifter::loopHook (bool postClear) {
+    if (postClear)
+      return;
+
+    shapeShiftModActive = Keyboard.isModifierActive (Key_LShift.rawKey) ||
+      Keyboard.isModifierActive (Key_RShift.rawKey);
   }
 
   Key
@@ -57,13 +74,7 @@ namespace Akela {
       return mappedKey;
 
     // If Shift is not active, bail out early.
-    if (!Keyboard.isModifierActive (Key_LShift.rawKey) &&
-        !Keyboard.isModifierActive (Key_RShift.rawKey))
-
-    // If the key is injected, bail out too, to avoid getting into an endless
-    // loop.
-    if (keyState & INJECTED)
-      return false;
+    if (!shapeShiftModActive)
       return mappedKey;
 
     uint8_t i = 0;
