@@ -84,7 +84,7 @@ const cRGB palette[] PROGMEM = {
 };
 
 void setup () {
-  Keyboardio.use (&ColormapEffect);
+  Keyboardio.use (&ColormapEffect, NULL);
 
   Keyboardio.setup (KEYMAP_SIZE);
   ColormapEffect.configure (palette, colormap);
