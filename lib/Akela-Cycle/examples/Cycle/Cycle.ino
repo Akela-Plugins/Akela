@@ -49,7 +49,7 @@ void cycleAction (Key previousKey, uint8_t cycleCount) {
     }
   }
   if (previousKey.raw == Key_A.raw) {
-    cycleThrough (Key_B, Key_C, Key_D);
+    cycleThrough (Key_A, Key_B, Key_C, Key_D);
   }
 }
 
