@@ -27,6 +27,8 @@ namespace Akela {
   static Key leftParen, rightParen;
 
   SpaceCadetShift::SpaceCadetShift () {
+    leftParen.raw = Key_9.raw;
+    rightParen.raw = Key_0.raw;
   }
 
   void
@@ -111,7 +113,10 @@ namespace Akela {
       Key paren = leftParen;
       if (bitRead (parenNeeded, 1))
         paren = rightParen;
+
+      handle_key_event (mappedKey, row, col, IS_PRESSED | INJECTED);
       handle_key_event (paren, row, col, IS_PRESSED | INJECTED);
+      Keyboard.sendReport ();
 
       parenNeeded = 0;
       timer = 0;
