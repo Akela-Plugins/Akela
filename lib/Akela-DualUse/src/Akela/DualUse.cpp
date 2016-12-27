@@ -93,18 +93,18 @@ namespace Akela {
 
   Key
   DualUse::disabledHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUL_LAST)
+    if (mappedKey.raw < DU_FIRST || mappedKey.raw > DU_LAST)
       return mappedKey;
 
     Key newKey;
 
-    uint8_t specIndex = (mappedKey.raw - DUM_FIRST) >> 8;
+    uint8_t specIndex = (mappedKey.raw - DU_FIRST) >> 8;
 
     if (specDefault) {
       newKey = specialAction (specIndex);
     } else {
       newKey.flags = KEY_FLAGS;
-      newKey.rawKey = mappedKey.raw - DUM_FIRST - (specIndex << 8);
+      newKey.rawKey = mappedKey.raw - DU_FIRST - (specIndex << 8);
     }
 
     return newKey;
@@ -117,13 +117,13 @@ namespace Akela {
 
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
-      if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUL_LAST)
+      if (mappedKey.raw < DU_FIRST || mappedKey.raw > DU_LAST)
         return mappedKey;
       return Key_NoKey;
     }
 
-    if (mappedKey.raw >= DUM_FIRST && mappedKey.raw <= DUL_LAST) {
-      uint8_t specIndex = (mappedKey.raw - DUM_FIRST) >> 8;
+    if (mappedKey.raw >= DU_FIRST && mappedKey.raw <= DU_LAST) {
+      uint8_t specIndex = (mappedKey.raw - DU_FIRST) >> 8;
       Key newKey;
 
       newKey.raw = Key_NoKey.raw;
@@ -144,7 +144,7 @@ namespace Akela {
           timer[specIndex]++;
 
         if ((timer[specIndex] <= timeOut) && bitRead (keyActionNeededMap, specIndex)) {
-          uint8_t m = mappedKey.raw - DUM_FIRST - (specIndex << 8);
+          uint8_t m = mappedKey.raw - DU_FIRST - (specIndex << 8);
           if (specIndex >= 8)
             m--;
 
