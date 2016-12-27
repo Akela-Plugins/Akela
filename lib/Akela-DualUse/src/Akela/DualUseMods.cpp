@@ -23,7 +23,8 @@ using namespace Akela::Ranges;
 
 namespace Akela {
 
-  static uint8_t altActionNeededMap;
+  static uint8_t modActionNeededMap;
+  static uint8_t modPressedMap;
   static uint8_t timer[8];
   static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
   static bool modifierDefault;
@@ -61,15 +62,36 @@ namespace Akela {
     if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
       return mappedKey;
 
-    Key newKey = { KEY_FLAGS, mappedKey.rawKey };
-    if (modifierDefault)
-      newKey.rawKey = Key_LCtrl.rawKey + (mappedKey.flags & ~(B00000111));
+    Key newKey;
+
+    uint8_t modIndex = (mappedKey.raw - DUM_FIRST) >> 8;
+    newKey.flags = KEY_FLAGS;
+
+    if (modifierDefault) {
+      newKey.rawKey = Key_LCtrl.rawKey + modIndex;
+    } else {
+      newKey.rawKey = mappedKey.raw - DUM_FIRST - (modIndex << 8);
+    }
 
     return newKey;
   }
 
+  static void
+  pressAllMods (byte row, byte col) {
+    for (uint8_t modIndex = 0; modIndex < 8; modIndex++) {
+      if (!bitRead (modPressedMap, modIndex))
+        continue;
+
+      uint8_t m = modIndex + Key_LCtrl.rawKey;
+      handle_key_event ({0, m}, row, col, IS_PRESSED | INJECTED);
+    }
+  }
+
   Key
   DualUseMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (keyState & INJECTED)
+      return mappedKey;
+
     // If nothing happened, bail out fast.
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
       if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
@@ -77,20 +99,28 @@ namespace Akela {
       return Key_NoKey;
     }
 
+    // If it is a dual-use modifier, record the pressed state.
+    if (mappedKey.raw >= DUM_FIRST && mappedKey.raw <= DUM_LAST) {
+      uint8_t modIndex = (mappedKey.raw - DUM_FIRST) >> 8;
+
+      if (key_is_pressed (keyState)) {
+        bitWrite (modPressedMap, modIndex, 1);
+      } else {
+        bitWrite (modPressedMap, modIndex, 0);
+      }
+    }
+
     // If a key has been just toggled on...
     if (key_toggled_on (keyState)) {
       if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST) {
-        // Not a Dual-use key
-        altActionNeededMap = 0;
-        memset (timer, 0, 8);
+        pressAllMods (row, col);
 
-        // We do not need to register modifiers here, the dual-use keys will be looped over, and we'll register it then.
-        // FIXME: We might want to register anyway, to make sure the key gets sent, and something before that does not trigger a sendReport.
         return mappedKey;
       }
 
-      uint8_t modIndex = mappedKey.flags & ~(B00000111);
-      bitWrite (altActionNeededMap, modIndex, 1);
+      uint8_t modIndex = (mappedKey.raw - DUM_FIRST) >> 8;
+
+      bitWrite (modActionNeededMap, modIndex, 1);
       if (timer[modIndex] < timeOut)
         timer[modIndex]++;
 
@@ -99,37 +129,61 @@ namespace Akela {
     }
 
     // So the key that was pressed is not toggled on, but either released or
-    // held. If released or held, we don't care it it is not a DualUse key.
-    if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST)
+    // held. If released or held, we don't care if it is not a DualUse key.
+    if (mappedKey.raw < DUM_FIRST || mappedKey.raw > DUM_LAST) {
+      if (key_is_pressed (keyState))
+        pressAllMods (row, col);
       return mappedKey;
+    }
 
     // Now, we know it is a dual-use key, either released or held.
 
-    uint8_t modIndex = mappedKey.flags & ~(B00000111);
+    uint8_t modIndex = (mappedKey.raw - DUM_FIRST) >> 8;
 
     // If we have not timed out yet, up the timer.
     if (timer[modIndex] < timeOut)
       timer[modIndex]++;
 
-    // If we timed out, then we do not need the alt action.
-    if (timer[modIndex] > timeOut)
-      bitWrite (altActionNeededMap, modIndex, 0);
+    // If we timed out, then we do not need the alt action, and we register the
+    // modifier ASAP.
+    if (timer[modIndex] >= timeOut) {
+      bitWrite (modActionNeededMap, modIndex, 1);
+      pressAllMods (row, col);
+
+      return Key_NoKey;
+    }
+
+    // If released before the timeout, we do not need the modifier, either.
+    if (timer[modIndex] < timeOut && key_toggled_off (keyState)) {
+      bitWrite (modActionNeededMap, modIndex, 0);
+    }
 
     // If we need no action for the key, then handle it as a modifier. The
     // states will decide if it is a hold or a release, we do not need to care.
-    if (!bitRead (altActionNeededMap, modIndex)) {
-      Key newKey;
+    if (bitRead (modActionNeededMap, modIndex)) {
+      if (key_toggled_off (keyState)) {
+        bitWrite (modActionNeededMap, modIndex, 0);
+        return Key_NoKey;
+      } else {
+        Key newKey;
 
-      newKey.flags = KEY_FLAGS;
-      newKey.rawKey = Key_LCtrl.rawKey + modIndex;
-      return newKey;
+        newKey.flags = KEY_FLAGS;
+        newKey.rawKey = Key_LCtrl.rawKey + modIndex;
+        return newKey;
+      }
     }
 
     // We do need an alt action for the key, and we did not time out.
 
     // If the key was just released, then register the alternate code, but don't register the modifier.
     if (key_toggled_off (keyState)) {
-      return (Key) { KEY_FLAGS, mappedKey.rawKey };
+      uint8_t m = mappedKey.raw - DUM_FIRST - (modIndex << 8);
+      Key newKey = { KEY_FLAGS, m };
+
+      handle_key_event (newKey, row, col, IS_PRESSED | INJECTED);
+      Keyboard.sendReport ();
+
+      return newKey;
     }
 
     // if the key is still held, we have not timed out yet, and an action is
