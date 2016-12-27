@@ -2,7 +2,7 @@
 title: "Cycling key"
 permalink: /plugins/Cycle/
 excerpt: "A dead key, that cycles through a sequence, based on the previous key."
-modified: 2016-12-24T13:40:00+01:00
+modified: 2016-12-26T10:00:00+01:00
 ---
 
 {% include toc %}
@@ -67,6 +67,9 @@ method explained below.
 > beginning once it reached the end). This should be used from
 > the [`cycleAction`][cycleaction] function, once it is determined what sequence
 > to cycle through.
+>
+> To make the cycling loop complete, the first element of the `keys` list should
+> be the one that - when followed by the Cycle key - triggers the action.
 
 ### `.replace(key)`
 
