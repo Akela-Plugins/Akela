@@ -31,7 +31,7 @@ namespace Akela {
   // --- helpers ---
 
 #define isLeader(k) (k.raw >= LEAD_FIRST && k.raw <= LEAD_LAST)
-#define isActive() (leaderSeq[0].raw = Key_NoKey.raw)
+#define isActive() (leaderSeq[0].raw != Key_NoKey.raw)
 
   // --- actions ---
   int8_t
