@@ -2,7 +2,7 @@
 title: "Dual-use modifier & layer keys"
 permalink: /plugins/DualUse/
 excerpt: "Dual-use modifier and layer key plugin."
-modified: 2016-12-24T13:40:00+01:00
+modified: 2016-12-27T21:40:00+01:00
 ---
 
 {% include toc %}
@@ -34,7 +34,7 @@ CTL_T(Esc), LT(_LAYER, Esc)
 void setup (void) {
   Keyboardio.setup (KEYMAP_SIZE);
   
-  Keyboardio.use (&DualUseMods, &DualUseLayers, NULL);
+  Keyboardio.use (&DualUse, NULL);
 }
 ```
 
@@ -82,9 +82,7 @@ The plugin provides a number of macros one can use in keymap definitions:
 
 ## Plugin methods
 
-The plugin provides two objects: `DualUseMods`, and `DualUseLayers`. Both of
-these have the same methods, that do the same things in the context of the
-object.
+The plugin provides a single object, `DualUse`, with the following methods:
 
 ### `.configure(offAction)`
 

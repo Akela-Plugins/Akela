@@ -20,15 +20,20 @@
 
 #include <Akela.h>
 
+#define MT(mod, key) (Key){ .raw = Akela::Ranges::DUM_FIRST + (((Key_ ## mod).rawKey - Key_LCtrl.rawKey) << 8) + (Key_ ## key).rawKey }
+#define SFT_T(key) MT(LShift, key)
+#define CTL_T(key) MT(LCtrl, key)
+#define ALT_T(key) MT(LAlt, key)
+#define GUI_T(key) MT(LGUI, key)
+
 #define LT(layer, key) (Key){ .raw = Akela::Ranges::DUL_FIRST + (layer << 8) + (Key_ ## key).rawKey }
 
 namespace Akela {
-  class DualUseLayers : public KeyboardioPlugin {
+  class DualUse : public KeyboardioPlugin {
   public:
-    DualUseLayers (void);
+    DualUse (void);
 
     virtual void begin (void) final;
-
     static void configure (uint8_t offAction);
 
     void on (void);
@@ -42,4 +47,4 @@ namespace Akela {
   };
 };
 
-extern Akela::DualUseLayers DualUseLayers;
+extern Akela::DualUse DualUse;

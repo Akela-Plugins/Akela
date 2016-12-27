@@ -27,23 +27,41 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_PageUp,        Key_A, Key_S, Key_D, Key_F, Key_G,
    Key_PageDn,        Key_Z, Key_X, Key_C, Key_V, Key_B, CTL_T(Esc),
 
-   Key_LCtrl, Key_Backspace, Key_LGUI, Key_LShift,
-   Key_KeymapNext_Momentary,
+   Key_LCtrl, Key_Backspace, Key_LGUI, SFT_T(A),
+   LT(1, B),
 
    Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         LT(1, X),
    Key_Enter, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
               Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
    Key_skip,  Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
 
-   Key_RShift, Key_RAlt, Key_Space, Key_RCtrl,
-   Key_KeymapNext_Momentary
+   SFT_T(A), Key_RAlt, Key_Space, Key_RCtrl,
+   LT(1, B)
    ),
+  [1] = KEYMAP_STACKED
+  (
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, ___,
+
+   Key_B, Key_B, Key_B, ___,
+   ___,
+
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, ___,
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+          Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+   Key_B, Key_B, Key_B, Key_B, Key_B, Key_B, Key_B,
+
+   ___, Key_B, Key_B, Key_B,
+   ___
+   )
 };
 
 void setup () {
   Keyboardio.setup (KEYMAP_SIZE);
 
-  Keyboardio.use (&DualUseMods, &DualUseLayers, NULL);
+  Keyboardio.use (&DualUse, NULL);
 }
 
 void loop () {

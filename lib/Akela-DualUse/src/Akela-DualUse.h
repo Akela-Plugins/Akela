@@ -18,5 +18,4 @@
 
 #pragma once
 
-#include "Akela/DualUseMods.h"
-#include "Akela/DualUseLayers.h"
+#include "Akela/DualUse.h"
