@@ -116,6 +116,9 @@ namespace Akela {
 
   Key
   TapDance::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (keyState & INJECTED)
+      return mappedKey;
+
     if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
       if (isTapDance (mappedKey))
         return Key_NoKey;
