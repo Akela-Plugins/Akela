@@ -27,6 +27,7 @@ namespace Akela {
   static uint16_t TimeOut = DEFAULT_TIMEOUT;
   static uint32_t State = 0;
   static uint32_t stickyState = 0;
+  static uint32_t pressedState = 0;
   static Key prevKey;
   static bool shouldCancel = false;
   static bool shouldCancelStickies = false;
@@ -117,6 +118,10 @@ namespace Akela {
       return Key_NoKey;
     }
 
+    uint8_t idx = mappedKey.raw - OS_FIRST;
+
+    bitWrite (pressedState, idx, !!key_is_pressed (keyState));
+
     // Released?
     if (!key_is_pressed (keyState)) {
       if (hasTimedOut ())
@@ -124,8 +129,6 @@ namespace Akela {
 
       return Key_NoKey;
     }
-
-    uint8_t idx = mappedKey.raw - OS_FIRST;
 
     if (key_toggled_on (keyState)) {
       if (isSticky(idx)) {
@@ -153,7 +156,8 @@ namespace Akela {
       return;
 
     if (postClear) {
-      Timer++;
+      if (Timer < TimeOut)
+        Timer++;
 
       if (hasTimedOut ())
         cancel ();
@@ -164,7 +168,7 @@ namespace Akela {
             if (shouldCancelStickies) {
               clearSticky (i);
             }
-          } else if (isOneShot (i)) {
+          } else if (isOneShot (i) && !bitRead (pressedState, i)) {
             clearOneShot (i);
             if (i >= 8) {
               Layer.off (i - 8);
