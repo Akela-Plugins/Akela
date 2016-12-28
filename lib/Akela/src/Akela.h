@@ -35,10 +35,12 @@ namespace Akela {
   namespace Ranges {
     enum {
       AKELA_FIRST = 0xc000,
-      OSM_FIRST   = AKELA_FIRST,
+      OS_FIRST,
+      OSM_FIRST   = OS_FIRST,
       OSM_LAST    = OSM_FIRST + 7,
       OSL_FIRST,
-      OSL_LAST    = OSL_FIRST + 31,
+      OSL_LAST    = OSL_FIRST + 23,
+      OS_LAST     = OSL_LAST,
       DU_FIRST,
       DUM_FIRST   = DU_FIRST,
       DUM_LAST    = DUM_FIRST + (8 << 8),

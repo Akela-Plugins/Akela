@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "OneShotMods.h"
+#include "OneShot.h"
 
 using namespace Akela::Ranges;
 
@@ -25,16 +25,17 @@ namespace Akela {
 
   static uint16_t Timer = 0;
   static uint16_t TimeOut = DEFAULT_TIMEOUT;
-  static uint8_t State = 0;
-  static uint8_t stickyState = 0;
+  static uint32_t State = 0;
+  static uint32_t stickyState = 0;
   static Key prevKey;
   static bool shouldCancel = false;
   static bool shouldCancelStickies = false;
 
   // --- helper macros ------
 
-#define isOSM(key) (key.raw >= OSM_FIRST && key.raw <= OSM_LAST)
+#define isOS(key) (key.raw >= OS_FIRST && key.raw <= OS_LAST)
 #define isModifier(key) (key.raw >= Key_LCtrl.raw && key.raw <= Key_RGUI.raw)
+#define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.rawKey >= MOMENTARY_OFFSET)
 
 #define isOneShot(idx) (bitRead (State, idx))
 #define setOneShot(idx) (bitWrite (State, idx, 1))
@@ -48,52 +49,64 @@ namespace Akela {
 #define saveAsPrevious(key) prevKey.raw = key.raw
 
 #define toNormalMod(key, idx) {key.flags = 0; key.rawKey = Key_LCtrl.rawKey + idx;}
+#define toNormalMT(key, idx) { key.raw = Key_NoKey.raw; Layer.on (idx - 8); }
 #define hasTimedOut() (Timer > TimeOut)
 
   // ----- passthrough ------
 
   Key
-  OneShotMods::eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!isOSM (mappedKey))
+  OneShot::eventHandlerPassthroughHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!isOS (mappedKey))
       return mappedKey;
 
-    uint8_t idx = mappedKey.raw - OSM_FIRST;
-    toNormalMod (mappedKey, idx);
+    uint8_t idx = mappedKey.raw - OS_FIRST;
+
+    if (idx >= 8) {
+      toNormalMT (mappedKey, idx);
+    } else {
+      toNormalMod (mappedKey, idx);
+    }
 
     return mappedKey;
   }
 
   void
-  OneShotMods::loopNoOpHook (bool postClear) {
+  OneShot::loopNoOpHook (bool postClear) {
   }
 
   // ---- OneShot stuff ----
 
   static bool
   shouldInterrupt (Key mappedKey) {
-    return !isOSM (mappedKey);
+    return !isOS (mappedKey);
   }
 
   Key
-  OneShotMods::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!isModifier (mappedKey))
+  OneShot::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+    if (!isModifier (mappedKey) && !isLayerKey (mappedKey))
       return mappedKey;
 
     // If mappedKey is an injected key, we don't fiddle with those.
     if (keyState & INJECTED)
       return mappedKey;
 
-    uint8_t idx = mappedKey.rawKey - Key_LCtrl.rawKey;
+    if (isModifier (mappedKey)) {
+      uint8_t idx = mappedKey.rawKey - Key_LCtrl.rawKey;
 
-    return (Key){.raw = OSM_FIRST + idx};
+      return (Key){.raw = OSM_FIRST + idx};
+    } else {
+      uint8_t idx = mappedKey.rawKey - MOMENTARY_OFFSET;
+
+      return (Key){.raw = OSL_FIRST + idx};
+    }
   }
 
   Key
-  OneShotMods::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
+  OneShot::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
     if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState) && !(keyState & INJECTED))
       cancel ();
 
-    if (!isOSM (mappedKey)) {
+    if (!isOS (mappedKey)) {
       if (!(keyState & INJECTED) && key_toggled_on (keyState))
         saveAsPrevious (mappedKey);
       return mappedKey;
@@ -112,7 +125,7 @@ namespace Akela {
       return Key_NoKey;
     }
 
-    uint8_t idx = mappedKey.raw - OSM_FIRST;
+    uint8_t idx = mappedKey.raw - OS_FIRST;
 
     if (key_toggled_on (keyState)) {
       if (isSticky(idx)) {
@@ -124,14 +137,18 @@ namespace Akela {
     }
 
     saveAsPrevious (mappedKey);
-    toNormalMod (mappedKey, idx);
+    if (idx >= 8) {
+      toNormalMT (mappedKey, idx);
+    } else {
+      toNormalMod (mappedKey, idx);
+    }
     setOneShot (idx);
 
     return mappedKey;
   }
 
   void
-  OneShotMods::loopHook (bool postClear) {
+  OneShot::loopHook (bool postClear) {
     if (!State)
       return;
 
@@ -140,16 +157,21 @@ namespace Akela {
     if (hasTimedOut ())
       cancel ();
 
-    for (uint8_t i = 0; i < 8; i++) {
+    for (uint8_t i = 0; i < 32; i++) {
       if (shouldCancel) {
         if (isSticky (i)) {
           if (shouldCancelStickies) {
             clearSticky (i);
           }
         } else if (isOneShot (i)) {
-          clearOneShot (i);
+          if (postClear) {
+            clearOneShot (i);
+            if (i >= 8) {
+              Layer.off (i - 8);
+            }
+          }
         }
-      } else if (isOneShot (i)) {
+      } else if (isOneShot (i) && i < 8) {
         uint8_t m = Key_LCtrl.rawKey + i;
         handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
       }
@@ -164,48 +186,48 @@ namespace Akela {
 
   // --- glue code ---
 
-  OneShotMods::OneShotMods (void) {
+  OneShot::OneShot (void) {
   }
 
   void
-  OneShotMods::begin (void) {
+  OneShot::begin (void) {
     event_handler_hook_add (eventHandlerHook);
     loop_hook_add (loopHook);
   }
 
   bool
-  OneShotMods::isActive (void) {
+  OneShot::isActive (void) {
     return (State && !hasTimedOut () && !shouldCancel);
   }
 
   void
-  OneShotMods::cancel (bool withStickies) {
+  OneShot::cancel (bool withStickies) {
     shouldCancel = true;
     shouldCancelStickies = withStickies;
   }
 
   void
-  OneShotMods::on (void) {
+  OneShot::on (void) {
     event_handler_hook_replace (eventHandlerPassthroughHook, eventHandlerHook);
     loop_hook_replace (loopNoOpHook, loopHook);
   }
 
   void
-  OneShotMods::off (void) {
+  OneShot::off (void) {
     event_handler_hook_replace (eventHandlerHook, eventHandlerPassthroughHook);
     loop_hook_replace (loopHook, loopNoOpHook);
   }
 
   void
-  OneShotMods::enableAuto (void) {
+  OneShot::enableAuto (void) {
     event_handler_hook_add (eventHandlerAutoHook);
   }
 
   void
-  OneShotMods::inject (Key key, uint8_t keyState) {
+  OneShot::inject (Key key, uint8_t keyState) {
     eventHandlerHook (key, 255, 255, keyState);
   }
 
 };
 
-Akela::OneShotMods OneShotMods;
+Akela::OneShot OneShot;

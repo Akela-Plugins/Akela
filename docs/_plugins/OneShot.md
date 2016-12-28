@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-24T13:55:00+01:00
+modified: 2016-12-28T07:00:00+01:00
 ---
 
 {% include toc %}
@@ -33,11 +33,10 @@ existing modifiers or momentary layer toggles into one-shot keys:
 #include <Akela-OneShot.h>
 
 void setup () {
-  OneShotMods.enableAuto ();
-  OneShotLayers.enableAuto ();
+  OneShot.enableAuto ();
   
   Keyboardio.setup (KEYMAP_SIZE);
-  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
+  Keyboardio.use (&OneShot, NULL);
 }
 ```
 
@@ -51,7 +50,7 @@ OSM(LCtrl), OSL(_FN)
 
 void setup () {
   Keyboardio.setup (KEYMAP_SIZE);
-  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
+  Keyboardio.use (&OneShot, NULL);
 }
 ```
 
@@ -72,15 +71,15 @@ There are two macros the plugin provides:
 
 ## Plugin methods
 
-The plugin provides two objects, `OneShotMods` and `OneShotLayers`, both with
-the same set of methods:
+The plugin provides one object, `OneShot`, which implements both one-shot
+modifiers and one-shot layer keys. It has the following methods:
 
 ### `.enableAuto()`
 
-> Automatically turns modifiers (if called on `OneShotMods`) or momentary layer
-> switches (if called on `OneShotLayers`) into their one-shot variant. It will
-> only turn keys on the keymap into one-shots: if any macro injects a modifier
-> or a momentary layer switch key, those will be left alone, as-is.
+> Automatically turns modifiers and momentary layer switches into their one-shot
+> variant. It will only turn keys on the keymap into one-shots: if any macro
+> injects a modifier or a momentary layer switch key, those will be left alone,
+> as-is.
 >
 > This **must** be called before any `Keyboardio.use()` call in the `setup()`
 > method of your Sketch.
@@ -111,10 +110,9 @@ the same set of methods:
 ### `.off()`
 
 > The counterpart of the `on()` method, this turns off one-shot behaviour.
-> Modifiers will act as normal modifiers (if called on `OneShotMods`), and
-> one-shot layer keys will act as momentary layer switchers (if called on
-> `OneShotLayers`). As `on()`, this method is idempotent, and can be called at
-> any time, from anywhere.
+> Modifiers will act as normal modifiers, and one-shot layer keys will act as
+> momentary layer switchers. As `on()`, this method is idempotent, and can be
+> called at any time, from anywhere.
 
 ## Further reading
 

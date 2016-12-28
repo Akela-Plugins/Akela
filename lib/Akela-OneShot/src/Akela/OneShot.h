@@ -21,11 +21,12 @@
 #include <Akela.h>
 
 #define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
+#define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 
 namespace Akela {
-  class OneShotMods : public KeyboardioPlugin {
+  class OneShot : public KeyboardioPlugin {
   public:
-    OneShotMods (void);
+    OneShot (void);
 
     virtual void begin (void) final;
 
@@ -48,4 +49,4 @@ namespace Akela {
   };
 };
 
-extern Akela::OneShotMods OneShotMods;
+extern Akela::OneShot OneShot;
