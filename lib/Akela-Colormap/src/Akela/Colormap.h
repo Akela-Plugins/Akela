@@ -30,6 +30,7 @@ namespace Akela {
     void configure (const cRGB palette[], const uint8_t colorMap[][ROWS][COLS]);
 
     virtual void update (void) final;
+    virtual void init (void) final;
   };
 };
 

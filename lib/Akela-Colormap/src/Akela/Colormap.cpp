@@ -27,12 +27,18 @@ namespace Akela {
   static uint32_t previousLayerState;
 
   ColormapEffect::ColormapEffect (void) {
+    previousLayerState = 0xffffffff;
   }
 
   void
   ColormapEffect::configure (const cRGB _palette[], const uint8_t _colorMap[][ROWS][COLS]) {
     palette = _palette;
     colorMap = (const uint8_t *)_colorMap;
+  }
+
+  void
+  ColormapEffect::init (void) {
+    previousLayerState = 0xffffffff;
   }
 
   void
