@@ -61,11 +61,10 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 };
 
 void setup () {
-  OneShotMods.enableAuto ();
-  OneShotLayers.enableAuto ();
+  OneShot.enableAuto ();
 
+  Keyboardio.use (&OneShot, NULL);
   Keyboardio.setup (KEYMAP_SIZE);
-  Keyboardio.use (&OneShotMods, &OneShotLayers, NULL);
 }
 
 void loop () {
