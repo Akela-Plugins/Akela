@@ -35,7 +35,7 @@ namespace Akela {
 
 #define isOS(key) (key.raw >= OS_FIRST && key.raw <= OS_LAST)
 #define isModifier(key) (key.raw >= Key_LCtrl.raw && key.raw <= Key_RGUI.raw)
-#define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.rawKey >= MOMENTARY_OFFSET)
+#define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.rawKey >= MOMENTARY_OFFSET && key.rawKey <= MOMENTARY_OFFSET + 23)
 
 #define isOneShot(idx) (bitRead (State, idx))
 #define setOneShot(idx) (bitWrite (State, idx, 1))
