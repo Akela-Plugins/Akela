@@ -2,7 +2,7 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-28T07:00:00+01:00
+modified: 2016-12-28T08:25:00+01:00
 ---
 
 {% include toc %}
@@ -68,6 +68,9 @@ There are two macros the plugin provides:
 
 > Takes a layer number as argument, and sets up the key to act as a one-shot
 > layer key.
+>
+> Please note that while `KeyboardioFirmware` supports more, one-shot layers are
+> limited to 24 layers only.
 
 ## Plugin methods
 
