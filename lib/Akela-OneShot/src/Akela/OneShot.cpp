@@ -152,35 +152,39 @@ namespace Akela {
     if (!State)
       return;
 
-    Timer++;
+    if (postClear) {
+      Timer++;
 
-    if (hasTimedOut ())
-      cancel ();
+      if (hasTimedOut ())
+        cancel ();
 
-    for (uint8_t i = 0; i < 32; i++) {
-      if (shouldCancel) {
-        if (isSticky (i)) {
-          if (shouldCancelStickies) {
-            clearSticky (i);
-          }
-        } else if (isOneShot (i)) {
-          if (postClear) {
+      for (uint8_t i = 0; i < 32; i++) {
+        if (shouldCancel) {
+          if (isSticky (i)) {
+            if (shouldCancelStickies) {
+              clearSticky (i);
+            }
+          } else if (isOneShot (i)) {
             clearOneShot (i);
             if (i >= 8) {
               Layer.off (i - 8);
             }
           }
         }
-      } else if (isOneShot (i) && i < 8) {
-        uint8_t m = Key_LCtrl.rawKey + i;
-        handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
       }
-    }
 
-    if (shouldCancel) {
-      Timer = 0;
-      shouldCancel = false;
-      shouldCancelStickies = false;
+      if (shouldCancel) {
+        Timer = 0;
+        shouldCancel = false;
+        shouldCancelStickies = false;
+      }
+    } else {
+      for (uint8_t i = 0; i < 8; i++) {
+        if (isOneShot (i)) {
+          uint8_t m = Key_LCtrl.rawKey + i;
+          handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
+        }
+      }
     }
   }
 
