@@ -7,6 +7,8 @@ modified: 2016-12-22T12:45:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
+
 The `TriColor` effect extension is a part of
 the [`LEDEffects`][plugin:ledeffects] library, not a stand-alone base library of
 its own. It is used to implement the effects in that library.

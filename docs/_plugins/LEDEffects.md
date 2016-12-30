@@ -7,6 +7,8 @@ modified: 2016-12-24T13:50:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
+
 The `LEDEffects` plugin provides a selection of LED effects, each of them fairly
 simple, simple enough to not need a plugin of their own. 
 

@@ -7,6 +7,8 @@ modified: 2016-12-28T08:25:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/buggy----black.png?style=flat&colorA=dfb317&colorB=494e52)
+
 One-shots are a new kind of behaviour for your standard modifier and momentary
 layer keys: instead of having to hold them while pressing other keys, they can
 be tapped and released, and will remain active until any other key is pressed.

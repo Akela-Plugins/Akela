@@ -7,6 +7,8 @@ modified: 2016-12-26T10:00:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
+
 If you ever wanted a key that works like keys on old cell phones, when you press
 a key and it cycles through a number of options in a sequence, then the cycling
 key is what you are looking for. It is a bit different than on cell phones of

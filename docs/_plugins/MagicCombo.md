@@ -7,6 +7,8 @@ modified: 2016-12-24T13:55:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/buggy----black.png?style=flat&colorA=dfb317&colorB=494e52)
+
 The `MagicCombo` extension provides a way to perform custom actions when a
 particular set of keys are held down together. The functionality assigned to
 these keys are not changed, and the custom action triggers as long as all keys

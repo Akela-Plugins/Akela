@@ -7,6 +7,8 @@ modified: 2016-12-24T13:40:00+01:00
 
 {% include toc %}
 
+![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
+
 The `ColorMap` extension provides an easier way to set up a different - static -
 color map per-layer. This means that we can set up a map of colors for each key,
 on a per-layer basis, and whenever a layer becomes active, the color map for
