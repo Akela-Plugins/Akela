@@ -6,12 +6,10 @@
 </p>
 
 This is a collection of small libraries to extend
-the [Keyboardio Model 01 firmware][kbdiofw]. A heavy work in progress, that has
-only recently been tried on real hardware. Most of the things do not work at all
-yet, work is under way to fix them.
-
-While lot may change, the approach seems solid, and the library will stick this
-time. Don't rely on it just yet, though.
+the [Keyboardio Model 01 firmware][kbdiofw]. A heavy work in progress, with a
+lot of moving or untested parts. While it has been tried on real hardware, a lot
+of things are either buggy, or do not work at all yet. But work is under way to
+bring everything into a usable state.
 
  [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
 
