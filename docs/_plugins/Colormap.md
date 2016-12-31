@@ -52,6 +52,9 @@ palette indexes instead of keys. But similar to the palette, it should reside in
 firmware may randomly crash. It is recommended to use the `KEYMAP_SIZE` macro to
 make sure the colormap is the right size.
 
+To use the transparent color, use either `Akela::ColorEffect::Transparent` as
+the color index, or `255`.
+
 ## Extension methods
 
 The extension provides a `Colormap` singleton object, with a single method:
