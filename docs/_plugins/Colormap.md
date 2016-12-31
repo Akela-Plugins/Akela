@@ -2,7 +2,7 @@
 title: "Per-layer color maps"
 permalink: /plugins/Colormap/
 excerpt: "Per-layer color map extension."
-modified: 2016-12-24T13:40:00+01:00
+modified: 2016-12-31T19:00:00+01:00
 ---
 
 {% include toc %}
@@ -47,9 +47,10 @@ The palette is just an array of RGB colors, stored in `PROGMEM`. The index of
 each entry will be used in the colormap itself.
 
 The colormap should be specified very similarly to a keymap, except it contains
-palette indexes instead of keys. Nevertheless, it should be the same size as the
-keymap itself, otherwise the firmware may randomly crash. It is recommended to
-use the `KEYMAP_SIZE` macro to make sure the colormap is the right size.
+palette indexes instead of keys. But similar to the palette, it should reside in
+`PROGMEM` too. It should be the same size as the keymap itself, otherwise the
+firmware may randomly crash. It is recommended to use the `KEYMAP_SIZE` macro to
+make sure the colormap is the right size.
 
 ## Extension methods
 
