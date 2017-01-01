@@ -6,7 +6,7 @@ sidebar:
  nav: "plugins"
 ---
 
-# A.K.E.L.A. <a href="https://travis-ci.org/algernon/Akela"><img align="right" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
+## A.K.E.L.A. <a href="https://travis-ci.org/algernon/Akela"><img align="right" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
 
 <p align="right">
 <strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
