@@ -27,6 +27,8 @@ plugins:
         url: /plugins/Leader/
       - title: "Shifted symbol replacement"
         url: /plugins/ShapeShifter/
+      - title: "Selective Shift-inversion"
+        url: /plugins/TopsyTurvy/
       - title: "Cycling key"
         url: /plugins/Cycle/
       - title: "LED Effects"
