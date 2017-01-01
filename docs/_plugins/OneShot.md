@@ -2,12 +2,12 @@
 title: "One-shot keys"
 permalink: /plugins/OneShot/
 excerpt: "One-shot modifiers & layers"
-modified: 2016-12-28T08:25:00+01:00
+modified: 2017-01-01T11:45:00+01:00
 ---
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/buggy----black.png?style=flat&colorA=dfb317&colorB=494e52)
+![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
 
 One-shots are a new kind of behaviour for your standard modifier and momentary
 layer keys: instead of having to hold them while pressing other keys, they can
