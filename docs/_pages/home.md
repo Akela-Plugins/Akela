@@ -4,6 +4,7 @@ excerpt: 'Animated Keyboardio Extension Library for Anything'
 author_profile: false
 sidebar:
  nav: "plugins"
+no_title: true
 ---
 
 # A.K.E.L.A. 
