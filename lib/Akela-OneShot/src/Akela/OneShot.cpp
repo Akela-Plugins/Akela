@@ -190,7 +190,9 @@ namespace Akela {
 
     if (key_is_pressed (keyState)) {
       saveAsPrevious (mappedKey);
+    }
 
+    if (key_toggled_off (keyState)) {
       shouldCancel = true;
     }
 
