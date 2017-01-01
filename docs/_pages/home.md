@@ -6,11 +6,16 @@ sidebar:
  nav: "plugins"
 ---
 
-## A.K.E.L.A. <a href="https://travis-ci.org/algernon/Akela"><img align="right" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
+# A.K.E.L.A. 
 
-<p align="right">
-<strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
-<strong>L</strong>ibrary for <strong>A</strong>nything
+<p>
+ <span align="left">
+  <a href="https://travis-ci.org/algernon/Akela"><img align="left" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
+ </span>
+ <p align="right">
+  <strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
+  <strong>L</strong>ibrary for <strong>A</strong>nything
+ </p>
 </p>
 
 [Akela][akela] is a collection of small libraries to extend
