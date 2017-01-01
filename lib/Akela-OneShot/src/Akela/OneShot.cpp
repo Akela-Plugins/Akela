@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,10 @@ namespace Akela {
 #define setSticky(idx) (bitWrite (stickyState, idx, 1))
 #define clearSticky(idx) bitWrite (stickyState, idx, 0)
 
+#define setPressed(idx) bitWrite(pressedState, idx, 1)
+#define clearPressed(idx) bitWrite(pressedState, idx, 0)
+#define isPressed(idx) bitRead (pressedState, idx)
+
 #define isSameAsPrevious(key) (key.raw == prevKey.raw)
 #define saveAsPrevious(key) prevKey.raw = key.raw
 
@@ -77,18 +81,13 @@ namespace Akela {
 
   // ---- OneShot stuff ----
 
-  static bool
-  shouldInterrupt (Key mappedKey) {
-    return !isOS (mappedKey);
-  }
-
   Key
   OneShot::eventHandlerAutoHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!isModifier (mappedKey) && !isLayerKey (mappedKey))
-      return mappedKey;
-
     // If mappedKey is an injected key, we don't fiddle with those.
     if (keyState & INJECTED)
+      return mappedKey;
+
+    if (!isModifier (mappedKey) && !isLayerKey (mappedKey))
       return mappedKey;
 
     if (isModifier (mappedKey)) {
@@ -102,50 +101,98 @@ namespace Akela {
     }
   }
 
+  static void
+  injectNormalKey (uint8_t idx, uint8_t keyState) {
+    Key key;
+
+    if (idx < 8) {
+      key.flags = Key_LCtrl.flags;
+      key.rawKey = Key_LCtrl.rawKey + idx;
+    } else {
+      key.flags = KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP;
+      key.rawKey = MOMENTARY_OFFSET + idx - 8;
+    }
+
+    handle_key_event (key, 255, 255, keyState | INJECTED);
+  }
+
+  static void
+  activateOneShot (uint8_t idx) {
+    injectNormalKey (idx, IS_PRESSED);
+  }
+
+  static void
+  cancelOneShot (uint8_t idx) {
+    clearOneShot (idx);
+    injectNormalKey (idx, WAS_PRESSED);
+  }
+
   Key
   OneShot::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (State && shouldInterrupt (mappedKey) && key_toggled_on (keyState) && !(keyState & INJECTED))
-      cancel ();
+    uint8_t idx;
 
-    if (!isOS (mappedKey)) {
-      if (!(keyState & INJECTED) && key_toggled_on (keyState))
-        saveAsPrevious (mappedKey);
+    if (keyState & INJECTED)
       return mappedKey;
-    }
 
-    // If nothing happened, bail out fast.
-    if (!key_is_pressed (keyState) && !key_was_pressed (keyState)) {
-      return Key_NoKey;
-    }
+    if (!State) {
+      if (!isOS (mappedKey))
+        return mappedKey;
 
-    uint8_t idx = mappedKey.raw - OS_FIRST;
+      idx = mappedKey.raw - OS_FIRST;
+      if (key_toggled_off (keyState)) {
+        clearPressed (idx);
+      } else if (key_toggled_on (keyState)){
+        Timer = 0;
+        setPressed (idx);
+        setOneShot (idx);
+        saveAsPrevious (mappedKey);
 
-    bitWrite (pressedState, idx, !!key_is_pressed (keyState));
-
-    // Released?
-    if (!key_is_pressed (keyState)) {
-      if (hasTimedOut ())
-        cancel ();
-
-      return Key_NoKey;
-    }
-
-    if (key_toggled_on (keyState)) {
-      if (isSticky(idx)) {
-        cancel (true);
-        return Key_NoKey;
-      } else if (isSameAsPrevious (mappedKey)) {
-        setSticky (idx);
+        activateOneShot (idx);
       }
+
+      return Key_NoKey;
     }
 
-    saveAsPrevious (mappedKey);
-    if (idx >= 8) {
-      toNormalMT (mappedKey, idx);
-    } else {
-      toNormalMod (mappedKey, idx);
+    if (!key_is_pressed (keyState) && !key_was_pressed (keyState))
+      return mappedKey;
+
+    if (isOS (mappedKey)) {
+      idx = mappedKey.raw - OS_FIRST;
+
+      if (isSticky (idx)) {
+        if (key_toggled_on (keyState)) { // maybe on _off instead?
+          saveAsPrevious (mappedKey);
+          clearSticky (idx);
+          cancelOneShot (idx);
+        }
+      } else {
+        if (key_toggled_off (keyState)) {
+          clearPressed (idx);
+          if (hasTimedOut ()) {
+            cancelOneShot (idx);
+          }
+        }
+
+        if (key_toggled_on (keyState)) {
+          setPressed (idx);
+          if (isSameAsPrevious (mappedKey)) {
+            setSticky (idx);
+
+            saveAsPrevious (mappedKey);
+          }
+        }
+      }
+
+      return Key_NoKey;
     }
-    setOneShot (idx);
+
+    // ordinary key here, with some event
+
+    if (key_is_pressed (keyState)) {
+      saveAsPrevious (mappedKey);
+
+      shouldCancel = true;
+    }
 
     return mappedKey;
   }
@@ -155,7 +202,7 @@ namespace Akela {
     if (!State)
       return;
 
-    if (postClear) {
+    if (!postClear) {
       if (Timer < TimeOut)
         Timer++;
 
@@ -168,11 +215,8 @@ namespace Akela {
             if (shouldCancelStickies) {
               clearSticky (i);
             }
-          } else if (isOneShot (i) && !bitRead (pressedState, i)) {
-            clearOneShot (i);
-            if (i >= 8) {
-              Layer.off (i - 8);
-            }
+          } else if (isOneShot (i) && !isPressed (i)) {
+            cancelOneShot (i);
           }
         }
       }
@@ -185,8 +229,7 @@ namespace Akela {
     } else {
       for (uint8_t i = 0; i < 8; i++) {
         if (isOneShot (i)) {
-          uint8_t m = Key_LCtrl.rawKey + i;
-          handle_key_event ({0, m}, 0, 0, IS_PRESSED | INJECTED);
+          activateOneShot (i);
         }
       }
     }
