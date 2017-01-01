@@ -6,8 +6,12 @@ sidebar:
  nav: "plugins"
 ---
 
-**A**nimated **K**eyboardio **E**xtension **L**ibrary for **A**nything
-======================================================================
+# A.K.E.L.A. <a href="https://travis-ci.org/algernon/Akela"><img align="right" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
+
+<p align="right">
+<strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
+<strong>L</strong>ibrary for <strong>A</strong>nything
+</p>
 
 [Akela][akela] is a collection of small libraries to extend
 the [Keyboardio Model 01 firmware][kbdiofw]. A heavy work in progress, with a
@@ -18,4 +22,16 @@ bring everything into a usable state.
  [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
  [akela]: https://github.com/algernon/Akela
 
-To get started, start [here]({{ site.baseurl }}/plugins/).
+Documentation
+=============
+
+Documentation can be found on the [project page][gh:page], and in the `docs/`
+directory in source form.
+
+ [gh:page]: https://algernon.github.io/Akela/
+
+License
+=======
+
+The code is released under the terms of the GNU GPL, version 3 or later. See the
+COPYING file for details.
