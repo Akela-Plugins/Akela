@@ -7,8 +7,6 @@ modified: 2016-12-24T13:45:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/broken-X-black.png?style=flat&colorA=e05d44&colorB=494e52)
-
 The `Heatmap` plugin provides a LED effect, that displays a heatmap on the
 keyboard. The LEDs under each key will have a color according to how much use
 they see. Fewer used keys will have deep blue colors, that gradually turns

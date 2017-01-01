@@ -7,8 +7,6 @@ modified: 2016-12-24T14:00:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 The `Unicode` extension makes it easier to write plugins that input Unicode
 symbols on the host. Because inputting Unicode varies from OS to OS, this helper
 library was made to hide most of the differences. All one has to do, is set up

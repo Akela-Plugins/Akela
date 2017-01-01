@@ -7,8 +7,6 @@ modified: 2016-12-27T21:40:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 There are a number of keys on our keyboards that we usually hold in combination
 with others. We also have keys that we usually press and release, and don't want
 to hold them for repeating. Then we have the others which we sometimes hold to

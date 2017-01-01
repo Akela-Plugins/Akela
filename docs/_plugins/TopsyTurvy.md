@@ -7,8 +7,6 @@ modified: 2017-01-01T13:35:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/buggy----black.png?style=flat&colorA=dfb317&colorB=494e52)
-
 `TopsyTurvy` is a plugin that inverts the behaviour of the `Shift` key for some
 selected keys. That is, if configured so, it will input `!` when pressing the
 `1` key without `Shift`, but with the modifier pressed, it will input the

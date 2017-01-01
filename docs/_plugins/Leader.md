@@ -7,8 +7,6 @@ modified: 2016-12-24T13:50:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 Leader keys are a kind of key where when they are tapped, all following keys are
 swallowed, until the plugin finds a matching sequence in the dictionary, it
 times out, or fails to find any possibilities. When a sequence is found, the

@@ -7,8 +7,6 @@ modified: 2016-12-24T21:00:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 The `KeyLogger` plugin, as the name suggests, implements a key logger for the
 Keyboardio firmware. It logs the row and column of every key press and release,
 along with the event, and the layer number, in a format that is reasonably easy

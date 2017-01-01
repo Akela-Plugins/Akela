@@ -7,8 +7,6 @@ modified: 2016-12-24T13:55:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 `ShapeShifter` is a plugin that makes it considerably easier to change what
 symbol is input when a key is pressed together with `Shift`. If one wants to
 rearrange the symbols on the number row for example, without modifying the

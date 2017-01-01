@@ -7,8 +7,6 @@ modified: 2016-12-24T13:45:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 The `HostOS` extension is not all that useful in itself, rather, it is a
 building block other plugins and extensions can use to not repeat the same
 guesswork and logic. Its primary purpose is to help either detect, or keep track

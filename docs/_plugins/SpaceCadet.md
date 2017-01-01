@@ -7,8 +7,6 @@ modified: 2016-12-24T13:55:00+01:00
 
 {% include toc %}
 
-![status](https://img.shields.io/badge/works-✔-black.png?style=flat&colorA=44cc11&colorB=494e52)
-
 [Space Cadet][space-cadet] Shift is a way to make it more convenient to input
 parens - those `(` and `)` things -, symbols that a lot of programming languages
 use frequently. If you are working with Lisp, you are using these all the time.
