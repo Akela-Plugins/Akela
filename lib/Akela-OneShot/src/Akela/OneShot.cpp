@@ -55,7 +55,7 @@ namespace Akela {
 
 #define toNormalMod(key, idx) {key.flags = 0; key.rawKey = Key_LCtrl.rawKey + idx;}
 #define toNormalMT(key, idx) { key.raw = Key_NoKey.raw; Layer.on (idx - 8); }
-#define hasTimedOut() (Timer > TimeOut)
+#define hasTimedOut() (Timer >= TimeOut)
 
   // ----- passthrough ------
 
@@ -215,16 +215,17 @@ namespace Akela {
         if (shouldCancel) {
           if (isSticky (i)) {
             if (shouldCancelStickies) {
+              Timer = 0;
               clearSticky (i);
             }
           } else if (isOneShot (i) && !isPressed (i)) {
+            Timer = 0;
             cancelOneShot (i);
           }
         }
       }
 
       if (shouldCancel) {
-        Timer = 0;
         shouldCancel = false;
         shouldCancelStickies = false;
       }
