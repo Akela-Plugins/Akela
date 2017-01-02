@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 namespace Akela {
 
   static const MagicCombo::dictionary_t *_magicDictionary = NULL;
+  static uint16_t _magicComboTimeOut;
+  static uint16_t _magicComboTimer;
 
   MagicCombo::MagicCombo (void) {
   }
@@ -31,14 +33,18 @@ namespace Akela {
   }
 
   void
-  MagicCombo::configure (const MagicCombo::dictionary_t dictionary[]) {
+  MagicCombo::configure (const MagicCombo::dictionary_t dictionary[], uint16_t timeOut) {
     _magicDictionary = (dictionary_t *)dictionary;
+    _magicComboTimeOut = timeOut;
   }
 
   void
   MagicCombo::loopHook (bool postClear) {
     if (!_magicDictionary || postClear)
       return;
+
+    if (_magicComboTimer && _magicComboTimer < _magicComboTimeOut)
+      _magicComboTimer++;
 
     for (byte i = 0;; i++) {
       dictionary_t combo;
@@ -51,7 +57,11 @@ namespace Akela {
 
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&
           KeyboardHardware.rightHandState.all == combo.rightHand) {
-        magicComboActions (i, combo.leftHand, combo.rightHand);
+        if (_magicComboTimer == 0 || _magicComboTimer >= _magicComboTimeOut ||
+            _magicComboTimeOut == 0) {
+          magicComboActions (i, combo.leftHand, combo.rightHand);
+          _magicComboTimer = 1;
+        }
         break;
       }
     }

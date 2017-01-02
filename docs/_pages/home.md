@@ -44,7 +44,7 @@ an up-to-date report on the current state of each library:
 | Akela-KeyLogger    | ![status][st:stable]       |
 | Akela-LEDEffects   | ![status][st:stable]       |
 | Akela-Leader       | ![status][st:stable]       |
-| Akela-MagicCombo   | ![status][st:experimental] |
+| Akela-MagicCombo   | ![status][st:stable]       |
 | Akela-OneShot      | ![status][st:experimental] |
 | Akela-ShapeShifter | ![status][st:stable]       |
 | Akela-SpaceCadet   | ![status][st:stable]       |

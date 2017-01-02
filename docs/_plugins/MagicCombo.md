@@ -2,7 +2,7 @@
 title: "Magic Combos"
 permalink: /plugins/MagicCombo/
 excerpt: "Magic combo framework extension."
-modified: 2016-12-24T13:55:00+01:00
+modified: 2017-01-02T19:55:00+01:00
 ---
 
 {% include toc %}
@@ -51,9 +51,13 @@ left and the right halves.
 
 The extension provides a `MagicCombo` singleton object, with the following method:
 
-### `.configure(dictionary)`
+### `.configure(dictionary[, timeout])`
 
-> Configures the extension to use the supplied dictionary.
+> Configures the extension to use the supplied dictionary, and restrict it to
+> fire at most once every `timeout` cycles.
+>
+> If the timeout is not specified, it defaults to `DEFAULT_TIMEOUT`, which in
+> turn is 40 cycles.
 
 ## Overrideable methods
 

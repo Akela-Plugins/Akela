@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 
 #include <Akela.h>
 
+#define AKELA_MAGICCOMBO_TIMEOUT DEFAULT_TIMEOUT
+
 namespace Akela {
   class MagicCombo : public KeyboardioPlugin {
   public:
@@ -31,7 +33,8 @@ namespace Akela {
 
     virtual void begin (void) final;
 
-    static void configure (const dictionary_t dictionary[]);
+    static void configure (const dictionary_t dictionary[], uint16_t timeout);
+    static void configure (const dictionary_t dictionary[]) { configure (dictionary, AKELA_MAGICCOMBO_TIMEOUT); };
 
   private:
     static void loopHook (bool postClear);
