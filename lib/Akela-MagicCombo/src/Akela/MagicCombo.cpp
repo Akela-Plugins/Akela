@@ -27,7 +27,7 @@ namespace Akela {
 
   void
   MagicCombo::begin (void) {
-    event_handler_hook_add (this->comboHandler);
+    loop_hook_add (this->loopHook);
   }
 
   void
@@ -35,10 +35,10 @@ namespace Akela {
     _magicDictionary = (dictionary_t *)dictionary;
   }
 
-  Key
-  MagicCombo::comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!_magicDictionary)
-      return mappedKey;
+  void
+  MagicCombo::loopHook (bool postClear) {
+    if (!_magicDictionary || postClear)
+      return;
 
     for (byte i = 0;; i++) {
       dictionary_t combo;
@@ -55,8 +55,6 @@ namespace Akela {
         break;
       }
     }
-
-    return mappedKey;
   }
 
 };

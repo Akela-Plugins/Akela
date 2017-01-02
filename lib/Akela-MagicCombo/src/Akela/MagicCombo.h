@@ -34,7 +34,7 @@ namespace Akela {
     static void configure (const dictionary_t dictionary[]);
 
   private:
-    static Key comboHandler (Key mappedKey, byte row, byte col, uint8_t keyState);
+    static void loopHook (bool postClear);
   };
 };
 
