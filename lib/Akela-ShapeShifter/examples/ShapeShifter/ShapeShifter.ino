@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ),
 };
 
-static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
+static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] PROGMEM = {
   {Key_1, Key_2},
   {Key_2, Key_1},
   {Key_NoKey, Key_NoKey},

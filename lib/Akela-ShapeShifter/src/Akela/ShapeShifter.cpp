@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,19 +77,25 @@ namespace Akela {
     if (!shapeShiftModActive)
       return mappedKey;
 
-    uint8_t i = 0;
+    Key orig, repl;
 
     // Try to find the current key in the dictionary
-    while (shapeShiftDictionary[i].original.raw != Key_NoKey.raw &&
-           shapeShiftDictionary[i].original.raw != mappedKey.raw) {
+    uint8_t i = 0;
+    do {
+      orig.raw = pgm_read_word (&(shapeShiftDictionary[i].original.raw));
       i++;
-    }
+    } while (orig.raw != Key_NoKey.raw &&
+             orig.raw != mappedKey.raw);
+    i--;
+
     // If not found, bail out.
-    if (shapeShiftDictionary[i].original.raw == Key_NoKey.raw)
+    if (orig.raw == Key_NoKey.raw)
       return mappedKey;
 
+    repl.raw = pgm_read_word (&(shapeShiftDictionary[i].replacement.raw));
+
     // If found, handle the alternate key instead
-    return shapeShiftDictionary[i].replacement;
+    return repl;
   }
 
 };

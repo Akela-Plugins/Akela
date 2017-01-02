@@ -2,7 +2,7 @@
 title: "Shifted symbol replacement"
 permalink: /plugins/ShapeShifter/
 excerpt: "Replace the shifted symbol on a number of keys."
-modified: 2016-12-24T13:55:00+01:00
+modified: 2017-01-02T09:30:00+01:00
 ---
 
 {% include toc %}
@@ -25,7 +25,7 @@ configure the provided `ShapeShifter` object to use the dictionary:
 ```c++
 #include <Akela-ShapeShifter.h>
 
-static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] = {
+static const Akela::ShapeShifter::dictionary_t shapeShiftDictionary[] PROGMEM = {
  {Key_1, Key_4},
  {Key_4, Key_1},
  {Key_NoKey, Key_NoKey},
@@ -41,7 +41,7 @@ void setup () {
 
 The dictionary is made up of `Key` pairs: the first one is to replace, the
 second is the replacement. The dictionary must be closed with a `{Key_NoKey,
-Key_NoKey}` pair.
+Key_NoKey}` pair, and **must** reside in `PROGMEM`.
 
 ## Plugin methods
 
