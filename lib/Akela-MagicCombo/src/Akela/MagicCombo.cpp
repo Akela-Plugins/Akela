@@ -20,9 +20,9 @@
 
 namespace Akela {
 
-  static const MagicCombo::dictionary_t *_magicDictionary = NULL;
-  static uint16_t _magicComboTimeOut;
-  static uint16_t _magicComboTimer;
+  const MagicCombo::dictionary_t *MagicCombo::_magicDictionary;
+  uint16_t MagicCombo::_magicComboTimeOut;
+  uint16_t MagicCombo::_magicComboTimer;
 
   MagicCombo::MagicCombo (void) {
   }

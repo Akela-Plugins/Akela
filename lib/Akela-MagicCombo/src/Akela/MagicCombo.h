@@ -37,6 +37,10 @@ namespace Akela {
     static void configure (const dictionary_t dictionary[]) { configure (dictionary, AKELA_MAGICCOMBO_TIMEOUT); };
 
   private:
+    static const dictionary_t *_magicDictionary;
+    static uint16_t _magicComboTimeOut;
+    static uint16_t _magicComboTimer;
+
     static void loopHook (bool postClear);
   };
 };

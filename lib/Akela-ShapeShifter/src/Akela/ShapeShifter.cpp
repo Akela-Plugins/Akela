@@ -21,8 +21,8 @@
 
 namespace Akela {
 
-  static const ShapeShifter::dictionary_t *shapeShiftDictionary = NULL;
-  static bool shapeShiftModActive;
+  const ShapeShifter::dictionary_t *ShapeShifter::shapeShiftDictionary = NULL;
+  bool ShapeShifter::shapeShiftModActive;
 
   ShapeShifter::ShapeShifter (void) {
   }

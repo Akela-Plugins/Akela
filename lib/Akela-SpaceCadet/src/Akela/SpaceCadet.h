@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,11 @@ namespace Akela {
     void on (void);
     void off (void);
   private:
+    static uint8_t parenNeeded;
+    static uint8_t timer;
+    static const uint8_t timeOut;
+    static Key leftParen, rightParen;
+
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static Key noOpHook (Key, byte row, byte col, uint8_t keyState);
   };

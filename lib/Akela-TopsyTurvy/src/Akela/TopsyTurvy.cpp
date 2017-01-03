@@ -23,8 +23,8 @@
 
 namespace Akela {
 
-  static const Key *topsyTurvyList = NULL;
-  static uint8_t topsyTurvyModState;
+  const Key *TopsyTurvy::topsyTurvyList = NULL;
+  uint8_t TopsyTurvy::topsyTurvyModState;
 
   TopsyTurvy::TopsyTurvy (void) {
   }

@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,10 +21,10 @@
 
 namespace Akela {
 
-  static uint8_t parenNeeded = 0;
-  static uint8_t timer = 0;
-  static const uint8_t timeOut = DEFAULT_TIMEOUT * 2;
-  static Key leftParen, rightParen;
+  uint8_t SpaceCadetShift::parenNeeded;
+  uint8_t SpaceCadetShift::timer;
+  const uint8_t SpaceCadetShift::timeOut = DEFAULT_TIMEOUT * 2;
+  Key SpaceCadetShift::leftParen, SpaceCadetShift::rightParen;
 
   SpaceCadetShift::SpaceCadetShift () {
     leftParen.raw = Key_9.raw;

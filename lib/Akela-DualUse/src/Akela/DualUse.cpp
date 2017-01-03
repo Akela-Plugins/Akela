@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,16 +21,15 @@
 using namespace Akela::Ranges;
 
 namespace Akela {
-  static uint32_t keyActionNeededMap;
-  static uint32_t dualUsePressedMap;
-  static uint8_t timer[32];
+  uint32_t DualUse::keyActionNeededMap;
+  uint32_t DualUse::dualUsePressedMap;
+  uint8_t DualUse::timer[32];
 
-  static const uint8_t timeOut = DEFAULT_TIMEOUT;
-  static bool specDefault;
+  bool DualUse::specDefault;
 
   // ---- helpers ----
-  static Key
-  specialAction (uint8_t specIndex) {
+  Key
+  DualUse::specialAction (uint8_t specIndex) {
     Key newKey;
 
     newKey.flags = KEY_FLAGS;
@@ -47,8 +46,8 @@ namespace Akela {
     return newKey;
   }
 
-  static void
-  pressAllSpecials (byte row, byte col) {
+  void
+  DualUse::pressAllSpecials (byte row, byte col) {
     for (uint8_t specIndex = 0; specIndex < 32; specIndex++) {
       if (!bitRead (dualUsePressedMap, specIndex))
         continue;

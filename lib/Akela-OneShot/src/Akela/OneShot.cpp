@@ -23,14 +23,14 @@ using namespace Akela::Ranges;
 namespace Akela {
   // ---- state ---------
 
-  static uint16_t Timer = 0;
-  static uint16_t TimeOut = DEFAULT_TIMEOUT;
-  static uint32_t State = 0;
-  static uint32_t stickyState = 0;
-  static uint32_t pressedState = 0;
-  static Key prevKey;
-  static bool shouldCancel = false;
-  static bool shouldCancelStickies = false;
+  uint16_t OneShot::Timer = 0;
+  uint16_t OneShot::TimeOut = DEFAULT_TIMEOUT;
+  uint32_t OneShot::State = 0;
+  uint32_t OneShot::stickyState = 0;
+  uint32_t OneShot::pressedState = 0;
+  Key OneShot::prevKey;
+  bool OneShot::shouldCancel = false;
+  bool OneShot::shouldCancelStickies = false;
 
   // --- helper macros ------
 
@@ -101,8 +101,8 @@ namespace Akela {
     }
   }
 
-  static void
-  injectNormalKey (uint8_t idx, uint8_t keyState) {
+  void
+  OneShot::injectNormalKey (uint8_t idx, uint8_t keyState) {
     Key key;
 
     if (idx < 8) {
@@ -116,13 +116,13 @@ namespace Akela {
     handle_key_event (key, 255, 255, keyState | INJECTED);
   }
 
-  static void
-  activateOneShot (uint8_t idx) {
+  void
+  OneShot::activateOneShot (uint8_t idx) {
     injectNormalKey (idx, IS_PRESSED);
   }
 
-  static void
-  cancelOneShot (uint8_t idx) {
+  void
+  OneShot::cancelOneShot (uint8_t idx) {
     clearOneShot (idx);
     injectNormalKey (idx, WAS_PRESSED);
   }

@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,12 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
+    static Key leaderSeq[LEADER_MAX_SEQUENCE_LENGTH + 1];
+    static uint8_t leaderSeqPos;
+    static uint16_t leaderTimer;
+    static uint16_t leaderTimeOut;
+    static const Leader::dictionary_t *leaderDictionary;
+
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (bool postClear);
     static int8_t lookup (void);
