@@ -22,16 +22,16 @@ using namespace Akela::Ranges;
 
 namespace Akela {
   // --- state ---
-  Key Leader::leaderSeq[LEADER_MAX_SEQUENCE_LENGTH + 1];
-  uint8_t Leader::leaderSeqPos;
-  uint16_t Leader::leaderTimer;
-  uint16_t Leader::leaderTimeOut = DEFAULT_TIMEOUT;
-  const Leader::dictionary_t *Leader::leaderDictionary;
+  Key Leader::sequence[LEADER_MAX_SEQUENCE_LENGTH + 1];
+  uint8_t Leader::sequencePos;
+  uint16_t Leader::timer;
+  uint16_t Leader::timeOut = DEFAULT_TIMEOUT;
+  const Leader::dictionary_t *Leader::dictionary;
 
   // --- helpers ---
 
 #define isLeader(k) (k.raw >= LEAD_FIRST && k.raw <= LEAD_LAST)
-#define isActive() (leaderSeq[0].raw != Key_NoKey.raw)
+#define isActive() (sequence[0].raw != Key_NoKey.raw)
 
   // --- actions ---
   int8_t
@@ -41,14 +41,14 @@ namespace Akela {
     for (uint8_t seqIndex = 0; ; seqIndex++) {
       match = true;
 
-      if (pgm_read_word (&(leaderDictionary[seqIndex].sequence[0].raw)) == Key_NoKey.raw)
+      if (pgm_read_word (&(dictionary[seqIndex].sequence[0].raw)) == Key_NoKey.raw)
         break;
 
       Key seqKey;
-      for (uint8_t i = 0; i <= leaderSeqPos; i++) {
-        seqKey.raw = pgm_read_word (&(leaderDictionary[seqIndex].sequence[i].raw));
+      for (uint8_t i = 0; i <= sequencePos; i++) {
+        seqKey.raw = pgm_read_word (&(dictionary[seqIndex].sequence[i].raw));
 
-        if (leaderSeq[i].raw != seqKey.raw) {
+        if (sequence[i].raw != seqKey.raw) {
           match = false;
           break;
         }
@@ -57,7 +57,7 @@ namespace Akela {
       if (!match)
         continue;
 
-      seqKey.raw = pgm_read_word (&(leaderDictionary[seqIndex].sequence[leaderSeqPos + 1].raw));
+      seqKey.raw = pgm_read_word (&(dictionary[seqIndex].sequence[sequencePos + 1].raw));
       if (seqKey.raw == Key_NoKey.raw) {
         return seqIndex;
       }
@@ -78,15 +78,15 @@ namespace Akela {
   }
 
   void
-  Leader::configure (const Leader::dictionary_t dictionary[]) {
-    leaderDictionary = dictionary;
+  Leader::configure (const Leader::dictionary_t dictionary_[]) {
+    dictionary = dictionary_;
   }
 
   void
   Leader::reset (void) {
-    leaderTimer = 0;
-    leaderSeqPos = 0;
-    leaderSeq[0].raw = Key_NoKey.raw;
+    timer = 0;
+    sequencePos = 0;
+    sequence[0].raw = Key_NoKey.raw;
   }
 
   void
@@ -114,8 +114,8 @@ namespace Akela {
 
       if (key_toggled_off (keyState)) {
         // not active, but a leader key = start the sequence on key release!
-        leaderSeqPos = 0;
-        leaderSeq[leaderSeqPos].raw = mappedKey.raw;
+        sequencePos = 0;
+        sequence[sequencePos].raw = mappedKey.raw;
       }
 
       // If the sequence was not active yet, ignore the key.
@@ -126,14 +126,14 @@ namespace Akela {
     int8_t actionIndex = lookup ();
 
     if (key_toggled_on (keyState)) {
-      leaderSeqPos++;
-      if (leaderSeqPos > LEADER_MAX_SEQUENCE_LENGTH) {
+      sequencePos++;
+      if (sequencePos > LEADER_MAX_SEQUENCE_LENGTH) {
         reset ();
         return mappedKey;
       }
 
-      leaderTimer = 0;
-      leaderSeq[leaderSeqPos].raw = mappedKey.raw;
+      timer = 0;
+      sequence[sequencePos].raw = mappedKey.raw;
       actionIndex = lookup ();
 
       if (actionIndex < 0) {
@@ -153,7 +153,7 @@ namespace Akela {
       return mappedKey;
     }
 
-    action_t leaderAction = (action_t) pgm_read_ptr (&(leaderDictionary[actionIndex].action));
+    action_t leaderAction = (action_t) pgm_read_ptr (&(dictionary[actionIndex].action));
     (*leaderAction) (actionIndex);
     return Key_NoKey;
   }
@@ -166,10 +166,10 @@ namespace Akela {
     if (!isActive ())
       return;
 
-    if (leaderTimer < leaderTimeOut)
-      leaderTimer++;
+    if (timer < timeOut)
+     timer++;
 
-    if (leaderTimer >= leaderTimeOut)
+    if (timer >= timeOut)
       reset ();
   }
 };

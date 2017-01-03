@@ -20,9 +20,9 @@
 
 namespace Akela {
 
-  const MagicCombo::dictionary_t *MagicCombo::_magicDictionary;
-  uint16_t MagicCombo::_magicComboTimeOut;
-  uint16_t MagicCombo::_magicComboTimer;
+  const MagicCombo::dictionary_t *MagicCombo::dictionary;
+  uint16_t MagicCombo::timeOut;
+  uint16_t MagicCombo::timer;
 
   MagicCombo::MagicCombo (void) {
   }
@@ -33,34 +33,33 @@ namespace Akela {
   }
 
   void
-  MagicCombo::configure (const MagicCombo::dictionary_t dictionary[], uint16_t timeOut) {
-    _magicDictionary = (dictionary_t *)dictionary;
-    _magicComboTimeOut = timeOut;
+  MagicCombo::configure (const MagicCombo::dictionary_t dictionary_[], uint16_t timeOut_) {
+    dictionary = (dictionary_t *)dictionary_;
+    timeOut = timeOut_;
   }
 
   void
   MagicCombo::loopHook (bool postClear) {
-    if (!_magicDictionary || postClear)
+    if (!dictionary || postClear)
       return;
 
-    if (_magicComboTimer && _magicComboTimer < _magicComboTimeOut)
-      _magicComboTimer++;
+    if (timer && timer < timeOut)
+      timer++;
 
     for (byte i = 0;; i++) {
       dictionary_t combo;
 
-      combo.leftHand = pgm_read_dword (&(_magicDictionary[i].leftHand));
-      combo.rightHand = pgm_read_dword (&(_magicDictionary[i].rightHand));
+      combo.leftHand = pgm_read_dword (&(dictionary[i].leftHand));
+      combo.rightHand = pgm_read_dword (&(dictionary[i].rightHand));
 
       if (combo.leftHand == 0 && combo.rightHand == 0)
         break;
 
       if (KeyboardHardware.leftHandState.all == combo.leftHand &&
           KeyboardHardware.rightHandState.all == combo.rightHand) {
-        if (_magicComboTimer == 0 || _magicComboTimer >= _magicComboTimeOut ||
-            _magicComboTimeOut == 0) {
+        if (timer == 0 || timer >= timeOut || timeOut == 0) {
           magicComboActions (i, combo.leftHand, combo.rightHand);
-          _magicComboTimer = 1;
+          timer = 1;
         }
         break;
       }

@@ -21,8 +21,8 @@
 
 namespace Akela {
 
-  const ShapeShifter::dictionary_t *ShapeShifter::shapeShiftDictionary = NULL;
-  bool ShapeShifter::shapeShiftModActive;
+  const ShapeShifter::dictionary_t *ShapeShifter::dictionary = NULL;
+  bool ShapeShifter::modActive;
 
   ShapeShifter::ShapeShifter (void) {
   }
@@ -34,8 +34,8 @@ namespace Akela {
   }
 
   void
-  ShapeShifter::configure (const dictionary_t dictionary[]) {
-    shapeShiftDictionary = (const dictionary_t *)dictionary;
+  ShapeShifter::configure (const dictionary_t dictionary_[]) {
+    dictionary = (const dictionary_t *)dictionary_;
   }
 
   void
@@ -64,17 +64,17 @@ namespace Akela {
     if (postClear)
       return;
 
-    shapeShiftModActive = Keyboard.isModifierActive (Key_LShift.rawKey) ||
+    modActive = Keyboard.isModifierActive (Key_LShift.rawKey) ||
       Keyboard.isModifierActive (Key_RShift.rawKey);
   }
 
   Key
   ShapeShifter::eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState) {
-    if (!shapeShiftDictionary)
+    if (!dictionary)
       return mappedKey;
 
     // If Shift is not active, bail out early.
-    if (!shapeShiftModActive)
+    if (!modActive)
       return mappedKey;
 
     Key orig, repl;
@@ -82,7 +82,7 @@ namespace Akela {
     // Try to find the current key in the dictionary
     uint8_t i = 0;
     do {
-      orig.raw = pgm_read_word (&(shapeShiftDictionary[i].original.raw));
+      orig.raw = pgm_read_word (&(dictionary[i].original.raw));
       i++;
     } while (orig.raw != Key_NoKey.raw &&
              orig.raw != mappedKey.raw);
@@ -92,7 +92,7 @@ namespace Akela {
     if (orig.raw == Key_NoKey.raw)
       return mappedKey;
 
-    repl.raw = pgm_read_word (&(shapeShiftDictionary[i].replacement.raw));
+    repl.raw = pgm_read_word (&(dictionary[i].replacement.raw));
 
     // If found, handle the alternate key instead
     return repl;

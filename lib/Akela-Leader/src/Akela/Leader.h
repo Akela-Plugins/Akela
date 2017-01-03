@@ -46,11 +46,11 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
-    static Key leaderSeq[LEADER_MAX_SEQUENCE_LENGTH + 1];
-    static uint8_t leaderSeqPos;
-    static uint16_t leaderTimer;
-    static uint16_t leaderTimeOut;
-    static const Leader::dictionary_t *leaderDictionary;
+    static Key sequence[LEADER_MAX_SEQUENCE_LENGTH + 1];
+    static uint8_t sequencePos;
+    static uint16_t timer;
+    static uint16_t timeOut;
+    static const Leader::dictionary_t *dictionary;
 
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (bool postClear);

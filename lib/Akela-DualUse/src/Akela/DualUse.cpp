@@ -22,7 +22,7 @@ using namespace Akela::Ranges;
 
 namespace Akela {
   uint32_t DualUse::keyActionNeededMap;
-  uint32_t DualUse::dualUsePressedMap;
+  uint32_t DualUse::pressedMap;
   uint8_t DualUse::timer[32];
 
   bool DualUse::specDefault;
@@ -49,7 +49,7 @@ namespace Akela {
   void
   DualUse::pressAllSpecials (byte row, byte col) {
     for (uint8_t specIndex = 0; specIndex < 32; specIndex++) {
-      if (!bitRead (dualUsePressedMap, specIndex))
+      if (!bitRead (pressedMap, specIndex))
         continue;
 
       Key newKey = specialAction (specIndex);
@@ -128,7 +128,7 @@ namespace Akela {
       newKey.raw = Key_NoKey.raw;
 
       if (key_toggled_on (keyState)) {
-        bitWrite (dualUsePressedMap, specIndex, 1);
+        bitWrite (pressedMap, specIndex, 1);
         bitWrite (keyActionNeededMap, specIndex, 1);
         timer[specIndex] = 0;
       } else if (key_is_pressed (keyState)) {
@@ -159,7 +159,7 @@ namespace Akela {
           }
         }
 
-        bitWrite (dualUsePressedMap, specIndex, 0);
+        bitWrite (pressedMap, specIndex, 0);
         bitWrite (keyActionNeededMap, specIndex, 0);
         timer[specIndex] = 0;
       }
@@ -167,14 +167,14 @@ namespace Akela {
       return newKey;
     }
 
-    if (dualUsePressedMap == 0) {
+    if (pressedMap == 0) {
       return mappedKey;
     }
 
     pressAllSpecials (row, col);
     keyActionNeededMap = 0;
 
-    if (dualUsePressedMap > (1 << 7)) {
+    if (pressedMap > (1 << 7)) {
       mappedKey = Layer.lookup (row, col);
     }
 
