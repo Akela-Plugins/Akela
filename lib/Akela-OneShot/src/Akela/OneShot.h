@@ -40,8 +40,8 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
-    static uint16_t Timer;
-    static uint16_t TimeOut;
+    static uint8_t Timer;
+    static uint8_t TimeOut;
     static uint32_t State;
     static uint32_t stickyState;
     static uint32_t pressedState;

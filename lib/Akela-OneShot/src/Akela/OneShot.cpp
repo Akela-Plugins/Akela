@@ -23,8 +23,8 @@ using namespace Akela::Ranges;
 namespace Akela {
   // ---- state ---------
 
-  uint16_t OneShot::Timer = 0;
-  uint16_t OneShot::TimeOut = DEFAULT_TIMEOUT;
+  uint8_t OneShot::Timer = 0;
+  uint8_t OneShot::TimeOut = DEFAULT_TIMEOUT;
   uint32_t OneShot::State = 0;
   uint32_t OneShot::stickyState = 0;
   uint32_t OneShot::pressedState = 0;
