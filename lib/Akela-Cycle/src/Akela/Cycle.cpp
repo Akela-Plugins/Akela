@@ -32,8 +32,6 @@ namespace Akela {
   // --- api ---
 
   Cycle::Cycle (void) {
-    lastNonCycleKey.raw = Key_NoKey.raw;
-    cycleCount = 0;
   }
 
   void
