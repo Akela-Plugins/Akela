@@ -33,7 +33,7 @@ namespace Akela {
   }
 
   void
-  MagicCombo::configure (const MagicCombo::dictionary_t dictionary_[], uint16_t timeOut_) {
+  MagicCombo::configure (const MagicCombo::dictionary_t dictionary_[], uint8_t timeOut_) {
     dictionary = (dictionary_t *)dictionary_;
     timeOut = timeOut_;
   }
