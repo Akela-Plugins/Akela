@@ -24,8 +24,8 @@ namespace Akela {
   // --- state ---
   Key Leader::sequence[LEADER_MAX_SEQUENCE_LENGTH + 1];
   uint8_t Leader::sequencePos;
-  uint16_t Leader::timer;
-  uint16_t Leader::timeOut = DEFAULT_TIMEOUT;
+  uint8_t Leader::timer;
+  uint8_t Leader::timeOut = DEFAULT_TIMEOUT;
   const Leader::dictionary_t *Leader::dictionary;
 
   // --- helpers ---
