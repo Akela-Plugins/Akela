@@ -33,13 +33,13 @@ namespace Akela {
 
     virtual void begin (void) final;
 
-    static void configure (const dictionary_t dictionary[], uint16_t timeout);
+    static void configure (const dictionary_t dictionary[], uint8_t timeout);
     static void configure (const dictionary_t dictionary[]) { configure (dictionary, AKELA_MAGICCOMBO_TIMEOUT); };
 
   private:
     static const dictionary_t *dictionary;
-    static uint16_t timeOut;
-    static uint16_t timer;
+    static uint8_t timeOut;
+    static uint8_t timer;
 
     static void loopHook (bool postClear);
   };

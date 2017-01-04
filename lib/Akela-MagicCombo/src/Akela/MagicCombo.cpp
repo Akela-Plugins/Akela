@@ -21,8 +21,8 @@
 namespace Akela {
 
   const MagicCombo::dictionary_t *MagicCombo::dictionary;
-  uint16_t MagicCombo::timeOut;
-  uint16_t MagicCombo::timer;
+  uint8_t MagicCombo::timeOut;
+  uint8_t MagicCombo::timer;
 
   MagicCombo::MagicCombo (void) {
   }
