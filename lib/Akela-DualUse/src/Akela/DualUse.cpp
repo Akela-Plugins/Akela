@@ -123,9 +123,7 @@ namespace Akela {
 
     if (mappedKey.raw >= DU_FIRST && mappedKey.raw <= DU_LAST) {
       uint8_t specIndex = (mappedKey.raw - DU_FIRST) >> 8;
-      Key newKey;
-
-      newKey.raw = Key_NoKey.raw;
+      Key newKey = Key_NoKey;
 
       if (key_toggled_on (keyState)) {
         bitWrite (pressedMap, specIndex, 1);
