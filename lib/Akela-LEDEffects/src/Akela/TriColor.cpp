@@ -47,16 +47,16 @@ namespace Akela {
 
           cRGB color = modColor;
 
-          switch (k.rawKey) {
-          case Key_A.rawKey ... Key_0.rawKey:
-          case Key_Space.rawKey:
-          case Key_Minus.rawKey ... Key_Slash.rawKey:
-          case Key_Keypad1.rawKey ... Key_KeypadDot.rawKey:
-          case Key_F1.rawKey ... Key_F4.rawKey:
-          case Key_F9.rawKey ... Key_F12.rawKey:
+          switch (k.keyCode) {
+          case Key_A.keyCode ... Key_0.keyCode:
+          case Key_Space.keyCode:
+          case Key_Minus.keyCode ... Key_Slash.keyCode:
+          case Key_Keypad1.keyCode ... Key_KeypadDot.keyCode:
+          case Key_F1.keyCode ... Key_F4.keyCode:
+          case Key_F9.keyCode ... Key_F12.keyCode:
             color = baseColor;
             break;
-          case Key_Esc.rawKey:
+          case Key_Esc.keyCode:
             color = escColor;
             break;
           }

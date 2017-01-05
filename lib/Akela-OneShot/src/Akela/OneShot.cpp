@@ -36,7 +36,7 @@ namespace Akela {
 
 #define isOS(key) (key.raw >= OS_FIRST && key.raw <= OS_LAST)
 #define isModifier(key) (key.raw >= Key_LCtrl.raw && key.raw <= Key_RGUI.raw)
-#define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.rawKey >= MOMENTARY_OFFSET && key.rawKey <= MOMENTARY_OFFSET + 23)
+#define isLayerKey(key) (key.flags & (KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP) && key.keyCode >= MOMENTARY_OFFSET && key.keyCode <= MOMENTARY_OFFSET + 23)
 
 #define isOneShot(idx) (bitRead (State, idx))
 #define setOneShot(idx) (bitWrite (State, idx, 1))
@@ -53,7 +53,7 @@ namespace Akela {
 #define isSameAsPrevious(key) (key.raw == prevKey.raw)
 #define saveAsPrevious(key) prevKey.raw = key.raw
 
-#define toNormalMod(key, idx) {key.flags = 0; key.rawKey = Key_LCtrl.rawKey + idx;}
+#define toNormalMod(key, idx) {key.flags = 0; key.keyCode = Key_LCtrl.keyCode + idx;}
 #define toNormalMT(key, idx) { key.raw = Key_NoKey.raw; Layer.on (idx - 8); }
 #define hasTimedOut() (Timer >= TimeOut)
 
@@ -91,11 +91,11 @@ namespace Akela {
       return mappedKey;
 
     if (isModifier (mappedKey)) {
-      uint8_t idx = mappedKey.rawKey - Key_LCtrl.rawKey;
+      uint8_t idx = mappedKey.keyCode - Key_LCtrl.keyCode;
 
       return (Key){.raw = OSM_FIRST + idx};
     } else {
-      uint8_t idx = mappedKey.rawKey - MOMENTARY_OFFSET;
+      uint8_t idx = mappedKey.keyCode - MOMENTARY_OFFSET;
 
       return (Key){.raw = OSL_FIRST + idx};
     }
@@ -107,10 +107,10 @@ namespace Akela {
 
     if (idx < 8) {
       key.flags = Key_LCtrl.flags;
-      key.rawKey = Key_LCtrl.rawKey + idx;
+      key.keyCode = Key_LCtrl.keyCode + idx;
     } else {
       key.flags = KEY_FLAGS | SYNTHETIC | SWITCH_TO_KEYMAP;
-      key.rawKey = MOMENTARY_OFFSET + idx - 8;
+      key.keyCode = MOMENTARY_OFFSET + idx - 8;
     }
 
     handle_key_event (key, 255, 255, keyState | INJECTED);

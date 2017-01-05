@@ -32,27 +32,27 @@ namespace Akela {
   Unicode::start (void) {
     switch (::HostOS.os ()) {
     case HostOS::LINUX:
-      Keyboard.press (Key_LCtrl.rawKey);
-      Keyboard.press (Key_LShift.rawKey);
-      Keyboard.press (Key_U.rawKey);
+      Keyboard.press (Key_LCtrl.keyCode);
+      Keyboard.press (Key_LShift.keyCode);
+      Keyboard.press (Key_U.keyCode);
       Keyboard.sendReport ();
-      Keyboard.release (Key_LCtrl.rawKey);
-      Keyboard.release (Key_LShift.rawKey);
-      Keyboard.release (Key_U.rawKey);
+      Keyboard.release (Key_LCtrl.keyCode);
+      Keyboard.release (Key_LShift.keyCode);
+      Keyboard.release (Key_U.keyCode);
       Keyboard.sendReport ();
       break;
     case HostOS::WINDOWS:
-      Keyboard.press (Key_RAlt.rawKey);
+      Keyboard.press (Key_RAlt.keyCode);
       Keyboard.sendReport ();
-      Keyboard.release (Key_RAlt.rawKey);
+      Keyboard.release (Key_RAlt.keyCode);
       Keyboard.sendReport ();
-      Keyboard.press (Key_U.rawKey);
+      Keyboard.press (Key_U.keyCode);
       Keyboard.sendReport ();
-      Keyboard.release (Key_U.rawKey);
+      Keyboard.release (Key_U.keyCode);
       Keyboard.sendReport ();
       break;
     case HostOS::OSX:
-      Keyboard.press (Key_LAlt.rawKey);
+      Keyboard.press (Key_LAlt.keyCode);
       break;
     default:
       unicodeCustomStart ();
@@ -67,7 +67,7 @@ namespace Akela {
     case HostOS::WINDOWS:
       break;
     case HostOS::OSX:
-      Keyboard.press (Key_LAlt.rawKey);
+      Keyboard.press (Key_LAlt.keyCode);
       break;
     default:
       unicodeCustomInput ();
@@ -79,15 +79,15 @@ namespace Akela {
   Unicode::end (void) {
     switch (::HostOS.os ()) {
     case HostOS::LINUX:
-      Keyboard.press (Key_Space.rawKey);
+      Keyboard.press (Key_Space.keyCode);
       Keyboard.sendReport ();
-      Keyboard.release (Key_Space.rawKey);
+      Keyboard.release (Key_Space.keyCode);
       Keyboard.sendReport ();
       break;
     case HostOS::WINDOWS:
       break;
     case HostOS::OSX:
-      Keyboard.release (Key_LAlt.rawKey);
+      Keyboard.release (Key_LAlt.keyCode);
       Keyboard.sendReport ();
       break;
     default:
@@ -111,20 +111,20 @@ namespace Akela {
           Key key = hexToKey (digit);
 
           input ();
-          Keyboard.press (key.rawKey);
+          Keyboard.press (key.keyCode);
           Keyboard.sendReport ();
           input ();
-          Keyboard.release (key.rawKey);
+          Keyboard.release (key.keyCode);
           Keyboard.sendReport ();
         }
       } else {
         Key key = hexToKey (digit);
 
         input ();
-        Keyboard.press (key.rawKey);
+        Keyboard.press (key.keyCode);
         Keyboard.sendReport ();
         input ();
-        Keyboard.release (key.rawKey);
+        Keyboard.release (key.keyCode);
         Keyboard.sendReport ();
 
         onZeroStart = false;
@@ -150,9 +150,9 @@ hexToKey (uint8_t hex) {
   }
 
   if (hex < 0xA) {
-    m = Key_1.rawKey + (hex - 0x1);
+    m = Key_1.keyCode + (hex - 0x1);
   } else {
-    m = Key_A.rawKey + (hex - 0xA);
+    m = Key_A.keyCode + (hex - 0xA);
   }
 
   return { KEY_FLAGS, m};

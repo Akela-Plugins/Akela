@@ -34,13 +34,13 @@ namespace Akela {
 
     newKey.flags = KEY_FLAGS;
     if (specIndex < 8) {
-      newKey.rawKey = Key_LCtrl.rawKey + specIndex;
+      newKey.keyCode = Key_LCtrl.keyCode + specIndex;
     } else {
       uint8_t target = specIndex - 8;
 
       Layer.on (target);
 
-      newKey.rawKey = 0;
+      newKey.keyCode = 0;
     }
 
     return newKey;
@@ -103,7 +103,7 @@ namespace Akela {
       newKey = specialAction (specIndex);
     } else {
       newKey.flags = KEY_FLAGS;
-      newKey.rawKey = mappedKey.raw - DU_FIRST - (specIndex << 8);
+      newKey.keyCode = mappedKey.raw - DU_FIRST - (specIndex << 8);
     }
 
     return newKey;

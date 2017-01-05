@@ -66,8 +66,8 @@ namespace Akela {
     if (postClear)
       return;
 
-    bitWrite (topsyTurvyModState, 0, Keyboard.isModifierActive (Key_LShift.rawKey));
-    bitWrite (topsyTurvyModState, 1, Keyboard.isModifierActive (Key_RShift.rawKey));
+    bitWrite (topsyTurvyModState, 0, Keyboard.isModifierActive (Key_LShift.keyCode));
+    bitWrite (topsyTurvyModState, 1, Keyboard.isModifierActive (Key_RShift.keyCode));
   }
 
   Key
@@ -95,20 +95,20 @@ namespace Akela {
     // invert the shift state
 
     if (!topsyTurvyModState) {
-      Keyboard.press (Key_LShift.rawKey);
+      Keyboard.press (Key_LShift.keyCode);
       handle_key_event (mappedKey, row, col, keyState | TOPSYTURVY);
       Keyboard.sendReport ();
-      Keyboard.release (Key_LShift.rawKey);
+      Keyboard.release (Key_LShift.keyCode);
     } else {
-      Keyboard.release (Key_LShift.rawKey);
-      Keyboard.release (Key_RShift.rawKey);
+      Keyboard.release (Key_LShift.keyCode);
+      Keyboard.release (Key_RShift.keyCode);
       handle_key_event (mappedKey, row, col, keyState | TOPSYTURVY);
       Keyboard.sendReport ();
 
       if (bitRead (topsyTurvyModState, 0))
-        Keyboard.press (Key_LShift.rawKey);
+        Keyboard.press (Key_LShift.keyCode);
       if (bitRead (topsyTurvyModState, 1))
-        Keyboard.press (Key_RShift.rawKey);
+        Keyboard.press (Key_RShift.keyCode);
     }
 
     return Key_NoKey;

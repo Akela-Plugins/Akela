@@ -64,8 +64,8 @@ namespace Akela {
     if (postClear)
       return;
 
-    modActive = Keyboard.isModifierActive (Key_LShift.rawKey) ||
-      Keyboard.isModifierActive (Key_RShift.rawKey);
+    modActive = Keyboard.isModifierActive (Key_LShift.keyCode) ||
+      Keyboard.isModifierActive (Key_RShift.keyCode);
   }
 
   Key

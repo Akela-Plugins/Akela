@@ -20,7 +20,7 @@
 
 #include <Akela.h>
 
-#define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).rawKey - Key_LCtrl.rawKey}
+#define OSM(kc) (Key) {.raw = Akela::Ranges::OSM_FIRST + (Key_ ## kc).keyCode - Key_LCtrl.keyCode}
 #define OSL(n) (Key) {.raw = Akela::Ranges::OSL_FIRST + n}
 
 namespace Akela {
