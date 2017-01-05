@@ -44,10 +44,10 @@ namespace Akela {
   private:
     static uint32_t keyActionNeededMap;
     static uint32_t pressedMap;
-    static uint8_t timer[32];
-
-    static const uint8_t timeOut = DEFAULT_TIMEOUT;
     static bool specDefault;
+
+    static uint8_t timer;
+    static const uint8_t timeOut = DEFAULT_TIMEOUT;
 
     static Key specialAction (uint8_t specIndex);
     static void pressAllSpecials (byte row, byte col);
