@@ -38,7 +38,7 @@ an up-to-date report on the current state of each library:
 | ---------------    | --------------------       |
 | Akela-Colormap     | ![status][st:stable]       |
 | Akela-Cycle        | ![status][st:stable]       |
-| Akela-DualUse      | ![status][st:experimental] |
+| Akela-DualUse      | ![status][st:stable]       |
 | Akela-Heatmap      | ![status][st:broken]       |
 | Akela-HostOS       | ![status][st:stable]       |
 | Akela-KeyLogger    | ![status][st:stable]       |
