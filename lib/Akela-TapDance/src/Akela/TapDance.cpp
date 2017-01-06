@@ -95,7 +95,7 @@ namespace Akela {
 
   void
   TapDance::actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]) {
-    if (tapCount >= maxKeys)
+    if (tapCount > maxKeys)
       return;
 
     Key key;
