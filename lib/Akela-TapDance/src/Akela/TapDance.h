@@ -48,10 +48,10 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
-    static uint16_t tapDanceTimer;
-    static uint16_t tapDanceTimeOut;
-    static uint8_t tapDanceCount[32];
-    static uint32_t tapDancePressedState;
+    static uint16_t timer;
+    static uint16_t timeOut;
+    static uint8_t tapCount[32];
+    static uint32_t pressedState;
     static Key lastTapDanceKey;
 
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
@@ -59,7 +59,7 @@ namespace Akela {
 
     static Key tap (void);
     static void interrupt (void);
-    static void timeOut (void);
+    static void timeout (void);
     static Key release (uint8_t tapDanceIndex);
   };
 };
