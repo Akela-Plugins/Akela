@@ -48,7 +48,7 @@ an up-to-date report on the current state of each library:
 | Akela-OneShot      | ![status][st:experimental] |
 | Akela-ShapeShifter | ![status][st:stable]       |
 | Akela-SpaceCadet   | ![status][st:stable]       |
-| Akela-TapDance     | ![status][st:broken]       |
+| Akela-TapDance     | ![status][st:experimental] |
 | Akela-TopsyTurvy   | ![status][st:experimental] |
 | Akela-Unicode      | ![status][st:stable]       |
 
