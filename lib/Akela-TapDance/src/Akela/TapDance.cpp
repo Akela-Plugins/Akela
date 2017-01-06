@@ -46,8 +46,6 @@ namespace Akela {
     bitWrite (triggeredState, idx, 1);
 
     timer = 0;
-    tapCount[idx] = 0;
-    lastTapDanceKey.raw = Key_NoKey.raw;
 
     if (bitRead (pressedState, idx))
       return;
@@ -76,6 +74,8 @@ namespace Akela {
 
     timer = 0;
     tapCount[tapDanceIndex] = 0;
+    lastTapDanceKey.raw = Key_NoKey.raw;
+
     bitClear (pressedState, tapDanceIndex);
     bitClear (triggeredState, tapDanceIndex);
     return Key_NoKey;
