@@ -47,6 +47,10 @@ namespace Akela {
   void
   TapDance::timeOut (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
+
+    if (bitRead (tapDancePressedState, idx))
+      return;
+
     tapDanceAction (idx, tapDanceCount[idx], Timeout);
     lastTapDanceKey.raw = Key_NoKey.raw;
   }
