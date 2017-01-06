@@ -24,10 +24,8 @@ namespace Akela {
 
   const cRGB *ColormapEffect::palette;
   const uint8_t *ColormapEffect::colorMap;
-  uint32_t ColormapEffect::previousLayerState;
 
   ColormapEffect::ColormapEffect (void) {
-    previousLayerState = 0xffffffff;
   }
 
   void
@@ -37,17 +35,7 @@ namespace Akela {
   }
 
   void
-  ColormapEffect::init (void) {
-    previousLayerState = 0xffffffff;
-  }
-
-  void
   ColormapEffect::update (void) {
-    uint8_t layerState = Layer.getLayerState ();
-    if (previousLayerState == layerState)
-      return;
-    previousLayerState = layerState;
-
     for (uint8_t l = 0; l < 32; l++) {
       if (!Layer.isOn (l))
         continue;
