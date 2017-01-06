@@ -43,6 +43,7 @@ namespace Akela {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
     tapDanceAction (idx, tapCount[idx], Interrupt);
     lastTapDanceKey.raw = Key_NoKey.raw;
+    tapCount[idx] = 0;
     bitWrite (triggeredState, idx, 1);
   }
 
