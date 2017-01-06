@@ -124,6 +124,7 @@ namespace Akela {
       handle_key_event (key, 255, 255, IS_PRESSED | WAS_PRESSED | INJECTED);
       break;
     case Release:
+      Keyboard.sendReport ();
       handle_key_event (key, 255, 255, WAS_PRESSED | INJECTED);
       break;
     }
