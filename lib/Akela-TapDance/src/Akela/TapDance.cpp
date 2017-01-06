@@ -89,7 +89,7 @@ namespace Akela {
       return;
 
     Key key;
-    key.raw = pgm_read_word (tapKeys + tapCount);
+    key.raw = pgm_read_word (tapKeys + tapCount - 1);
 
     switch (tapDanceAction) {
     case Tap:
