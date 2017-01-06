@@ -203,6 +203,9 @@ namespace Akela {
 
   void
   TapDance::loopHook (bool postClear) {
+    if (!postClear)
+      return;
+
     if (!isActive ())
       return;
 
