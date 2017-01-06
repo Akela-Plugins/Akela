@@ -52,6 +52,7 @@ namespace Akela {
     static uint16_t timeOut;
     static uint8_t tapCount[32];
     static uint32_t pressedState;
+    static uint32_t triggeredState;
     static Key lastTapDanceKey;
 
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);

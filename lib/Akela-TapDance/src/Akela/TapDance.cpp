@@ -26,6 +26,7 @@ namespace Akela {
   uint16_t TapDance::timeOut = DEFAULT_TIMEOUT;
   uint8_t TapDance::tapCount[32];
   uint32_t TapDance::pressedState;
+  uint32_t TapDance::triggeredState;
   Key TapDance::lastTapDanceKey;
 
   // --- helpers ---
@@ -42,18 +43,20 @@ namespace Akela {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
     tapDanceAction (idx, tapCount[idx], Interrupt);
     lastTapDanceKey.raw = Key_NoKey.raw;
+    bitWrite (triggeredState, idx, 1);
   }
 
   void
   TapDance::timeout (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
 
+    tapDanceAction (idx, tapCount[idx], Timeout);
+    bitWrite (triggeredState, idx, 1);
+
     if (bitRead (pressedState, idx))
       return;
 
-    tapDanceAction (idx, tapCount[idx], Timeout);
     lastTapDanceKey.raw = Key_NoKey.raw;
-
     release (idx);
   }
 
@@ -62,6 +65,7 @@ namespace Akela {
     tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Release);
     tapCount[tapDanceIndex] = 0;
     bitClear (pressedState, tapDanceIndex);
+    bitClear (triggeredState, tapDanceIndex);
     return Key_NoKey;
   }
 
@@ -95,7 +99,7 @@ namespace Akela {
       return;
 
     Key key;
-    key.raw = pgm_read_word (tapKeys + tapCount - 1);
+    key.raw = pgm_read_word (&(tapKeys[tapCount - 1].raw));
 
     switch (tapDanceAction) {
     case Tap:
@@ -173,7 +177,9 @@ namespace Akela {
     if (key_toggled_on (keyState))
       return tap ();
 
-    tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Hold);
+    if (bitRead (triggeredState, tapDanceIndex))
+      tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Hold);
+
     return Key_NoKey;
   }
 
