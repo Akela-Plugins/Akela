@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@ using namespace Akela::Ranges;
 
 namespace Akela {
   // --- state ---
-  static uint16_t tapDanceTimer;
-  static uint16_t tapDanceTimeOut = DEFAULT_TIMEOUT;
-  static uint8_t tapDanceCount[32];
-  static uint32_t tapDancePressedState;
-  static Key lastTapDanceKey;
+  uint16_t TapDance::tapDanceTimer;
+  uint16_t TapDance::tapDanceTimeOut = DEFAULT_TIMEOUT;
+  uint8_t TapDance::tapDanceCount[32];
+  uint32_t TapDance::tapDancePressedState;
+  Key TapDance::lastTapDanceKey;
 
   // --- helpers ---
 
