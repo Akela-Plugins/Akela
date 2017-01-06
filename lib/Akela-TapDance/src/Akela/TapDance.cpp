@@ -53,6 +53,8 @@ namespace Akela {
 
     tapDanceAction (idx, tapDanceCount[idx], Timeout);
     lastTapDanceKey.raw = Key_NoKey.raw;
+
+    release (idx);
   }
 
   Key
