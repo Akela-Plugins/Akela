@@ -41,10 +41,18 @@ namespace Akela {
   void
   TapDance::interrupt (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
+
     tapDanceAction (idx, tapCount[idx], Interrupt);
-    lastTapDanceKey.raw = Key_NoKey.raw;
-    tapCount[idx] = 0;
     bitWrite (triggeredState, idx, 1);
+
+    timer = 0;
+    tapCount[idx] = 0;
+    lastTapDanceKey.raw = Key_NoKey.raw;
+
+    if (bitRead (pressedState, idx))
+      return;
+
+    release (idx);
   }
 
   void
@@ -58,12 +66,15 @@ namespace Akela {
       return;
 
     lastTapDanceKey.raw = Key_NoKey.raw;
+
     release (idx);
   }
 
   Key
   TapDance::release (uint8_t tapDanceIndex) {
     tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Release);
+
+    timer = 0;
     tapCount[tapDanceIndex] = 0;
     bitClear (pressedState, tapDanceIndex);
     bitClear (triggeredState, tapDanceIndex);
@@ -113,6 +124,7 @@ namespace Akela {
       handle_key_event (key, 255, 255, IS_PRESSED | WAS_PRESSED | INJECTED);
       break;
     case Release:
+      Keyboard.sendReport ();
       handle_key_event (key, 255, 255, WAS_PRESSED | INJECTED);
       break;
     }
@@ -153,6 +165,12 @@ namespace Akela {
 
     if (!isInSeq (mappedKey)) {
       if (!isActive ()) {
+        if (bitRead (triggeredState, tapDanceIndex)) {
+          if (key_toggled_off (keyState))
+            return release (tapDanceIndex);
+          return Key_NoKey;
+        }
+
         lastTapDanceKey.raw = mappedKey.raw;
         return tap ();
       } else {
@@ -186,6 +204,9 @@ namespace Akela {
 
   void
   TapDance::loopHook (bool postClear) {
+    if (!postClear)
+      return;
+
     if (!isActive ())
       return;
 
