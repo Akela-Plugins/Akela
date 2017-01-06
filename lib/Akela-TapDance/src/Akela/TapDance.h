@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,12 +48,19 @@ namespace Akela {
     void inject (Key key, uint8_t keyState);
 
   private:
+    static uint16_t timer;
+    static uint16_t timeOut;
+    static uint8_t tapCount[32];
+    static uint32_t pressedState;
+    static uint32_t triggeredState;
+    static Key lastTapDanceKey;
+
     static Key eventHandlerHook (Key mappedKey, byte row, byte col, uint8_t keyState);
     static void loopHook (bool postClear);
 
     static Key tap (void);
     static void interrupt (void);
-    static void timeOut (void);
+    static void timeout (void);
     static Key release (uint8_t tapDanceIndex);
   };
 };

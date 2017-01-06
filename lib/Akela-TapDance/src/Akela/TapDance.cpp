@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Akela -- Animated Keyboardio Extension Library for Anything
- * Copyright (C) 2016  Gergely Nagy
+ * Copyright (C) 2016, 2017  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +22,18 @@ using namespace Akela::Ranges;
 
 namespace Akela {
   // --- state ---
-  static uint16_t tapDanceTimer;
-  static uint16_t tapDanceTimeOut = DEFAULT_TIMEOUT;
-  static uint8_t tapDanceCount[32];
-  static uint32_t tapDancePressedState;
-  static Key lastTapDanceKey;
+  uint16_t TapDance::timer;
+  uint16_t TapDance::timeOut = DEFAULT_TIMEOUT;
+  uint8_t TapDance::tapCount[32];
+  uint32_t TapDance::pressedState;
+  uint32_t TapDance::triggeredState;
+  Key TapDance::lastTapDanceKey;
 
   // --- helpers ---
 
 #define isTapDance(k) (k.raw >= TD_FIRST && k.raw <= TD_LAST)
 #define isInSeq(k) (lastTapDanceKey.raw == k.raw)
-#define stillHeld(idx) (tapDanceCount[idx])
+#define stillHeld(idx) (tapCount[idx])
 #define isActive() (lastTapDanceKey.raw != Key_NoKey.raw)
 
   // --- actions ---
@@ -40,22 +41,32 @@ namespace Akela {
   void
   TapDance::interrupt (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
-    tapDanceAction (idx, tapDanceCount[idx], Interrupt);
+    tapDanceAction (idx, tapCount[idx], Interrupt);
     lastTapDanceKey.raw = Key_NoKey.raw;
+    tapCount[idx] = 0;
+    bitWrite (triggeredState, idx, 1);
   }
 
   void
-  TapDance::timeOut (void) {
+  TapDance::timeout (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
-    tapDanceAction (idx, tapDanceCount[idx], Timeout);
+
+    tapDanceAction (idx, tapCount[idx], Timeout);
+    bitWrite (triggeredState, idx, 1);
+
+    if (bitRead (pressedState, idx))
+      return;
+
     lastTapDanceKey.raw = Key_NoKey.raw;
+    release (idx);
   }
 
   Key
   TapDance::release (uint8_t tapDanceIndex) {
-    tapDanceAction (tapDanceIndex, tapDanceCount[tapDanceIndex], Release);
-    tapDanceCount[tapDanceIndex] = 0;
-    bitClear (tapDancePressedState, tapDanceIndex);
+    tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Release);
+    tapCount[tapDanceIndex] = 0;
+    bitClear (pressedState, tapDanceIndex);
+    bitClear (triggeredState, tapDanceIndex);
     return Key_NoKey;
   }
 
@@ -63,10 +74,10 @@ namespace Akela {
   TapDance::tap (void) {
     uint8_t idx = lastTapDanceKey.raw - TD_FIRST;
 
-    tapDanceCount[idx]++;
-    tapDanceTimer = 0;
+    tapCount[idx]++;
+    timer = 0;
 
-    tapDanceAction (idx, tapDanceCount[idx], Tap);
+    tapDanceAction (idx, tapCount[idx], Tap);
 
     return Key_NoKey;
   }
@@ -85,11 +96,11 @@ namespace Akela {
 
   void
   TapDance::actionKeys (uint8_t tapCount, ActionType tapDanceAction, uint8_t maxKeys, const Key tapKeys[]) {
-    if (tapCount >= maxKeys)
+    if (tapCount > maxKeys)
       return;
 
     Key key;
-    key.raw = pgm_read_word (tapKeys + tapCount);
+    key.raw = pgm_read_word (&(tapKeys[tapCount - 1].raw));
 
     switch (tapDanceAction) {
     case Tap:
@@ -138,7 +149,7 @@ namespace Akela {
     uint8_t tapDanceIndex = mappedKey.raw - TD_FIRST;
 
     if (key_toggled_off (keyState))
-      bitClear (tapDancePressedState, tapDanceIndex);
+      bitClear (pressedState, tapDanceIndex);
 
     if (!isInSeq (mappedKey)) {
       if (!isActive ()) {
@@ -162,12 +173,14 @@ namespace Akela {
       return Key_NoKey;
 
     lastTapDanceKey.raw = mappedKey.raw;
-    bitSet (tapDancePressedState, tapDanceIndex);
+    bitSet (pressedState, tapDanceIndex);
 
     if (key_toggled_on (keyState))
       return tap ();
 
-    tapDanceAction (tapDanceIndex, tapDanceCount[tapDanceIndex], Hold);
+    if (bitRead (triggeredState, tapDanceIndex))
+      tapDanceAction (tapDanceIndex, tapCount[tapDanceIndex], Hold);
+
     return Key_NoKey;
   }
 
@@ -176,11 +189,11 @@ namespace Akela {
     if (!isActive ())
       return;
 
-    if (tapDanceTimer < tapDanceTimeOut)
-      tapDanceTimer++;
+    if (timer < timeOut)
+      timer++;
 
-    if (tapDanceTimer >= tapDanceTimeOut)
-      timeOut();
+    if (timer >= timeOut)
+      timeout();
   }
 };
 
