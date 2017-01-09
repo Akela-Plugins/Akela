@@ -3,6 +3,7 @@ MCU									= atmega32u4
 
 ARDUINO_PATH				= ${HOME}/install/arduino
 ARDUINO_TOOLS_PATH	= $(ARDUINO_PATH)/hardware/tools
+ARDUINO_BUILDER			= $(ARDUINO_PATH)/arduino-builder
 FQBN								= keyboardio:avr:model01
 BUILD_PATH				 := $(shell mktemp -d 2>/dev/null || mktemp -d -t 'build')
 OUTPUT_PATH					= $(PWD)/firmware/${LIBRARY}
@@ -43,12 +44,22 @@ build: compile size
 ${OUTPUT_PATH}:
 	install -d $@
 
+ifeq ($(ARDUINO_TOOLS_PATH),)
+	ARDUINO_TOOLS_PARAM =
+else
+	ARDUINO_TOOLS_PARAM = -tools $(ARDUINO_TOOLS_PATH)
+endif
+
+ifdef AVR_GCC_PREFIX
+	ARDUINO_AVR_GCC_PREFIX_PREF = -prefs "runtime.tools.avr-gcc.path=$(AVR_GCC_PREFIX)"
+endif
+
 compile: ${OUTPUT_PATH}
 	${SS} echo "Building firmware/${LIBRARY}/${SKETCH} (${GIT_VERSION}) ..."
-	${SC} $(ARDUINO_PATH)/arduino-builder \
+	${SC} $(ARDUINO_BUILDER) \
 		-hardware $(ARDUINO_PATH)/hardware \
 		-hardware $(PWD)/hardware \
-		-tools $(ARDUINO_TOOLS_PATH) \
+		$(ARDUINO_TOOLS_PARAM) \
 		-tools $(ARDUINO_PATH)/tools-builder  \
 		-fqbn $(FQBN) \
 		-libraries $(PWD)/lib \
@@ -59,6 +70,7 @@ compile: ${OUTPUT_PATH}
 		-warnings all \
 		-quiet \
 		-prefs "compiler.cpp.extra_flags=-std=c++11 -Woverloaded-virtual -Wno-unused-parameter -Wno-unused-variable -Wno-ignored-qualifiers" \
+		$(ARDUINO_AVR_GCC_PREFIX_PREF) \
 		${VERBOSE_BUILD} \
 		$(SKETCH).ino
 	@cp $(BUILD_PATH)/$(SKETCH).ino.hex $(HEX_FILE_PATH)
