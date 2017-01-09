@@ -44,10 +44,9 @@ build: compile size
 ${OUTPUT_PATH}:
 	install -d $@
 
+ARDUINO_TOOLS_PARAM = -tools $(ARDUINO_TOOLS_PATH)
 ifeq ($(ARDUINO_TOOLS_PATH),)
 	ARDUINO_TOOLS_PARAM =
-else
-	ARDUINO_TOOLS_PARAM = -tools $(ARDUINO_TOOLS_PATH)
 endif
 
 ifdef AVR_GCC_PREFIX
