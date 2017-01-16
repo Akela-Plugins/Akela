@@ -13,7 +13,8 @@ AVR_SIZE						= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-size
 AVR_NM							= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-nm
 
 GIT_VERSION				 := $(shell git describe --abbrev=4 --dirty --always)
-OUTPUT_FILE_PREFIX	= $(SKETCH)-$(GIT_VERSION)
+LIB_VERSION				 := $(shell grep version= ../../library.properties | cut -d= -f2)-g${GIT_VERSION}
+OUTPUT_FILE_PREFIX	= $(SKETCH)-$(LIB_VERSION)
 
 HEX_FILE_PATH				= $(OUTPUT_PATH)/$(OUTPUT_FILE_PREFIX).hex
 ELF_FILE_PATH				= $(OUTPUT_PATH)/$(OUTPUT_FILE_PREFIX).elf
@@ -54,7 +55,7 @@ ifdef AVR_GCC_PREFIX
 endif
 
 compile: ${OUTPUT_PATH}
-	${SS} echo "Building firmware/${LIBRARY}/${SKETCH} (${GIT_VERSION}) ..."
+	${SS} echo "Building firmware/${LIBRARY}/${SKETCH} (${LIB_VERSION}) ..."
 	${SC} $(ARDUINO_BUILDER) \
 		-hardware $(ARDUINO_PATH)/hardware \
 		-hardware $(PWD)/hardware \
