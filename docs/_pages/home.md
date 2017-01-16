@@ -34,23 +34,24 @@ Status
 Individual libraries may be of different quality or maturity. The list below is
 an up-to-date report on the current state of each library:
 
-| Library            | Maturity                   |
-| ---------------    | --------------------       |
-| Akela-Colormap     | ![status][st:stable]       |
-| Akela-Cycle        | ![status][st:stable]       |
-| Akela-DualUse      | ![status][st:stable]       |
-| Akela-Heatmap      | ![status][st:broken]       |
-| Akela-HostOS       | ![status][st:stable]       |
-| Akela-KeyLogger    | ![status][st:stable]       |
-| Akela-LEDEffects   | ![status][st:stable]       |
-| Akela-Leader       | ![status][st:stable]       |
-| Akela-MagicCombo   | ![status][st:stable]       |
-| Akela-OneShot      | ![status][st:experimental] |
-| Akela-ShapeShifter | ![status][st:stable]       |
-| Akela-SpaceCadet   | ![status][st:stable]       |
-| Akela-TapDance     | ![status][st:experimental] |
-| Akela-TopsyTurvy   | ![status][st:experimental] |
-| Akela-Unicode      | ![status][st:stable]       |
+| Library                | Maturity                   |
+| ---------------------- | -------------------------- |
+| Akela-Colormap         | ![status][st:stable]       |
+| Akela-Cycle            | ![status][st:stable]       |
+| Akela-DualUse          | ![status][st:stable]       |
+| Akela-Heatmap          | ![status][st:broken]       |
+| Akela-HostOS           | ![status][st:stable]       |
+| Akela-IgnoranceIsBliss | ![status][st:experimental] |
+| Akela-KeyLogger        | ![status][st:stable]       |
+| Akela-LEDEffects       | ![status][st:stable]       |
+| Akela-Leader           | ![status][st:stable]       |
+| Akela-MagicCombo       | ![status][st:stable]       |
+| Akela-OneShot          | ![status][st:experimental] |
+| Akela-ShapeShifter     | ![status][st:stable]       |
+| Akela-SpaceCadet       | ![status][st:stable]       |
+| Akela-TapDance         | ![status][st:experimental] |
+| Akela-TopsyTurvy       | ![status][st:experimental] |
+| Akela-Unicode          | ![status][st:stable]       |
 
  [st:stable]: https://img.shields.io/badge/stable-✔-black.png?style=flat&colorA=44cc11&colorB=494e52
  [st:broken]: https://img.shields.io/badge/broken-X-black.png?style=flat&colorA=e05d44&colorB=494e52

@@ -33,6 +33,8 @@ plugins:
         url: /plugins/Cycle/
       - title: "LED Effects"
         url: /plugins/LEDEffects/
+      - title: "Ignoring keys"
+        url: /plugins/IgnoranceIsBliss/
   - title: Extensions
     url: /plugins/#extensions
     children:
