@@ -7,3 +7,54 @@
 [submodule "lib/FingerprintUSBHost"]
 	path = lib/FingerprintUSBHost
 	url = https://github.com/keyboardio/FingerprintUSBHost.git
+[submodule "Akela-Colormap"]
+	path = lib/Akela-Colormap
+	url = https://github.com/Akela-Plugins/Akela-Colormap
+[submodule "Akela-Core"]
+	path = lib/Akela-Core
+	url = https://github.com/Akela-Plugins/Akela-Core
+[submodule "Akela-Cycle"]
+	path = lib/Akela-Cycle
+	url = https://github.com/Akela-Plugins/Akela-Cycle
+[submodule "Akela-DualUse"]
+	path = lib/Akela-DualUse
+	url = https://github.com/Akela-Plugins/Akela-DualUse
+[submodule "Akela-Heatmap"]
+	path = lib/Akela-Heatmap
+	url = https://github.com/Akela-Plugins/Akela-Heatmap
+[submodule "Akela-HostOS"]
+	path = lib/Akela-HostOS
+	url = https://github.com/Akela-Plugins/Akela-HostOS
+[submodule "Akela-IgnoranceIsBliss"]
+	path = lib/Akela-IgnoranceIsBliss
+	url = https://github.com/Akela-Plugins/Akela-IgnoranceIsBliss
+[submodule "Akela-KeyLogger"]
+	path = lib/Akela-KeyLogger
+	url = https://github.com/Akela-Plugins/Akela-KeyLogger
+[submodule "Akela-Leader"]
+	path = lib/Akela-Leader
+	url = https://github.com/Akela-Plugins/Akela-Leader
+[submodule "Akela-LEDEffects"]
+	path = lib/Akela-LEDEffects
+	url = https://github.com/Akela-Plugins/Akela-LEDEffects
+[submodule "Akela-MagicCombo"]
+	path = lib/Akela-MagicCombo
+	url = https://github.com/Akela-Plugins/Akela-MagicCombo
+[submodule "Akela-OneShot"]
+	path = lib/Akela-OneShot
+	url = https://github.com/Akela-Plugins/Akela-OneShot
+[submodule "Akela-ShapeShifter"]
+	path = lib/Akela-ShapeShifter
+	url = https://github.com/Akela-Plugins/Akela-ShapeShifter
+[submodule "Akela-SpaceCadet"]
+	path = lib/Akela-SpaceCadet
+	url = https://github.com/Akela-Plugins/Akela-SpaceCadet
+[submodule "Akela-TapDance"]
+	path = lib/Akela-TapDance
+	url = https://github.com/Akela-Plugins/Akela-TapDance
+[submodule "Akela-TopsyTurvy"]
+	path = lib/Akela-TopsyTurvy
+	url = https://github.com/Akela-Plugins/Akela-TopsyTurvy
+[submodule "Akela-Unicode"]
+	path = lib/Akela-Unicode
+	url = https://github.com/Akela-Plugins/Akela-Unicode

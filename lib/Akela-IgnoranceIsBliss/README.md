@@ -1,1 +1,0 @@
-../../docs/_plugins/IgnoranceIsBliss.md

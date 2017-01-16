@@ -1,1 +1,0 @@
-../docs/_plugins/00-home.md
