@@ -17,7 +17,7 @@ of things are either buggy, or do not work at all yet. But work is under way to
 bring everything into a usable state.
 
  [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
- [akela]: https://github.com/Akela-Plugins/Akela
+ [akela]: https://github.com/keyboardio/Akela
 
 This is a collection that pulls in all the Akela plugins, and serves as an
 umbrella project.
