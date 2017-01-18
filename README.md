@@ -2,7 +2,7 @@
 
 <p>
  <span align="left">
-  <a href="https://travis-ci.org/algernon/Akela"><img align="left" src="https://travis-ci.org/algernon/Akela.svg?branch=master"></a>
+  <a href="https://travis-ci.org/keyboardio/Akela"><img align="left" src="https://travis-ci.org/keyboardio/Akela.svg?branch=master"></a>
  </span>
  <p align="right">
   <strong>A</strong>nimated <strong>K</strong>eyboardio <strong>E</strong>xtension
