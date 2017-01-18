@@ -13,7 +13,7 @@ AVR_SIZE						= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-size
 AVR_NM							= $(ARDUINO_TOOLS_PATH)/avr/bin/avr-nm
 
 GIT_VERSION				 := $(shell git describe --abbrev=4 --dirty --always)
-LIB_VERSION				 := $(shell grep version= ../../library.properties | cut -d= -f2)-g${GIT_VERSION}
+LIB_VERSION				 := $(shell (grep version= ../../library.properties 2>/dev/null || echo version=0.0.0) | cut -d= -f2)-g${GIT_VERSION}
 OUTPUT_FILE_PREFIX	= $(SKETCH)-$(LIB_VERSION)
 
 HEX_FILE_PATH				= $(OUTPUT_PATH)/$(OUTPUT_FILE_PREFIX).hex
