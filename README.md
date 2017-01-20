@@ -16,6 +16,9 @@ repositories, this here is just a collection that pulls them all together, and
 serves as an umbrella project, where new plugin requests can be made, among
 other things.
 
+ [kbdiofw]: https://github.com/Keyboardio/KeyboardioFirmware
+ [akela]: https://github.com/keyboardio/Akela
+
 Status
 ======
 
