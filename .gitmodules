@@ -58,3 +58,12 @@
 [submodule "Akela-Unicode"]
 	path = lib/Akela-Unicode
 	url = https://github.com/keyboardio/Akela-Unicode
+[submodule "lib/Akela-LED-Stalker"]
+	path = lib/Akela-LED-Stalker
+	url = https://github.com/keyboardio/Akela-LED-Stalker
+[submodule "lib/Akela-LED-ActiveModColor"]
+	path = lib/Akela-LED-ActiveModColor
+	url = https://github.com/keyboardio/Akela-LED-ActiveModColor
+[submodule "lib/Akela-Escape-OneShot"]
+	path = lib/Akela-Escape-OneShot
+	url = https://github.com/keyboardio/Akela-Escape-OneShot
