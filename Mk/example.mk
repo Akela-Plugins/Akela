@@ -65,6 +65,7 @@ compile: ${OUTPUT_PATH}
 		-libraries $(PWD)/lib \
 		-libraries $(PWD)/lib/KeyboardioFirmware/libraries \
 		-libraries $(PWD)/hardware \
+		${EXTRA_BUILDER_ARGS} \
 		-build-path $(BUILD_PATH) \
 		-ide-version $(ARDUINO_IDE_VERSION) \
 		-warnings all \
