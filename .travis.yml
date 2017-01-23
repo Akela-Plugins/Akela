@@ -9,6 +9,6 @@ before_install:
   - tar xf arduino-1.6.11-linux64.tar.xz
   - popd
 install:
-  - Mk/submodule-sync.sh
+  - tools/keyboardio-firmware submodule-sync
 script:
-  - make all ARDUINO_PATH=$(pwd)/../arduino-1.6.11
+  - ARDUINO_PATH=$(pwd)/../arduino-1.6.11 tools/keyboardio-firmware build-all
