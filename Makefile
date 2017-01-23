@@ -15,7 +15,9 @@ ifeq (${VERBOSE},2)
 VERBOSE_BUILD				= -verbose
 endif
 
-PLUGIN_EXAMPLES				= $(filter-out plugin/Core,$(sort $(subst lib/Akela-,plugin/,$(wildcard lib/Akela-*))))
+AKELA_PLUGIN_PATH			= hardware/keyboardio/avr/libraries
+
+PLUGIN_EXAMPLES				= $(filter-out plugin/Core,$(sort $(subst ${AKELA_PLUGIN_PATH}/Akela-,plugin/,$(wildcard ${AKELA_PLUGIN_PATH}/Akela-*))))
 
 EXAMPLES							= $(sort $(wildcard examples/*))
 
@@ -23,7 +25,7 @@ all: plugins examples
 
 plugins: ${PLUGIN_EXAMPLES}
 plugin/%: .FORCE
-	${MAKE} -C lib/Akela-$*/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=$* SKETCH=$*
+	${MAKE} -C ${AKELA_PLUGIN_PATH}/Akela-$*/examples/$* -f ${PWD}/Mk/example.mk LIBRARY=$* SKETCH=$*
 
 examples: ${EXAMPLES}
 examples/%: .FORCE

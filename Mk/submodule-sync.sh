@@ -5,12 +5,9 @@ git submodule --quiet sync --recursive
 echo Updating submodules...
 git submodule --quiet update --init --recursive
 
-for hwlib in KeyboardioScanner KeyboardioHID; do
-    echo Updating ${hwlib}...
-    (cd hardware/keyboardio/avr/libraries/$hwlib && git checkout -q master; git pull -q --ff)
-done
+echo
 
-for plugin in lib/Akela-*; do
-    echo Updating ${plugin}...
-    (cd $plugin; git checkout -q master; git pull -q --ff)
+for lib in hardware/keyboardio/avr/libraries/* lib/*; do
+    echo Updating $(basename ${lib})...
+    (cd $lib; git checkout -q master; git pull -q --ff)
 done
