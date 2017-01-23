@@ -2,8 +2,6 @@
 
 set -e
 
-make firmware/$1
-
 echo "Press ENTER when ready..."
 read a
 
