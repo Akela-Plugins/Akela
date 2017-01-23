@@ -23,7 +23,7 @@ EOF
 }
 
 submodule_update () {
-    cd $(dirname $0)
+    cd $(dirname $0)/..
 
     echo Syncing submodules...
     git submodule --quiet sync --recursive
